@@ -1,0 +1,21 @@
+{
+  "name": "json-schema-ecosystem-metrics",
+  "version": "1.0.0",
+  "description": "Proof-of-concept metrics collection for the JSON Schema ecosystem",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MakikoOhashi/json-schema-ecosystem-metrics.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/MakikoOhashi/json-schema-ecosystem-metrics/issues"
+  },
+  "homepage": "https://github.com/MakikoOhashi/json-schema-ecosystem-metrics#readme"
+}
