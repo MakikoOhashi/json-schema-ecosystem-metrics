@@ -204,7 +204,7 @@ function buildChartHtml(data) {
     <p>Single-metric proof of concept for package adoption activity in the JSON Schema ecosystem.</p>
     <div class="summary">
       <section class="card">
-        <p>Total downloads</p>
+        <p>Total downloads (last 12 weeks)</p>
         <p class="value">${data.summary.totalDownloads.toLocaleString()}</p>
       </section>
       <section class="card">
