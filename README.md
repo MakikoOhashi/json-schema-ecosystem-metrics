@@ -9,7 +9,7 @@ The repository collects one simple signal from the npm downloads API for the `aj
 - a structured JSON snapshot
 - a lightweight HTML chart
 
-The current implementation fetches a daily downloads series covering the last 12 weeks. The output filenames still use `weekly`, but the data points themselves are daily.
+The current implementation fetches a daily downloads series covering the last 12 weeks, then adds a short auto-generated interpretation and a limitation note. The output filenames still use `weekly`, but the data points themselves are daily.
 
 ## Run instructions
 
@@ -37,13 +37,23 @@ The JSON output includes:
 - period start and end dates
 - summary totals
 - a `series.values` array of daily download points
+- an `analysis` section with a generated interpretation, limitation, and comparison basis
 - a `fetchedAt` timestamp
 
-The chart renders the same daily series directly in the browser using Chart.js from a CDN.
+The chart renders the same daily series directly in the browser using Chart.js from a CDN and displays the generated interpretation and limitation below the graph.
 
 ## Metric note
 
 This metric is a rough proxy for package adoption and usage activity around `ajv`, one of the widely used JSON Schema validators. It does not measure the full ecosystem, but it gives a compact trend view for one important tool within it.
+
+## Interpretation layer
+
+To make the output closer to an analysis pipeline instead of raw reporting, the script also generates:
+
+- a short interpretation sentence based on the change between the first 7-day average and the last 7-day average
+- a limitation sentence explaining why npm downloads should be treated as a proxy signal
+
+This keeps the analysis lightweight and explicit without changing the data source or expanding the project scope.
 
 ## Weekly automation idea
 

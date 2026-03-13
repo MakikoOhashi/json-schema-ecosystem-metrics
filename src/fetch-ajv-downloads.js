@@ -80,12 +80,56 @@ function validateMetric(payload) {
   }
 }
 
+function averageDownloads(points) {
+  const total = points.reduce((sum, point) => sum + point.downloads, 0);
+  return total / points.length;
+}
+
+function roundPercent(value) {
+  return Math.round(value * 10) / 10;
+}
+
+function buildAnalysis(downloads) {
+  const windowSize = Math.min(7, downloads.length);
+  const startingWindow = downloads.slice(0, windowSize);
+  const endingWindow = downloads.slice(-windowSize);
+  const startingAverage = averageDownloads(startingWindow);
+  const endingAverage = averageDownloads(endingWindow);
+  const rawChangePercent = ((endingAverage - startingAverage) / startingAverage) * 100;
+  const changePercent = roundPercent(rawChangePercent);
+
+  let direction = "remained roughly flat";
+  if (changePercent > 3) {
+    direction = "increased";
+  } else if (changePercent < -3) {
+    direction = "decreased";
+  }
+
+  const interpretation =
+    direction === "remained roughly flat"
+      ? `Ajv downloads remained roughly flat over the last ${WEEKS} weeks. This suggests steady usage of JSON Schema validation within the JavaScript ecosystem.`
+      : `Ajv downloads ${direction} ${Math.abs(changePercent)}% over the last ${WEEKS} weeks. This suggests ${direction === "increased" ? "continued adoption" : "softening activity"} for JSON Schema validation within the JavaScript ecosystem.`;
+
+  return {
+    interpretation,
+    limitation:
+      "This is a proxy metric based on npm downloads, so it can include CI traffic, automated installs, and other non-human activity.",
+    basis: {
+      comparison: "first-7-days-vs-last-7-days-average",
+      startingAverageDownloads: Math.round(startingAverage),
+      endingAverageDownloads: Math.round(endingAverage),
+      changePercent,
+    },
+  };
+}
+
 function buildOutput(payload, apiUrl) {
   const downloads = payload.downloads.map((point) => ({
     day: point.day,
     downloads: point.downloads,
   }));
   const totalDownloads = downloads.reduce((sum, point) => sum + point.downloads, 0);
+  const analysis = buildAnalysis(downloads);
 
   return {
     metric: "npm_downloads_trend",
@@ -109,6 +153,7 @@ function buildOutput(payload, apiUrl) {
       unit: "downloads",
       values: downloads,
     },
+    analysis,
     fetchedAt: new Date().toISOString(),
   };
 }
@@ -193,6 +238,27 @@ function buildChartHtml(data) {
       height: 320px;
     }
 
+    .analysis {
+      margin-top: 24px;
+      padding: 18px;
+      border: 1px solid #d9cdb8;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .analysis h2 {
+      margin: 0 0 12px;
+      font-size: 1.1rem;
+    }
+
+    .analysis p {
+      margin: 0 0 10px;
+    }
+
+    .analysis p:last-child {
+      margin-bottom: 0;
+    }
+
     code {
       font-family: "SFMono-Regular", Consolas, monospace;
     }
@@ -216,6 +282,11 @@ function buildChartHtml(data) {
     <div class="chart-wrap">
       <canvas id="downloadsChart" aria-label="Downloads trend chart"></canvas>
     </div>
+    <section class="analysis">
+      <h2>Short interpretation</h2>
+      <p>${data.analysis.interpretation}</p>
+      <p><strong>Limitation:</strong> ${data.analysis.limitation}</p>
+    </section>
     <div class="meta">
       <p><strong>Source:</strong> <code>${data.source.url}</code></p>
       <p><strong>Fetched at:</strong> ${data.fetchedAt}</p>

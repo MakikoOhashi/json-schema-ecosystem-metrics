@@ -3,30 +3,22 @@
   "package": "ajv",
   "source": {
     "name": "npm downloads API",
-    "url": "https://api.npmjs.org/downloads/range/2025-12-17:2026-03-10/ajv"
+    "url": "https://api.npmjs.org/downloads/range/2025-12-19:2026-03-12/ajv"
   },
   "period": {
-    "start": "2025-12-17",
-    "end": "2026-03-10",
+    "start": "2025-12-19",
+    "end": "2026-03-12",
     "label": "last-12-weeks"
   },
   "summary": {
     "points": 84,
-    "totalDownloads": 2289423859,
+    "totalDownloads": 2274179560,
     "unit": "downloads"
   },
   "series": {
     "interval": "day",
     "unit": "downloads",
     "values": [
-      {
-        "day": "2025-12-17",
-        "downloads": 30684637
-      },
-      {
-        "day": "2025-12-18",
-        "downloads": 29714049
-      },
       {
         "day": "2025-12-19",
         "downloads": 24482793
@@ -354,8 +346,26 @@
       {
         "day": "2026-03-10",
         "downloads": 0
+      },
+      {
+        "day": "2026-03-11",
+        "downloads": 45154387
+      },
+      {
+        "day": "2026-03-12",
+        "downloads": 0
       }
     ]
   },
-  "fetchedAt": "2026-03-11T03:26:15.926Z"
+  "analysis": {
+    "interpretation": "Ajv downloads increased 53.7% over the last 12 weeks. This suggests continued adoption for JSON Schema validation within the JavaScript ecosystem.",
+    "limitation": "This is a proxy metric based on npm downloads, so it can include CI traffic, automated installs, and other non-human activity.",
+    "basis": {
+      "comparison": "first-7-days-vs-last-7-days-average",
+      "startingAverageDownloads": 16263585,
+      "endingAverageDownloads": 24994547,
+      "changePercent": 53.7
+    }
+  },
+  "fetchedAt": "2026-03-13T02:52:30.429Z"
 }
