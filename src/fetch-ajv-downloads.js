@@ -259,6 +259,31 @@ function buildChartHtml(data) {
       margin-bottom: 0;
     }
 
+    .basis-toggle {
+      margin-top: 16px;
+      border: 1px solid #d9cdb8;
+      border-radius: 10px;
+      background: rgba(245, 239, 227, 0.55);
+      padding: 12px 14px;
+    }
+
+    .basis-toggle summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .basis-list {
+      margin: 12px 0 8px;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .basis-note {
+      margin-top: 8px;
+      font-size: 0.95rem;
+    }
+
     code {
       font-family: "SFMono-Regular", Consolas, monospace;
     }
@@ -286,6 +311,16 @@ function buildChartHtml(data) {
       <h2>Short interpretation</h2>
       <p>${data.analysis.interpretation}</p>
       <p><strong>Limitation:</strong> ${data.analysis.limitation}</p>
+      <details class="basis-toggle">
+        <summary>Show analysis basis</summary>
+        <ul class="basis-list">
+          <li><strong>comparison:</strong> ${data.analysis.basis.comparison}</li>
+          <li><strong>startingAverageDownloads:</strong> ${data.analysis.basis.startingAverageDownloads.toLocaleString()}</li>
+          <li><strong>endingAverageDownloads:</strong> ${data.analysis.basis.endingAverageDownloads.toLocaleString()}</li>
+          <li><strong>changePercent:</strong> ${data.analysis.basis.changePercent}%</li>
+        </ul>
+        <p class="basis-note">Raw JSON available in <code>data/ajv-weekly-downloads.json</code>.</p>
+      </details>
     </section>
     <div class="meta">
       <p><strong>Source:</strong> <code>${data.source.url}</code></p>

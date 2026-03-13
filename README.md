@@ -40,7 +40,7 @@ The JSON output includes:
 - an `analysis` section with a generated interpretation, limitation, and comparison basis
 - a `fetchedAt` timestamp
 
-The chart renders the same daily series directly in the browser using Chart.js from a CDN and displays the generated interpretation and limitation below the graph.
+The chart renders the same daily series directly in the browser using Chart.js from a CDN, displays the generated interpretation and limitation below the graph, and includes a small toggle to reveal the analysis basis used to generate the interpretation.
 
 ## Metric note
 
