@@ -37,14 +37,14 @@ function buildHtml(downloads, release, removal, proxyRate) {
   const broaderAdoptionThin = proxyRate.summary.repositoriesWithAnyMarker <= 2;
   const coreStrong = release.summary.daysSinceLatestRelease <= 60;
   const headline = coreStrong && broaderAdoptionThin
-    ? "Strong Core, Thin Visible Adoption"
+    ? "Strong Core, Limited Visible Adoption"
     : "Mixed Signals Across the JSON Schema Surface";
   const subhead = coreStrong && broaderAdoptionThin
-    ? "Ajv looks heavily used and actively maintained, but explicit JSON Schema markers appeared in only a small share of the sampled repositories."
-    : "The current indicators show mixed evidence across adoption, maintenance, and visible downstream usage.";
+    ? "Ajv appears heavily used and recently maintained, while explicit JSON Schema markers appeared in only a small share of the sampled repositories."
+    : "The current indicators suggest mixed evidence across adoption, maintenance, and visible downstream usage.";
   const implication = coreStrong && broaderAdoptionThin
-    ? "If this pattern holds, the ecosystem opportunity is less about rescuing the core validator and more about improving downstream adoption visibility, tooling discoverability, and support for explicit schema usage."
-    : "The current mix of signals suggests further measurement is needed before drawing a strong support-priority conclusion.";
+    ? "One possible implication is that the ecosystem may benefit less from emergency core-validator support and more from better visibility into downstream schema adoption, tooling discoverability, and support for explicit schema usage."
+    : "The current mix of signals suggests that further measurement may be needed before drawing a stronger support-priority conclusion.";
 
   return `<!DOCTYPE html>
 <html lang="en">
