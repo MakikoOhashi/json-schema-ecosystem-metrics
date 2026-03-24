@@ -2,17 +2,18 @@ const fs = require("node:fs/promises");
 const path = require("node:path");
 const https = require("node:https");
 
-const REPOSITORIES = [
-  { name: "webpack/webpack", branch: "main" },
-  { name: "vitejs/vite", branch: "main" },
-  { name: "eslint/eslint", branch: "main" },
-  { name: "prettier/prettier", branch: "main" },
-  { name: "axios/axios", branch: "v1.x" },
-  { name: "expressjs/express", branch: "master" },
-  { name: "facebook/jest", branch: "main" },
-  { name: "openai/openai-node", branch: "master" },
-];
-
+const SEARCH_LANGUAGES = ["JavaScript", "TypeScript"];
+const SAMPLE_SIZE = 50;
+const RANDOM_SEED = "gsoc-observability-2026";
+const MIN_STARS = 10;
+const MIN_SIZE = 50;
+const CANDIDATES_PER_LANGUAGE = 100;
+const NOISE_PATTERN =
+  /\b(test|tests|example|examples|demo|sandbox|starter|boilerplate|template|tutorial)\b/i;
+const OUTPUT_DIR = path.join(__dirname, "..", "data");
+const CHARTS_DIR = path.join(__dirname, "..", "charts");
+const OUTPUT_FILE = path.join(OUTPUT_DIR, "schema-usage-proxy-rate.json");
+const CHART_FILE = path.join(CHARTS_DIR, "schema-usage-proxy-rate.html");
 const SCHEMA_DEPENDENCY_MARKERS = [
   "ajv",
   "ajv-formats",
@@ -24,18 +25,14 @@ const SCHEMA_DEPENDENCY_MARKERS = [
   "@types/json-schema",
 ];
 
-const OUTPUT_DIR = path.join(__dirname, "..", "data");
-const CHARTS_DIR = path.join(__dirname, "..", "charts");
-const OUTPUT_FILE = path.join(OUTPUT_DIR, "schema-usage-proxy-rate.json");
-const CHART_FILE = path.join(CHARTS_DIR, "schema-usage-proxy-rate.html");
-
-function fetchText(url) {
+function fetchText(url, headers = {}) {
   return new Promise((resolve, reject) => {
     const request = https.get(
       url,
       {
         headers: {
           "User-Agent": "json-schema-ecosystem-metrics",
+          ...headers,
         },
       },
       (response) => {
@@ -51,6 +48,7 @@ function fetchText(url) {
             reject(new Error(`Request returned status ${response.statusCode}`));
             return;
           }
+
           resolve(body);
         });
       }
@@ -66,6 +64,62 @@ function fetchText(url) {
   });
 }
 
+async function fetchJson(url, headers = {}) {
+  const body = await fetchText(url, {
+    Accept: "application/vnd.github+json",
+    ...headers,
+  });
+
+  try {
+    return JSON.parse(body);
+  } catch (error) {
+    throw new Error(`Could not parse JSON: ${error.message}`);
+  }
+}
+
+function formatDate(date) {
+  return date.toISOString().slice(0, 10);
+}
+
+function roundPercent(value) {
+  return Math.round(value * 10) / 10;
+}
+
+function hashSeed(text) {
+  let hash = 2166136261;
+
+  for (let index = 0; index < text.length; index += 1) {
+    hash ^= text.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+
+  return hash >>> 0;
+}
+
+function createSeededRandom(seedText) {
+  let state = hashSeed(seedText);
+
+  return () => {
+    state += 0x6d2b79f5;
+    let value = state;
+    value = Math.imul(value ^ (value >>> 15), value | 1);
+    value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+    return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function shuffleWithSeed(items, seedText) {
+  const random = createSeededRandom(seedText);
+  const shuffled = [...items];
+
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(random() * (index + 1));
+    [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+  }
+
+  return shuffled;
+}
+
 function findDependencyMarkers(packageJson) {
   const dependencyGroups = [
     packageJson.dependencies,
@@ -73,7 +127,6 @@ function findDependencyMarkers(packageJson) {
     packageJson.peerDependencies,
     packageJson.optionalDependencies,
   ];
-
   const markers = new Set();
 
   for (const group of dependencyGroups) {
@@ -91,8 +144,114 @@ function findDependencyMarkers(packageJson) {
   return [...markers];
 }
 
-function roundPercent(value) {
-  return Math.round(value * 10) / 10;
+function buildSearchUrl(language) {
+  const pushedAfter = formatDate(new Date(Date.now() - 365 * 86400000));
+  const query = [
+    `language:${language}`,
+    `stars:>=${MIN_STARS}`,
+    `size:>=${MIN_SIZE}`,
+    `pushed:>=${pushedAfter}`,
+    "fork:false",
+    "archived:false",
+  ].join(" ");
+
+  return `https://api.github.com/search/repositories?q=${encodeURIComponent(
+    query
+  )}&sort=updated&order=desc&per_page=${CANDIDATES_PER_LANGUAGE}`;
+}
+
+function evaluateEligibility(repository) {
+  const haystack = `${repository.name} ${repository.description || ""}`;
+
+  if (repository.fork) {
+    return { eligible: false, reason: "fork" };
+  }
+
+  if (repository.archived) {
+    return { eligible: false, reason: "archived" };
+  }
+
+  if (!["JavaScript", "TypeScript"].includes(repository.language)) {
+    return { eligible: false, reason: "non_js_ts" };
+  }
+
+  if ((repository.stargazers_count || 0) < MIN_STARS) {
+    return { eligible: false, reason: "low_stars" };
+  }
+
+  if ((repository.size || 0) < MIN_SIZE) {
+    return { eligible: false, reason: "tiny_repo" };
+  }
+
+  if (NOISE_PATTERN.test(haystack)) {
+    return { eligible: false, reason: "demo_like" };
+  }
+
+  return { eligible: true };
+}
+
+async function searchCandidateRepositories() {
+  const byName = new Map();
+
+  for (const language of SEARCH_LANGUAGES) {
+    const response = await fetchJson(buildSearchUrl(language));
+
+    for (const repository of response.items || []) {
+      if (!byName.has(repository.full_name)) {
+        byName.set(repository.full_name, repository);
+      }
+    }
+  }
+
+  return [...byName.values()];
+}
+
+async function attachPackageJsonCheck(repository) {
+  const packageJsonUrl = `https://raw.githubusercontent.com/${repository.full_name}/${repository.default_branch}/package.json`;
+
+  try {
+    const packageJsonText = await fetchText(packageJsonUrl);
+    const packageJson = JSON.parse(packageJsonText);
+    const dependencyMarkers = findDependencyMarkers(packageJson);
+
+    return {
+      repository: repository.full_name,
+      language: repository.language,
+      defaultBranch: repository.default_branch,
+      stars: repository.stargazers_count,
+      size: repository.size,
+      pushedAt: repository.pushed_at,
+      packageJsonPresent: true,
+      dependencyMarkers,
+      hasAnyMarker: dependencyMarkers.length > 0,
+    };
+  } catch (error) {
+    if (error.message.includes("status 404")) {
+      return {
+        repository: repository.full_name,
+        language: repository.language,
+        defaultBranch: repository.default_branch,
+        stars: repository.stargazers_count,
+        size: repository.size,
+        pushedAt: repository.pushed_at,
+        packageJsonPresent: false,
+        dependencyMarkers: [],
+        hasAnyMarker: false,
+      };
+    }
+
+    throw error;
+  }
+}
+
+function summarizeExclusions(excludedReasons) {
+  const summary = {};
+
+  for (const reason of excludedReasons) {
+    summary[reason] = (summary[reason] || 0) + 1;
+  }
+
+  return summary;
 }
 
 function buildAnalysis(summary) {
@@ -100,22 +259,26 @@ function buildAnalysis(summary) {
 
   if (summary.proxyRatePercent >= 60) {
     interpretation =
-      "A majority of the sampled JSON-using repositories show at least one explicit JSON Schema-related marker. This suggests meaningful practical adoption within this curated sample.";
+      "A majority of the sampled repositories show at least one explicit JSON Schema-related dependency marker. This suggests meaningful practical adoption within the filtered sample.";
   } else if (summary.proxyRatePercent >= 30) {
     interpretation =
-      "Some of the sampled JSON-using repositories show explicit JSON Schema-related markers, but adoption does not look dominant across the curated sample.";
+      "Some of the sampled repositories show explicit JSON Schema-related dependency markers, but adoption does not look dominant across the filtered sample.";
   } else {
     interpretation =
-      "Only a small share of the sampled JSON-using repositories show explicit JSON Schema-related markers. This suggests visible but still limited adoption within the curated sample.";
+      "Only a minority of the sampled repositories show explicit JSON Schema-related dependency markers. This suggests visible but still limited adoption within the filtered sample.";
   }
 
   return {
     interpretation,
     limitation:
-      "This is a curated-sample proxy, not a full ecosystem census. Repositories can use JSON Schema without exposing these exact markers, and the sample itself is subjective.",
+      "This is still a proxy, not a census. The result depends on the GitHub search frame, the eligibility filters, the sample size, and the specific dependency markers checked.",
     basis: {
-      comparison: "curated-json-using-repo-sample",
-      repositoriesScanned: summary.repositoriesScanned,
+      comparison: "filtered-github-search-sample",
+      randomSeed: RANDOM_SEED,
+      sampleSize: SAMPLE_SIZE,
+      candidateReposFound: summary.candidateReposFound,
+      eligibleReposAfterFiltering: summary.eligibleReposAfterFiltering,
+      sampledRepos: summary.repositoriesScanned,
       repositoriesWithAnyMarker: summary.repositoriesWithAnyMarker,
       proxyRatePercent: summary.proxyRatePercent,
       dependencyMarkersChecked: SCHEMA_DEPENDENCY_MARKERS,
@@ -123,62 +286,54 @@ function buildAnalysis(summary) {
   };
 }
 
-async function fetchRepositoryFinding(repositoryConfig) {
-  const { name, branch } = repositoryConfig;
-  const [owner, repo] = name.split("/");
-  let dependencyMarkers = [];
-  try {
-    const packageJsonText = await fetchText(
-      `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/package.json`
-    );
-    const packageJson = JSON.parse(packageJsonText);
-    dependencyMarkers = findDependencyMarkers(packageJson);
-  } catch (error) {
-    if (!error.message.includes("status 404")) {
-      throw error;
-    }
-  }
-
-  return {
-    repository: name,
-    defaultBranch: branch,
-    dependencyMarkers,
-    hasAnyMarker: dependencyMarkers.length > 0,
-  };
-}
-
-function buildOutput(findings) {
-  const repositoriesWithAnyMarker = findings.filter((entry) => entry.hasAnyMarker).length;
-  const repositoriesWithDependencyMarkers = findings.filter(
-    (entry) => entry.dependencyMarkers.length > 0
-  ).length;
+function buildOutput(sampledFindings, selection) {
+  const repositoriesWithAnyMarker = sampledFindings.filter((entry) => entry.hasAnyMarker).length;
   const proxyRatePercent = roundPercent(
-    (repositoriesWithAnyMarker / findings.length) * 100
+    (repositoriesWithAnyMarker / sampledFindings.length) * 100
   );
 
   const summary = {
-    repositoriesScanned: findings.length,
+    candidateReposFound: selection.candidateReposFound,
+    eligibleReposAfterFiltering: selection.eligibleReposAfterFiltering,
+    repositoriesScanned: sampledFindings.length,
     repositoriesWithAnyMarker,
-    repositoriesWithDependencyMarkers,
     proxyRatePercent,
+    sampleSize: SAMPLE_SIZE,
+    randomSeed: RANDOM_SEED,
     unit: "percent",
   };
 
   return {
     metric: "schema_usage_proxy_rate",
     sample: {
-      name: "curated_json_using_js_repositories",
-      repositories: REPOSITORIES.map((entry) => entry.name),
+      name: "filtered_random_sample_of_json_using_js_ts_repositories",
+      searchLanguages: SEARCH_LANGUAGES,
+      sampleSize: SAMPLE_SIZE,
+      randomSeed: RANDOM_SEED,
+      eligibility: {
+        minStars: MIN_STARS,
+        minSize: MIN_SIZE,
+        publicOnly: true,
+        forksExcluded: true,
+        archivedExcluded: true,
+        demoLikeNamesExcluded: true,
+        packageJsonRequired: true,
+      },
     },
     source: {
-      name: "raw GitHub package.json files",
-      url: "https://raw.githubusercontent.com",
+      name: "GitHub search API plus raw package.json files",
+      url: "https://api.github.com/search/repositories",
+    },
+    filtering: {
+      candidateReposFound: selection.candidateReposFound,
+      eligibleReposAfterFiltering: selection.eligibleReposAfterFiltering,
+      excludedCounts: selection.excludedCounts,
     },
     summary,
     series: {
       interval: "repository",
       unit: "marker_present",
-      values: findings,
+      values: sampledFindings,
     },
     analysis: buildAnalysis(summary),
     fetchedAt: new Date().toISOString(),
@@ -195,9 +350,21 @@ function buildTableRows(findings) {
         <td><code>${entry.repository}</code></td>
         <td>${entry.hasAnyMarker ? "yes" : "no"}</td>
         <td>${dependencyText}</td>
-        <td><code>${entry.defaultBranch}</code></td>
+        <td>${entry.language}</td>
+        <td>${entry.stars}</td>
       </tr>`;
     })
+    .join("\n");
+}
+
+function buildExclusionRows(excludedCounts) {
+  return Object.entries(excludedCounts)
+    .map(
+      ([reason, count]) => `<tr>
+        <td><code>${reason}</code></td>
+        <td>${count}</td>
+      </tr>`
+    )
     .join("\n");
 }
 
@@ -312,8 +479,16 @@ function buildHtml(data) {
 <body>
   <main>
     <h1>JSON Schema usage proxy rate</h1>
-    <p>Curated-sample proxy for how often explicit JSON Schema-related dependency markers appear within a broader set of JSON-using JavaScript and TypeScript repositories.</p>
+    <p>Seeded random sample of eligible JavaScript and TypeScript repositories collected from GitHub search, then checked for explicit JSON Schema-related dependency markers in <code>package.json</code>.</p>
     <div class="summary-grid">
+      <section class="card">
+        <p>Candidate repos found</p>
+        <p class="value">${data.summary.candidateReposFound}</p>
+      </section>
+      <section class="card">
+        <p>Eligible repos after filtering</p>
+        <p class="value">${data.summary.eligibleReposAfterFiltering}</p>
+      </section>
       <section class="card">
         <p>Repositories scanned</p>
         <p class="value">${data.summary.repositoriesScanned}</p>
@@ -326,10 +501,6 @@ function buildHtml(data) {
         <p>Proxy rate</p>
         <p class="value">${data.summary.proxyRatePercent}%</p>
       </section>
-      <section class="card">
-        <p>Repositories with dependency markers</p>
-        <p class="value">${data.summary.repositoriesWithDependencyMarkers}</p>
-      </section>
     </div>
     <section class="analysis">
       <h2>Short interpretation</h2>
@@ -339,22 +510,40 @@ function buildHtml(data) {
         <summary>Show analysis basis</summary>
         <ul class="basis-list">
           <li><strong>comparison:</strong> ${data.analysis.basis.comparison}</li>
-          <li><strong>repositoriesScanned:</strong> ${data.analysis.basis.repositoriesScanned}</li>
+          <li><strong>randomSeed:</strong> ${data.analysis.basis.randomSeed}</li>
+          <li><strong>sampleSize:</strong> ${data.analysis.basis.sampleSize}</li>
+          <li><strong>candidateReposFound:</strong> ${data.analysis.basis.candidateReposFound}</li>
+          <li><strong>eligibleReposAfterFiltering:</strong> ${data.analysis.basis.eligibleReposAfterFiltering}</li>
+          <li><strong>sampledRepos:</strong> ${data.analysis.basis.sampledRepos}</li>
           <li><strong>repositoriesWithAnyMarker:</strong> ${data.analysis.basis.repositoriesWithAnyMarker}</li>
           <li><strong>proxyRatePercent:</strong> ${data.analysis.basis.proxyRatePercent}%</li>
-          <li><strong>dependencyMarkersChecked:</strong> ${data.analysis.basis.dependencyMarkersChecked.join(", ")}</li>
         </ul>
       </details>
     </section>
     <section class="analysis">
-      <h2>Repository sample</h2>
+      <h2>Filter summary</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Excluded reason</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+        <tbody>
+${buildExclusionRows(data.filtering.excludedCounts)}
+        </tbody>
+      </table>
+    </section>
+    <section class="analysis">
+      <h2>Sampled repositories</h2>
       <table>
         <thead>
           <tr>
             <th>Repository</th>
             <th>Any marker</th>
             <th>Dependency markers</th>
-            <th>Default branch</th>
+            <th>Language</th>
+            <th>Stars</th>
           </tr>
         </thead>
         <tbody>
@@ -377,12 +566,43 @@ async function writeOutputs(data) {
 
 async function main() {
   try {
-    const findings = [];
-    for (const repositoryConfig of REPOSITORIES) {
-      findings.push(await fetchRepositoryFinding(repositoryConfig));
+    const candidates = await searchCandidateRepositories();
+    const excludedReasons = [];
+    const filteredCandidates = [];
+
+    for (const repository of candidates) {
+      const eligibility = evaluateEligibility(repository);
+
+      if (!eligibility.eligible) {
+        excludedReasons.push(eligibility.reason);
+        continue;
+      }
+
+      filteredCandidates.push(repository);
     }
 
-    const output = buildOutput(findings);
+    const eligibleFindings = [];
+    const packageJsonMissing = [];
+
+    for (const repository of filteredCandidates) {
+      const finding = await attachPackageJsonCheck(repository);
+
+      if (!finding.packageJsonPresent) {
+        packageJsonMissing.push("missing_package_json");
+        continue;
+      }
+
+      eligibleFindings.push(finding);
+    }
+
+    const shuffled = shuffleWithSeed(eligibleFindings, RANDOM_SEED);
+    const sampledFindings = shuffled.slice(0, Math.min(SAMPLE_SIZE, shuffled.length));
+    const output = buildOutput(sampledFindings, {
+      candidateReposFound: candidates.length,
+      eligibleReposAfterFiltering: eligibleFindings.length,
+      excludedCounts: summarizeExclusions([...excludedReasons, ...packageJsonMissing]),
+    });
+
     await writeOutputs(output);
 
     console.log(`Saved JSON to ${OUTPUT_FILE}`);

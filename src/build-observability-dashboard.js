@@ -274,8 +274,8 @@ function buildHtml(downloads, release, removal, proxyRate) {
           <p class="value">${removal.summary.repositoriesWithPossibleRemoval}</p>
         </section>
         <section class="summary-card">
-          <p>Schema usage proxy rate</p>
-          <p class="value">${proxyRate.summary.proxyRatePercent}%</p>
+          <p>Explicit schema markers in sample</p>
+          <p class="value">${proxyRate.summary.repositoriesWithAnyMarker}/${proxyRate.summary.repositoriesScanned}</p>
         </section>
       </div>
       <div class="links">
@@ -320,8 +320,8 @@ function buildHtml(downloads, release, removal, proxyRate) {
           </section>
           <section class="mini-card">
             <p>Schema usage proxy rate</p>
-            <p class="value">${proxyRate.summary.proxyRatePercent}%</p>
-            <p>${proxyRate.summary.repositoriesWithAnyMarker} of ${proxyRate.summary.repositoriesScanned} curated repositories show at least one explicit marker.</p>
+            <p class="value">${proxyRate.summary.repositoriesWithAnyMarker}/${proxyRate.summary.repositoriesScanned}</p>
+            <p>${proxyRate.summary.proxyRatePercent}% of the curated sample shows at least one explicit dependency marker.</p>
             <p>${proxyRate.analysis.interpretation}</p>
           </section>
           <section class="mini-card">

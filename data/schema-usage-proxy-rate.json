@@ -1,27 +1,43 @@
 {
   "metric": "schema_usage_proxy_rate",
   "sample": {
-    "name": "curated_json_using_js_repositories",
-    "repositories": [
-      "webpack/webpack",
-      "vitejs/vite",
-      "eslint/eslint",
-      "prettier/prettier",
-      "axios/axios",
-      "expressjs/express",
-      "facebook/jest",
-      "openai/openai-node"
-    ]
+    "name": "filtered_random_sample_of_json_using_js_ts_repositories",
+    "searchLanguages": [
+      "JavaScript",
+      "TypeScript"
+    ],
+    "sampleSize": 50,
+    "randomSeed": "gsoc-observability-2026",
+    "eligibility": {
+      "minStars": 10,
+      "minSize": 50,
+      "publicOnly": true,
+      "forksExcluded": true,
+      "archivedExcluded": true,
+      "demoLikeNamesExcluded": true,
+      "packageJsonRequired": true
+    }
   },
   "source": {
-    "name": "raw GitHub package.json files",
-    "url": "https://raw.githubusercontent.com"
+    "name": "GitHub search API plus raw package.json files",
+    "url": "https://api.github.com/search/repositories"
+  },
+  "filtering": {
+    "candidateReposFound": 200,
+    "eligibleReposAfterFiltering": 155,
+    "excludedCounts": {
+      "demo_like": 4,
+      "missing_package_json": 41
+    }
   },
   "summary": {
-    "repositoriesScanned": 8,
-    "repositoriesWithAnyMarker": 2,
-    "repositoriesWithDependencyMarkers": 2,
-    "proxyRatePercent": 25,
+    "candidateReposFound": 200,
+    "eligibleReposAfterFiltering": 155,
+    "repositoriesScanned": 50,
+    "repositoriesWithAnyMarker": 1,
+    "proxyRatePercent": 2,
+    "sampleSize": 50,
+    "randomSeed": "gsoc-observability-2026",
     "unit": "percent"
   },
   "series": {
@@ -29,68 +45,571 @@
     "unit": "marker_present",
     "values": [
       {
-        "repository": "webpack/webpack",
-        "defaultBranch": "main",
-        "dependencyMarkers": [
-          "schema-utils",
-          "@types/json-schema"
-        ],
-        "hasAnyMarker": true
-      },
-      {
-        "repository": "vitejs/vite",
-        "defaultBranch": "main",
+        "repository": "carbon-design-system/carbon-components-svelte",
+        "language": "TypeScript",
+        "defaultBranch": "master",
+        "stars": 2861,
+        "size": 31060,
+        "pushedAt": "2026-03-24T02:46:10Z",
+        "packageJsonPresent": true,
         "dependencyMarkers": [],
         "hasAnyMarker": false
       },
       {
-        "repository": "eslint/eslint",
+        "repository": "ComposioHQ/agent-orchestrator",
+        "language": "TypeScript",
         "defaultBranch": "main",
+        "stars": 5198,
+        "size": 9338,
+        "pushedAt": "2026-03-24T02:43:34Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "paperclipai/paperclip",
+        "language": "TypeScript",
+        "defaultBranch": "master",
+        "stars": 32248,
+        "size": 11433,
+        "pushedAt": "2026-03-24T02:41:39Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "Blorp-Labs/blorp",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 116,
+        "size": 34246,
+        "pushedAt": "2026-03-24T02:44:31Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "2Toad/Profanity",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 130,
+        "size": 590,
+        "pushedAt": "2026-03-24T02:50:01Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "vikejs/vike",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 5666,
+        "size": 46532,
+        "pushedAt": "2026-03-24T02:44:31Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "longbridge/developers",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 27,
+        "size": 4603,
+        "pushedAt": "2026-03-24T02:47:36Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "Effect-TS/effect-smol",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 495,
+        "size": 21575,
+        "pushedAt": "2026-03-24T02:41:44Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "layer5io/docs",
+        "language": "JavaScript",
+        "defaultBranch": "master",
+        "stars": 85,
+        "size": 443407,
+        "pushedAt": "2026-03-24T02:32:36Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "poiyomi/PoiyomiDocs",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 10,
+        "size": 729252,
+        "pushedAt": "2026-03-24T02:32:13Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "cmintey/wishlist",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 515,
+        "size": 6452,
+        "pushedAt": "2026-03-24T02:45:27Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "tscircuit/cli",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 16,
+        "size": 5091,
+        "pushedAt": "2026-03-24T02:50:08Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "robinspt/tickflow-assist",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 13,
+        "size": 466,
+        "pushedAt": "2026-03-24T02:42:00Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "tznthou/muripo-hq",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 41,
+        "size": 31120,
+        "pushedAt": "2026-03-24T02:36:44Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "takeshy/obsidian-gemini-helper",
+        "language": "TypeScript",
+        "defaultBranch": "master",
+        "stars": 78,
+        "size": 31424,
+        "pushedAt": "2026-03-24T02:42:34Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "MetaMask/eth-phishing-detect",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 1261,
+        "size": 40361995,
+        "pushedAt": "2026-03-24T02:44:44Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "tscircuit/runframe",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 16,
+        "size": 8489,
+        "pushedAt": "2026-03-24T02:45:56Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "mitre/saf",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 174,
+        "size": 82837,
+        "pushedAt": "2026-03-24T02:49:33Z",
+        "packageJsonPresent": true,
         "dependencyMarkers": [
           "ajv"
         ],
         "hasAnyMarker": true
       },
       {
-        "repository": "prettier/prettier",
+        "repository": "BradGroux/veritas-kanban",
+        "language": "TypeScript",
         "defaultBranch": "main",
+        "stars": 658,
+        "size": 59544,
+        "pushedAt": "2026-03-24T02:42:21Z",
+        "packageJsonPresent": true,
         "dependencyMarkers": [],
         "hasAnyMarker": false
       },
       {
-        "repository": "axios/axios",
-        "defaultBranch": "v1.x",
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "expressjs/express",
-        "defaultBranch": "master",
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "facebook/jest",
+        "repository": "basellm/llm-metadata",
+        "language": "TypeScript",
         "defaultBranch": "main",
+        "stars": 93,
+        "size": 139965,
+        "pushedAt": "2026-03-24T02:43:17Z",
+        "packageJsonPresent": true,
         "dependencyMarkers": [],
         "hasAnyMarker": false
       },
       {
-        "repository": "openai/openai-node",
+        "repository": "defremont/Shipyard",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 24,
+        "size": 4728,
+        "pushedAt": "2026-03-24T02:46:28Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "Tai-ch0802/arc-like-chrome-extension",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 34,
+        "size": 18163,
+        "pushedAt": "2026-03-24T02:42:11Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "xOS/Config",
+        "language": "JavaScript",
+        "defaultBranch": "Her",
+        "stars": 182,
+        "size": 382322,
+        "pushedAt": "2026-03-24T02:31:04Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "destinygg/chat-bot",
+        "language": "JavaScript",
         "defaultBranch": "master",
+        "stars": 43,
+        "size": 1134,
+        "pushedAt": "2026-03-24T02:32:26Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "wxkingstar/SpecFusion",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 15,
+        "size": 6261,
+        "pushedAt": "2026-03-24T02:45:54Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "nestcn/docs.nestjs.cn",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 977,
+        "size": 25643,
+        "pushedAt": "2026-03-24T02:49:09Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "neomjs/neo",
+        "language": "JavaScript",
+        "defaultBranch": "dev",
+        "stars": 3159,
+        "size": 1580335,
+        "pushedAt": "2026-03-24T02:38:18Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "heli1x3T/Helius_Crypter",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 15,
+        "size": 1426,
+        "pushedAt": "2026-03-24T02:49:57Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "rabbitmq/rabbitmq-website",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 1130,
+        "size": 140634,
+        "pushedAt": "2026-03-24T02:49:42Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "pancakeswap/pancakeswap-ai",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 15,
+        "size": 1184,
+        "pushedAt": "2026-03-24T02:44:05Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "microlinkhq/www",
+        "language": "JavaScript",
+        "defaultBranch": "master",
+        "stars": 135,
+        "size": 59532,
+        "pushedAt": "2026-03-24T02:39:38Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "sieteunoseis/cisco-axl",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 12,
+        "size": 575,
+        "pushedAt": "2026-03-24T02:48:04Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "jdx/mise-versions",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 13,
+        "size": 87514,
+        "pushedAt": "2026-03-24T02:43:09Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "Lianues/Iris",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 31,
+        "size": 2321,
+        "pushedAt": "2026-03-24T02:42:19Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "devsolux/iptv-playlist",
+        "language": "JavaScript",
+        "defaultBranch": "master",
+        "stars": 50,
+        "size": 235338,
+        "pushedAt": "2026-03-24T02:49:19Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "esaio/esa-mcp-server",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 50,
+        "size": 1001,
+        "pushedAt": "2026-03-24T02:50:03Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "zorn-v/nextcloud-social-login",
+        "language": "JavaScript",
+        "defaultBranch": "master",
+        "stars": 234,
+        "size": 2705,
+        "pushedAt": "2026-03-24T02:43:04Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "SplashtopInc/winstall",
+        "language": "JavaScript",
+        "defaultBranch": "master",
+        "stars": 1314,
+        "size": 3401,
+        "pushedAt": "2026-03-24T02:37:06Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "l4uy/waves",
+        "language": "JavaScript",
+        "defaultBranch": "prod",
+        "stars": 35,
+        "size": 1024149,
+        "pushedAt": "2026-03-24T02:33:00Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "expo/orbit",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 744,
+        "size": 8103,
+        "pushedAt": "2026-03-24T02:45:36Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "DrakiaXYZ/SPT-LiveFleaPriceDB",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 19,
+        "size": 1432856,
+        "pushedAt": "2026-03-24T02:46:07Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "chrispyers/openkiwi",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 83,
+        "size": 15424,
+        "pushedAt": "2026-03-24T02:47:46Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "lingdojo/kana-dojo",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 1974,
+        "size": 91903,
+        "pushedAt": "2026-03-24T02:43:17Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "victorGPT/vibeusage",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 103,
+        "size": 22393,
+        "pushedAt": "2026-03-24T02:47:03Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "chaterm/Chaterm",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 2521,
+        "size": 38205,
+        "pushedAt": "2026-03-24T02:42:42Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "Colorado-Mesh/mesh-client",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 15,
+        "size": 16488,
+        "pushedAt": "2026-03-24T02:48:20Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "liuxingyx/TOMATOX",
+        "language": "TypeScript",
+        "defaultBranch": "master",
+        "stars": 16,
+        "size": 6621,
+        "pushedAt": "2026-03-24T02:42:44Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "Fannon/search-bookmarks-history-and-tabs",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 309,
+        "size": 13349,
+        "pushedAt": "2026-03-24T02:47:11Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "jsnli/steamappidlist",
+        "language": "JavaScript",
+        "defaultBranch": "master",
+        "stars": 23,
+        "size": 380176,
+        "pushedAt": "2026-03-24T02:28:07Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "rixinhahaha/snip",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 38,
+        "size": 32845,
+        "pushedAt": "2026-03-24T02:33:40Z",
+        "packageJsonPresent": true,
         "dependencyMarkers": [],
         "hasAnyMarker": false
       }
     ]
   },
   "analysis": {
-    "interpretation": "Only a small share of the sampled JSON-using repositories show explicit JSON Schema-related markers. This suggests visible but still limited adoption within the curated sample.",
-    "limitation": "This is a curated-sample proxy, not a full ecosystem census. Repositories can use JSON Schema without exposing these exact markers, and the sample itself is subjective.",
+    "interpretation": "Only a minority of the sampled repositories show explicit JSON Schema-related dependency markers. This suggests visible but still limited adoption within the filtered sample.",
+    "limitation": "This is still a proxy, not a census. The result depends on the GitHub search frame, the eligibility filters, the sample size, and the specific dependency markers checked.",
     "basis": {
-      "comparison": "curated-json-using-repo-sample",
-      "repositoriesScanned": 8,
-      "repositoriesWithAnyMarker": 2,
-      "proxyRatePercent": 25,
+      "comparison": "filtered-github-search-sample",
+      "randomSeed": "gsoc-observability-2026",
+      "sampleSize": 50,
+      "candidateReposFound": 200,
+      "eligibleReposAfterFiltering": 155,
+      "sampledRepos": 50,
+      "repositoriesWithAnyMarker": 1,
+      "proxyRatePercent": 2,
       "dependencyMarkersChecked": [
         "ajv",
         "ajv-formats",
@@ -103,5 +622,5 @@
       ]
     }
   },
-  "fetchedAt": "2026-03-24T01:38:38.802Z"
+  "fetchedAt": "2026-03-24T02:51:12.320Z"
 }
