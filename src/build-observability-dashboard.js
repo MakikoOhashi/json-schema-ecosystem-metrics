@@ -30,7 +30,7 @@ function buildHistoryRows(history) {
     .join("\n");
 }
 
-function buildHtml(downloads, release, removal) {
+function buildHtml(downloads, release, removal, proxyRate) {
   const labels = downloads.series.values.map((point) => point.day);
   const values = downloads.series.values.map((point) => point.downloads);
 
@@ -259,7 +259,7 @@ function buildHtml(downloads, release, removal) {
   <main>
     <section class="hero">
       <h1>JSON Schema observability dashboard</h1>
-      <p>One-sheet view of three practical signals: adoption, maintenance, and an experimental removal check.</p>
+      <p>One-sheet view of practical signals: adoption, maintenance, ecosystem proxy adoption, and an experimental removal check.</p>
       <div class="summary-grid">
         <section class="summary-card">
           <p>12-week ajv downloads</p>
@@ -270,14 +270,19 @@ function buildHtml(downloads, release, removal) {
           <p class="value">${release.summary.daysSinceLatestRelease}</p>
         </section>
         <section class="summary-card">
-          <p>Removal signal detected</p>
-          <p class="value">${removal.analysis.basis.removalDetected ? "yes" : "no"}</p>
+          <p>Possible removals in sample</p>
+          <p class="value">${removal.summary.repositoriesWithPossibleRemoval}</p>
+        </section>
+        <section class="summary-card">
+          <p>Schema usage proxy rate</p>
+          <p class="value">${proxyRate.summary.proxyRatePercent}%</p>
         </section>
       </div>
       <div class="links">
         <a href="./ajv-weekly-downloads.html">Downloads detail</a>
         <a href="./ajv-release-freshness.html">Release detail</a>
         <a href="./experimental-ajv-removal-signal.html">Removal detail</a>
+        <a href="./schema-usage-proxy-rate.html">Proxy rate detail</a>
       </div>
     </section>
 
@@ -314,8 +319,15 @@ function buildHtml(downloads, release, removal) {
             <p>${release.analysis.interpretation}</p>
           </section>
           <section class="mini-card">
+            <p>Schema usage proxy rate</p>
+            <p class="value">${proxyRate.summary.proxyRatePercent}%</p>
+            <p>${proxyRate.summary.repositoriesWithAnyMarker} of ${proxyRate.summary.repositoriesScanned} curated repositories show at least one explicit marker.</p>
+            <p>${proxyRate.analysis.interpretation}</p>
+          </section>
+          <section class="mini-card">
             <p>Experimental removal signal</p>
-            <p class="value">${removal.analysis.basis.removalDetected ? "detected" : "not detected"}</p>
+            <p class="value">${removal.summary.possibleRemovalRatePercent}%</p>
+            <p>${removal.summary.repositoriesWithPossibleRemoval} of ${removal.summary.repositoriesScanned} curated repositories show a possible removal under the current rule.</p>
             <p>Marker package: <code>${removal.summary.markerPackage}</code></p>
             <p>${removal.analysis.interpretation}</p>
           </section>
@@ -325,23 +337,35 @@ function buildHtml(downloads, release, removal) {
 
     <section class="bottom-grid">
       <section class="panel history-panel">
-        <h2>Recent marker history</h2>
-        <p>Recent <code>package.json</code> states for <code>${removal.repository}</code>, showing whether <code>${removal.summary.markerPackage}</code> is present.</p>
+        <h2>Per-repository removal check</h2>
+        <p>Curated-sample result showing whether <code>${removal.summary.markerPackage}</code> looks removed after sustained recent presence.</p>
         <table>
           <thead>
             <tr>
-              <th>Commit</th>
-              <th>Marker state</th>
+              <th>Repository</th>
+              <th>Head has marker</th>
+              <th>Prior presence count</th>
+              <th>Result</th>
             </tr>
           </thead>
           <tbody>
-${buildHistoryRows(removal.series.values)}
+${removal.series.values
+  .map(
+    (entry) => `<tr>
+              <td><code>${entry.repository}</code></td>
+              <td>${entry.headHasMarker ? "yes" : "no"}</td>
+              <td>${entry.priorPresenceCount}</td>
+              <td>${entry.removalDetected ? "possible removal" : "none detected"}</td>
+            </tr>`
+  )
+  .join("\n")}
           </tbody>
         </table>
         <section class="analysis">
           <h3>Basis and provenance</h3>
           <p><strong>Downloads source:</strong> <code>${downloads.source.url}</code></p>
           <p><strong>Release source:</strong> <code>${release.source.url}</code></p>
+          <p><strong>Proxy rate source:</strong> <code>${proxyRate.source.url}</code></p>
           <p><strong>Removal source:</strong> <code>${removal.source.url}</code></p>
           <p><strong>Dashboard built from:</strong> local JSON artifacts in <code>data/</code></p>
         </section>
@@ -393,14 +417,19 @@ ${buildHistoryRows(removal.series.values)}
 }
 
 async function main() {
-  const [downloads, release, removal] = await Promise.all([
+  const [downloads, release, removal, proxyRate] = await Promise.all([
     readJson("ajv-weekly-downloads.json"),
     readJson("ajv-release-freshness.json"),
     readJson("experimental-ajv-removal-signal.json"),
+    readJson("schema-usage-proxy-rate.json"),
   ]);
 
   await fs.mkdir(CHARTS_DIR, { recursive: true });
-  await fs.writeFile(OUTPUT_FILE, buildHtml(downloads, release, removal), "utf8");
+  await fs.writeFile(
+    OUTPUT_FILE,
+    buildHtml(downloads, release, removal, proxyRate),
+    "utf8"
+  );
   console.log(`Saved dashboard to ${OUTPUT_FILE}`);
 }
 

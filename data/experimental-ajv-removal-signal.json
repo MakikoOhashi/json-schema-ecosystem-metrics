@@ -1,96 +1,513 @@
 {
   "metric": "experimental_marker_removal_signal",
-  "repository": "webpack/schema-utils",
+  "sample": {
+    "name": "curated_json_using_js_repositories",
+    "repositories": [
+      "webpack/webpack",
+      "vitejs/vite",
+      "eslint/eslint",
+      "prettier/prettier",
+      "axios/axios",
+      "expressjs/express",
+      "facebook/jest",
+      "openai/openai-node"
+    ]
+  },
   "source": {
-    "name": "GitHub commits API and contents API",
-    "url": "https://api.github.com/repos/webpack/schema-utils/commits?sha=main&per_page=12"
+    "name": "GitHub commits API and raw package.json history",
+    "url": "https://api.github.com"
   },
   "summary": {
     "markerPackage": "ajv",
-    "defaultBranch": "main",
-    "commitsScanned": 12,
-    "headHasMarker": true,
-    "priorPresenceCount": 11
+    "repositoriesScanned": 8,
+    "repositoriesWithPossibleRemoval": 0,
+    "repositoriesWithMarkerAtHead": 1,
+    "possibleRemovalRatePercent": 0,
+    "historyDepth": 12,
+    "unit": "percent"
   },
   "series": {
-    "interval": "commit",
-    "unit": "marker_present",
+    "interval": "repository",
+    "unit": "removal_detected",
     "values": [
       {
-        "commitSha": "3b103ae25cd7cc8361a5b105d7b95b7b9babdaee",
-        "packageJsonPath": "package.json",
-        "markerPresent": true
+        "repository": "webpack/webpack",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "d9e11489a8ec52f5a850b11c353790ae089c937f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "8a8519353c3146b8a2a0a1568a1668899f379661",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "70867d612e1920dc2d28b9a541e8bcb6d2154deb",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "a4755121e8d63e64eea9d8bbdaeea380a8192100",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "2665dfb0cf0554132035191d2d2c85a33b8eedb5",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "89a1ca3894f924d9c2a8d41e06d982ebc333c52f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "72a7ef35d5175d27604c2974e4062cb14d4f66a7",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "1cd34509522f187642c617d5dfe46a2c254e2238",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "abba60629f857a939e99533511511d74704e9984",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "aa4705aea67442740938068391c2251abcf5d524",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "a836e064c80df16f69a3a185a0ee37a7648f3ab9",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0b344de2f7bed54fcc63808ebbbb23cc56598268",
+            "markerPresent": false
+          }
+        ]
       },
       {
-        "commitSha": "2a7b13dbf2741715a730022f0ecab81f087cc1f8",
-        "packageJsonPath": "package.json",
-        "markerPresent": true
+        "repository": "vitejs/vite",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "130ef31b4863d25008db2206a4aa855b4935ebcd",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "faeb746721da80689d2cb62b589cc45edb779bdc",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ff91c319facd602dc5eea81ed7e7d79ae7dadb95",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "3aea2b89d028d4dd87b9390167c942a522afcee3",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "4f7e5217c141836720051a3e49f871af0fa40408",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b2dd65bf2f113719b72450f2e19696213fd9e255",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "50b87f63295708a10012b79649551c9b901f3ef4",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b5b8f9b75561dfbec729059c5fa87a889c89bcf2",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "e4f83402c21774bbce30178a601511dd626e14c6",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "9b7d15002a75474421bc5636238336d88c7fe2f3",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "087371c30a9fe9d281ebed4c765083b4d0016d3a",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "80a76204dd3868f8392a419482138ce80bce6b15",
+            "markerPresent": false
+          }
+        ]
       },
       {
-        "commitSha": "b9ca275df9cf39b16e5ee5b7fe165481e0491612",
-        "packageJsonPath": "package.json",
-        "markerPresent": true
+        "repository": "eslint/eslint",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": true,
+        "priorPresenceCount": 11,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "811f4930f82ee2b6ac8eae75cade9bed63de0781",
+            "markerPresent": true
+          },
+          {
+            "commitSha": "eab65c700ebb16a6e790910c720450c9908961fd",
+            "markerPresent": true
+          },
+          {
+            "commitSha": "6b86fcfc5c75d6a3b8a2cf7bcdb3ef60635a9a03",
+            "markerPresent": true
+          },
+          {
+            "commitSha": "632c4f83bf32b77981c7d395cacddd1bb172ee25",
+            "markerPresent": true
+          },
+          {
+            "commitSha": "b0b0f21927e03ba092400e3c70d7058f537765c8",
+            "markerPresent": true
+          },
+          {
+            "commitSha": "3e4a29903bf31f0998e45ad9128a265bce1edc56",
+            "markerPresent": true
+          },
+          {
+            "commitSha": "228a2dd4b272c17f516ee3541f1dd69eca0a8ab0",
+            "markerPresent": true
+          },
+          {
+            "commitSha": "3ab4d7e244df244102de9d0d250b2ff12456a785",
+            "markerPresent": true
+          },
+          {
+            "commitSha": "8351ec7aaa0f7d4753ff39bb9d6260f2ac9e1f1a",
+            "markerPresent": true
+          },
+          {
+            "commitSha": "3270bc12165d62646fd0edaab2c28809302663a1",
+            "markerPresent": true
+          },
+          {
+            "commitSha": "a9f9cce82d80b540a0e3549d0e91c16df28740d8",
+            "markerPresent": true
+          },
+          {
+            "commitSha": "1f42bd7876ae4192cf7f7f4faf73b4ef3d2563cb",
+            "markerPresent": true
+          }
+        ]
       },
       {
-        "commitSha": "49af9226eb84c6b4d7d4d49d113a6f436dc214ed",
-        "packageJsonPath": "package.json",
-        "markerPresent": true
+        "repository": "prettier/prettier",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "80a2fdb5e88ce220b88d9122cd74303d71e4d8c0",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "9d6833e74a151c8ec5cc5486604fb30c0a5fcaca",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "79c0929b3b02bd624c92be63e7245c38ac3ff37a",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "648eef6c2c080bbc184bd7070a186313022d482b",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f71939fb8295083df43e483d76cd285f23304f82",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "723adee63506fb91dcee87412a1c2b56a50f15db",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "bba9b92d2a381a90fd5f9e936dce76df92e1cd14",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "81b803f361ac3524acdbfa282ed9acb7dda576f6",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "5332b2716692f8675dcf6b2d68a545c9ecd9c797",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "af5a7c074d54fd91015f6cdc05d1bb0f5dcfaa18",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "21c8abfd39f0cd4746dab1988458031ea2ad4add",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "38266e1ebc3ab4d8db4c7acc36e78f794ab2f982",
+            "markerPresent": false
+          }
+        ]
       },
       {
-        "commitSha": "779a1345cd74704f23d1fd8f4fcc7e7168c6063a",
-        "packageJsonPath": "package.json",
-        "markerPresent": true
+        "repository": "axios/axios",
+        "defaultBranch": "v1.x",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "4d8931ca8a92e53c5dcf02cf46d1016a10e60ec0",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "3a6f5c1ae1f9b58198e9f3109896a2c11d017c58",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "bcfd2997dc93b56669dd03b29b83d8a868797937",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d6dcbfd53e9506d9c8c0b1fd09c4d960bea9b9f0",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "5dd7ba78b8960fb29e39b6918ee5cb9a2130f15c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "525e6fbeb060cba17f84a757f60aabf8d6b84a4e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "9e705864d2d10e6a25fa641a064f75f70b3167fe",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "94e1543576aec5381607dde6f3356a9073dc97bf",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "76794ac27a7222f22f69f96e01305f1ae836c131",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "8077435407a5067ecbb13d8546f3911216277845",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "3f1b6b83a3518d1be59e4004dbae0e22dfca8ad2",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0efcefe761f5d4ab6d93897929b3aa12c790053b",
+            "markerPresent": false
+          }
+        ]
       },
       {
-        "commitSha": "f332292a3f6ecd21c53ec5e02ab2fefde87236b0",
-        "packageJsonPath": "package.json",
-        "markerPresent": true
+        "repository": "expressjs/express",
+        "defaultBranch": "master",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "6c4249feec8ab40631817c8e7001baf2ed022224",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "06e2367f91490f241e8932b56ffda042ec0debb5",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "e3b962c558cc1c24fb69da285f42c3aa0c1c1da2",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "411061d94e7180343ebf1c86afd30dfb8746cbe7",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b4ab7d65d7724d9309b6faaaf82ad492da2a6d35",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c4cc78bdf55ae657536239aad2077425f7d79045",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "925a1dff1e42f1b393c977b8b77757fcf633e09f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "9c85a25c02e83ad16e1561d02c8ede652f0ef15b",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "1140301f6a0ed5a05bc1ef38d48294f75a49580c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c76ed5ae05a0b4174374482a6534ce96023597bf",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "2d4192ebb325315c6dd7bb2743ea65a7eb30a049",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "66404b347a1690c0b783f47a8cf04a37caea8de5",
+            "markerPresent": false
+          }
+        ]
       },
       {
-        "commitSha": "f9baee8153ef042fdf85ee20d8538fb31ddaf291",
-        "packageJsonPath": "package.json",
-        "markerPresent": true
+        "repository": "facebook/jest",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "efb59c2e81083f8dc941f20d6d20a3af2dc8d068",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "df732790f3accd5f739e2fb43d0bbbc84885e468",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0b079c121040de21a009853557490174f82e18ab",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d8192b58a7809fff334a1296d322ab548d7bc195",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "3f17932061c0203999451e5852664093de876709",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "fafabc3cb59be8c68eb71f30012434d58bc9af57",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f459dd6377127410ded569cd4aa176834c4ec845",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "905bcbced3d40cdf7aadc4cdf6fb731c4bb3dbe3",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "3570d36866fdef27457a915a7b0078009ae5f000",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b23a7e01b040a9b445af735a5fabc2c409b26759",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c3b5db890bd721c532903884a326f9b278c45d3f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "8d25fc0abbabe67ced78b0f0d883b8cca0c0a92c",
+            "markerPresent": false
+          }
+        ]
       },
       {
-        "commitSha": "865b87491ed34c5599f29447b38b6f51ce956732",
-        "packageJsonPath": "package.json",
-        "markerPresent": true
-      },
-      {
-        "commitSha": "3b6adc9d05327cb23a09b457c3589e40b60f5748",
-        "packageJsonPath": "package.json",
-        "markerPresent": true
-      },
-      {
-        "commitSha": "2a92a6a229a5a63f6c9eecf5cb9d78add52d59a9",
-        "packageJsonPath": "package.json",
-        "markerPresent": true
-      },
-      {
-        "commitSha": "8e31ef311484ad1c0d122266fe520d1f1cb90fad",
-        "packageJsonPath": "package.json",
-        "markerPresent": true
-      },
-      {
-        "commitSha": "1478499e3f2d404355b155690f46ab9b33daa0e6",
-        "packageJsonPath": "package.json",
-        "markerPresent": true
+        "repository": "openai/openai-node",
+        "defaultBranch": "master",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "d95158f4b01ab416a168fcbc863952bf02558baf",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b6f0f44a61aef179f90a8be05891c52f8522372f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c1c713ebc8c7cab60a9f33e7795c2b2468f6c0fa",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "96166dadff57272ff2b183893093bd5c8c47e4a1",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "00ef21d98d052a9c9d58d5677e14de7218440c27",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f3c92c73d3d398468a9df670c65dc167f13f8107",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6359334b79fded7a214d4853d6946639ef8569fd",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ce33e4c7abbfee06053d22227bfd37194c962b5d",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "3d195aa892ba82d2170881dea3880dbd9a16553a",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ba14ec88f6cb67898770be5d7f08a8861b4059e3",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "577a54cdc83e28cb34208fe14dcecdf38c4e8abe",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6de3617f7db3e60eb67d4acda7a389ffd7349d64",
+            "markerPresent": false
+          }
+        ]
       }
     ]
   },
   "analysis": {
-    "interpretation": "No removal signal is currently detected: the ajv dependency is still present at HEAD in this downstream repository.",
-    "limitation": "This is an experimental proxy. It only inspects package.json history for a single dependency marker and does not prove broader migration away from JSON Schema.",
+    "interpretation": "No repositories in the curated sample currently show a possible removal event for the ajv marker under this rule-based check.",
+    "limitation": "This is an experimental proxy. It only inspects recent package.json history for a single dependency marker and does not prove broader migration away from JSON Schema.",
     "basis": {
-      "comparison": "head-state-vs-recent-package-json-history",
-      "targetRepository": "webpack/schema-utils",
+      "comparison": "curated-sample-head-vs-recent-history",
       "markerPackage": "ajv",
-      "commitsScanned": 12,
-      "sustainedPresenceThreshold": 6,
-      "headHasMarker": true,
-      "priorPresenceCount": 11,
-      "removalDetected": false
+      "repositoriesScanned": 8,
+      "repositoriesWithPossibleRemoval": 0,
+      "possibleRemovalRatePercent": 0,
+      "historyDepth": 12,
+      "sustainedPresenceThreshold": 6
     }
   },
-  "fetchedAt": "2026-03-24T01:11:32.764Z"
+  "fetchedAt": "2026-03-24T01:45:15.357Z"
 }

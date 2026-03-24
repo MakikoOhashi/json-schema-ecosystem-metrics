@@ -1,0 +1,107 @@
+{
+  "metric": "schema_usage_proxy_rate",
+  "sample": {
+    "name": "curated_json_using_js_repositories",
+    "repositories": [
+      "webpack/webpack",
+      "vitejs/vite",
+      "eslint/eslint",
+      "prettier/prettier",
+      "axios/axios",
+      "expressjs/express",
+      "facebook/jest",
+      "openai/openai-node"
+    ]
+  },
+  "source": {
+    "name": "raw GitHub package.json files",
+    "url": "https://raw.githubusercontent.com"
+  },
+  "summary": {
+    "repositoriesScanned": 8,
+    "repositoriesWithAnyMarker": 2,
+    "repositoriesWithDependencyMarkers": 2,
+    "proxyRatePercent": 25,
+    "unit": "percent"
+  },
+  "series": {
+    "interval": "repository",
+    "unit": "marker_present",
+    "values": [
+      {
+        "repository": "webpack/webpack",
+        "defaultBranch": "main",
+        "dependencyMarkers": [
+          "schema-utils",
+          "@types/json-schema"
+        ],
+        "hasAnyMarker": true
+      },
+      {
+        "repository": "vitejs/vite",
+        "defaultBranch": "main",
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "eslint/eslint",
+        "defaultBranch": "main",
+        "dependencyMarkers": [
+          "ajv"
+        ],
+        "hasAnyMarker": true
+      },
+      {
+        "repository": "prettier/prettier",
+        "defaultBranch": "main",
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "axios/axios",
+        "defaultBranch": "v1.x",
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "expressjs/express",
+        "defaultBranch": "master",
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "facebook/jest",
+        "defaultBranch": "main",
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      },
+      {
+        "repository": "openai/openai-node",
+        "defaultBranch": "master",
+        "dependencyMarkers": [],
+        "hasAnyMarker": false
+      }
+    ]
+  },
+  "analysis": {
+    "interpretation": "Only a small share of the sampled JSON-using repositories show explicit JSON Schema-related markers. This suggests visible but still limited adoption within the curated sample.",
+    "limitation": "This is a curated-sample proxy, not a full ecosystem census. Repositories can use JSON Schema without exposing these exact markers, and the sample itself is subjective.",
+    "basis": {
+      "comparison": "curated-json-using-repo-sample",
+      "repositoriesScanned": 8,
+      "repositoriesWithAnyMarker": 2,
+      "proxyRatePercent": 25,
+      "dependencyMarkersChecked": [
+        "ajv",
+        "ajv-formats",
+        "ajv-keywords",
+        "schema-utils",
+        "json-schema",
+        "json-schema-traverse",
+        "json-schema-to-typescript",
+        "@types/json-schema"
+      ]
+    }
+  },
+  "fetchedAt": "2026-03-24T01:38:38.802Z"
+}

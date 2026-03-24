@@ -223,7 +223,7 @@
   <main>
     <section class="hero">
       <h1>JSON Schema observability dashboard</h1>
-      <p>One-sheet view of three practical signals: adoption, maintenance, and an experimental removal check.</p>
+      <p>One-sheet view of practical signals: adoption, maintenance, ecosystem proxy adoption, and an experimental removal check.</p>
       <div class="summary-grid">
         <section class="summary-card">
           <p>12-week ajv downloads</p>
@@ -234,14 +234,19 @@
           <p class="value">37</p>
         </section>
         <section class="summary-card">
-          <p>Removal signal detected</p>
-          <p class="value">no</p>
+          <p>Possible removals in sample</p>
+          <p class="value">0</p>
+        </section>
+        <section class="summary-card">
+          <p>Schema usage proxy rate</p>
+          <p class="value">25%</p>
         </section>
       </div>
       <div class="links">
         <a href="./ajv-weekly-downloads.html">Downloads detail</a>
         <a href="./ajv-release-freshness.html">Release detail</a>
         <a href="./experimental-ajv-removal-signal.html">Removal detail</a>
+        <a href="./schema-usage-proxy-rate.html">Proxy rate detail</a>
       </div>
     </section>
 
@@ -278,10 +283,17 @@
             <p>Ajv has had a recent release, which suggests active maintenance for a widely used JSON Schema implementation.</p>
           </section>
           <section class="mini-card">
+            <p>Schema usage proxy rate</p>
+            <p class="value">25%</p>
+            <p>2 of 8 curated repositories show at least one explicit marker.</p>
+            <p>Only a small share of the sampled JSON-using repositories show explicit JSON Schema-related markers. This suggests visible but still limited adoption within the curated sample.</p>
+          </section>
+          <section class="mini-card">
             <p>Experimental removal signal</p>
-            <p class="value">not detected</p>
+            <p class="value">0%</p>
+            <p>0 of 8 curated repositories show a possible removal under the current rule.</p>
             <p>Marker package: <code>ajv</code></p>
-            <p>No removal signal is currently detected: the ajv dependency is still present at HEAD in this downstream repository.</p>
+            <p>No repositories in the curated sample currently show a possible removal event for the ajv marker under this rule-based check.</p>
           </section>
         </div>
       </section>
@@ -289,71 +301,74 @@
 
     <section class="bottom-grid">
       <section class="panel history-panel">
-        <h2>Recent marker history</h2>
-        <p>Recent <code>package.json</code> states for <code>webpack/schema-utils</code>, showing whether <code>ajv</code> is present.</p>
+        <h2>Per-repository removal check</h2>
+        <p>Curated-sample result showing whether <code>ajv</code> looks removed after sustained recent presence.</p>
         <table>
           <thead>
             <tr>
-              <th>Commit</th>
-              <th>Marker state</th>
+              <th>Repository</th>
+              <th>Head has marker</th>
+              <th>Prior presence count</th>
+              <th>Result</th>
             </tr>
           </thead>
           <tbody>
 <tr>
-        <td><code>3b103ae</code></td>
-        <td class="status-present">present</td>
-      </tr>
+              <td><code>webpack/webpack</code></td>
+              <td>no</td>
+              <td>0</td>
+              <td>none detected</td>
+            </tr>
 <tr>
-        <td><code>2a7b13d</code></td>
-        <td class="status-present">present</td>
-      </tr>
+              <td><code>vitejs/vite</code></td>
+              <td>no</td>
+              <td>0</td>
+              <td>none detected</td>
+            </tr>
 <tr>
-        <td><code>b9ca275</code></td>
-        <td class="status-present">present</td>
-      </tr>
+              <td><code>eslint/eslint</code></td>
+              <td>yes</td>
+              <td>11</td>
+              <td>none detected</td>
+            </tr>
 <tr>
-        <td><code>49af922</code></td>
-        <td class="status-present">present</td>
-      </tr>
+              <td><code>prettier/prettier</code></td>
+              <td>no</td>
+              <td>0</td>
+              <td>none detected</td>
+            </tr>
 <tr>
-        <td><code>779a134</code></td>
-        <td class="status-present">present</td>
-      </tr>
+              <td><code>axios/axios</code></td>
+              <td>no</td>
+              <td>0</td>
+              <td>none detected</td>
+            </tr>
 <tr>
-        <td><code>f332292</code></td>
-        <td class="status-present">present</td>
-      </tr>
+              <td><code>expressjs/express</code></td>
+              <td>no</td>
+              <td>0</td>
+              <td>none detected</td>
+            </tr>
 <tr>
-        <td><code>f9baee8</code></td>
-        <td class="status-present">present</td>
-      </tr>
+              <td><code>facebook/jest</code></td>
+              <td>no</td>
+              <td>0</td>
+              <td>none detected</td>
+            </tr>
 <tr>
-        <td><code>865b874</code></td>
-        <td class="status-present">present</td>
-      </tr>
-<tr>
-        <td><code>3b6adc9</code></td>
-        <td class="status-present">present</td>
-      </tr>
-<tr>
-        <td><code>2a92a6a</code></td>
-        <td class="status-present">present</td>
-      </tr>
-<tr>
-        <td><code>8e31ef3</code></td>
-        <td class="status-present">present</td>
-      </tr>
-<tr>
-        <td><code>1478499</code></td>
-        <td class="status-present">present</td>
-      </tr>
+              <td><code>openai/openai-node</code></td>
+              <td>no</td>
+              <td>0</td>
+              <td>none detected</td>
+            </tr>
           </tbody>
         </table>
         <section class="analysis">
           <h3>Basis and provenance</h3>
           <p><strong>Downloads source:</strong> <code>https://api.npmjs.org/downloads/range/2025-12-30:2026-03-23/ajv</code></p>
           <p><strong>Release source:</strong> <code>https://api.github.com/repos/ajv-validator/ajv/releases/latest</code></p>
-          <p><strong>Removal source:</strong> <code>https://api.github.com/repos/webpack/schema-utils/commits?sha=main&per_page=12</code></p>
+          <p><strong>Proxy rate source:</strong> <code>https://raw.githubusercontent.com</code></p>
+          <p><strong>Removal source:</strong> <code>https://api.github.com</code></p>
           <p><strong>Dashboard built from:</strong> local JSON artifacts in <code>data/</code></p>
         </section>
       </section>

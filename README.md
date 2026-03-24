@@ -10,7 +10,8 @@ The proof of concept is organized around three metric types:
 
 - adoption signal: `ajv` npm downloads trend
 - maintenance signal: release freshness for a widely used JSON Schema tool
-- experimental removal signal: detecting when a sustained JSON Schema-related marker later disappears
+- broader adoption proxy: schema usage proxy rate across a curated JSON-using sample
+- experimental removal signal: counting repositories in a curated sample where a sustained JSON Schema-related marker later disappears
 
 The repository currently generates structured output and a lightweight HTML report for all three metric types.
 
@@ -32,6 +33,7 @@ Run:
 npm run fetch:downloads
 npm run fetch:release
 npm run fetch:removal
+npm run fetch:proxy-rate
 npm run build:dashboard
 ```
 
@@ -48,6 +50,8 @@ Current outputs:
 - `charts/ajv-release-freshness.html`
 - `data/experimental-ajv-removal-signal.json`
 - `charts/experimental-ajv-removal-signal.html`
+- `data/schema-usage-proxy-rate.json`
+- `charts/schema-usage-proxy-rate.html`
 - `charts/observability-dashboard.html`
 
 To view a single combined report, open `charts/observability-dashboard.html` in a browser.
@@ -71,13 +75,16 @@ This proof of concept is intentionally oriented toward practical ecosystem signa
 
 - adoption: is a major JSON Schema implementation actually being used?
 - maintenance: does it still look actively maintained?
+- broader adoption: how often do explicit JSON Schema-related markers appear in a wider JSON-using sample?
 - removal risk: are there signs that previously sustained JSON Schema usage markers disappear from a project?
 
 The first metric is a rough proxy for package adoption and usage activity around `ajv`, one of the widely used JSON Schema validators. It does not measure the full ecosystem, but it gives a compact trend view for one important tool within it.
 
 The second metric looks at release freshness for `ajv-validator/ajv`, which is a practical proxy for ongoing maintenance.
 
-The third metric is intentionally experimental. It currently scans recent `package.json` history for the downstream repository `webpack/schema-utils` and checks whether the `ajv` dependency disappears after sustained prior presence. It does not prove migration away from JSON Schema, but it can highlight repositories where sustained JSON Schema-related markers later disappear.
+The third metric is a broader adoption proxy. It scans a curated sample of JSON-using JavaScript and TypeScript repositories and checks for explicit JSON Schema-related dependency markers in `package.json`.
+
+The fourth metric is intentionally experimental. It currently scans recent `package.json` history for the downstream repository `webpack/schema-utils` and checks whether the `ajv` dependency disappears after sustained prior presence. It does not prove migration away from JSON Schema, but it can highlight repositories where sustained JSON Schema-related markers later disappear.
 
 ## Interpretation layer
 
@@ -102,13 +109,14 @@ https://api.npmjs.org/downloads/range/YYYY-MM-DD:YYYY-MM-DD/ajv
 
 That keeps the proof of concept minimal while still producing a meaningful time series for visualization.
 
-The maintenance and removal metrics use GitHub repository metadata, release data, and commit history.
+The maintenance, proxy-rate, and removal metrics use GitHub repository metadata, release data, repository trees, and commit history.
 
 ## Limitations
 
 - npm downloads are a proxy signal, not direct real-world usage.
 - Release freshness is also only a proxy; recent releases do not automatically mean strong maintenance quality.
-- The experimental removal signal is intentionally narrow. It currently inspects only one dependency marker in one downstream repository and does not automatically prove full migration away from JSON Schema.
+- The schema usage proxy rate depends on a curated repository sample and explicit markers, so it is not a complete measure of all JSON Schema adoption.
+- The experimental removal signal is intentionally narrow. It currently inspects only one dependency marker across a curated repository sample and does not automatically prove full migration away from JSON Schema.
 - Download counts can include CI, mirrors, and automated installs.
 - One package does not represent the entire JSON Schema ecosystem.
 - The generated artifacts are point-in-time snapshots, so values change when the script is run again.

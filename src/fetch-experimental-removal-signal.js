@@ -1,9 +1,21 @@
 const fs = require("node:fs/promises");
 const path = require("node:path");
 const https = require("node:https");
+const os = require("node:os");
+const { execFile } = require("node:child_process");
+const { promisify } = require("node:util");
 
-const OWNER = "webpack";
-const REPO = "schema-utils";
+const REPOSITORIES = [
+  { name: "webpack/webpack", branch: "main" },
+  { name: "vitejs/vite", branch: "main" },
+  { name: "eslint/eslint", branch: "main" },
+  { name: "prettier/prettier", branch: "main" },
+  { name: "axios/axios", branch: "v1.x" },
+  { name: "expressjs/express", branch: "master" },
+  { name: "facebook/jest", branch: "main" },
+  { name: "openai/openai-node", branch: "master" },
+];
+
 const MARKER_PACKAGE = "ajv";
 const HISTORY_DEPTH = 12;
 const MIN_SUSTAINED_PRESENCE = 6;
@@ -11,6 +23,7 @@ const OUTPUT_DIR = path.join(__dirname, "..", "data");
 const CHARTS_DIR = path.join(__dirname, "..", "charts");
 const OUTPUT_FILE = path.join(OUTPUT_DIR, "experimental-ajv-removal-signal.json");
 const CHART_FILE = path.join(CHARTS_DIR, "experimental-ajv-removal-signal.html");
+const execFileAsync = promisify(execFile);
 
 function fetchJson(url) {
   return new Promise((resolve, reject) => {
@@ -55,8 +68,50 @@ function fetchJson(url) {
   });
 }
 
-function decodeBase64Utf8(text) {
-  return Buffer.from(text, "base64").toString("utf8");
+function fetchText(url) {
+  return new Promise((resolve, reject) => {
+    const request = https.get(
+      url,
+      {
+        headers: {
+          "User-Agent": "json-schema-ecosystem-metrics",
+        },
+      },
+      (response) => {
+        let body = "";
+
+        response.setEncoding("utf8");
+        response.on("data", (chunk) => {
+          body += chunk;
+        });
+
+        response.on("end", () => {
+          if (response.statusCode !== 200) {
+            reject(new Error(`Request returned status ${response.statusCode}`));
+            return;
+          }
+          resolve(body);
+        });
+      }
+    );
+
+    request.on("error", (error) => {
+      reject(new Error(`Request failed: ${error.message}`));
+    });
+
+    request.setTimeout(10000, () => {
+      request.destroy(new Error("Request timed out after 10 seconds"));
+    });
+  });
+}
+
+async function runGit(args, cwd) {
+  const result = await execFileAsync("git", args, {
+    cwd,
+    maxBuffer: 1024 * 1024 * 8,
+  });
+
+  return result.stdout.trim();
 }
 
 function hasMarkerDependency(packageJson) {
@@ -72,23 +127,19 @@ function hasMarkerDependency(packageJson) {
   );
 }
 
-async function fetchPackageJsonState(commitSha) {
+async function fetchPackageJsonState(repositoryDir, commitSha) {
   try {
-    const response = await fetchJson(
-      `https://api.github.com/repos/${OWNER}/${REPO}/contents/package.json?ref=${commitSha}`
-    );
-    const packageJson = JSON.parse(decodeBase64Utf8(response.content));
+    const packageJsonText = await runGit(["show", `${commitSha}:package.json`], repositoryDir);
+    const packageJson = JSON.parse(packageJsonText);
 
     return {
       commitSha,
-      packageJsonPath: response.path,
       markerPresent: hasMarkerDependency(packageJson),
     };
   } catch (error) {
     if (error.message.includes("status 404")) {
       return {
         commitSha,
-        packageJsonPath: "package.json",
         markerPresent: false,
         note: "package.json not found at this commit",
       };
@@ -98,81 +149,108 @@ async function fetchPackageJsonState(commitSha) {
   }
 }
 
-function buildAnalysis(history) {
+function roundPercent(value) {
+  return Math.round(value * 10) / 10;
+}
+
+function evaluateRepository(history, repositoryName, branch) {
   const headState = history[0];
   const previousStates = history.slice(1);
   const priorPresenceCount = previousStates.filter((entry) => entry.markerPresent).length;
   const removalDetected = !headState.markerPresent && priorPresenceCount >= MIN_SUSTAINED_PRESENCE;
 
+  return {
+    repository: repositoryName,
+    defaultBranch: branch,
+    commitsScanned: history.length,
+    headHasMarker: headState.markerPresent,
+    priorPresenceCount,
+    removalDetected,
+    history,
+  };
+}
+
+function buildAnalysis(summary) {
   let interpretation;
-  if (removalDetected) {
+
+  if (summary.repositoriesWithPossibleRemoval > 0) {
     interpretation =
-      "This repository shows a possible removal event: the ajv dependency is absent at HEAD even though it appeared consistently in the recent commit history.";
-  } else if (headState.markerPresent) {
-    interpretation =
-      "No removal signal is currently detected: the ajv dependency is still present at HEAD in this downstream repository.";
+      "At least one repository in the curated sample shows a possible removal event: the ajv marker is absent at HEAD after sustained prior presence in recent history.";
   } else {
     interpretation =
-      "No strong removal signal is detected yet. The ajv dependency is absent at HEAD, but it was not present consistently enough across the recent commit window to treat this as sustained removal.";
+      "No repositories in the curated sample currently show a possible removal event for the ajv marker under this rule-based check.";
   }
 
   return {
     interpretation,
     limitation:
-      "This is an experimental proxy. It only inspects package.json history for a single dependency marker and does not prove broader migration away from JSON Schema.",
+      "This is an experimental proxy. It only inspects recent package.json history for a single dependency marker and does not prove broader migration away from JSON Schema.",
     basis: {
-      comparison: "head-state-vs-recent-package-json-history",
-      targetRepository: `${OWNER}/${REPO}`,
+      comparison: "curated-sample-head-vs-recent-history",
       markerPackage: MARKER_PACKAGE,
-      commitsScanned: history.length,
+      repositoriesScanned: summary.repositoriesScanned,
+      repositoriesWithPossibleRemoval: summary.repositoriesWithPossibleRemoval,
+      possibleRemovalRatePercent: summary.possibleRemovalRatePercent,
+      historyDepth: HISTORY_DEPTH,
       sustainedPresenceThreshold: MIN_SUSTAINED_PRESENCE,
-      headHasMarker: headState.markerPresent,
-      priorPresenceCount,
-      removalDetected,
     },
   };
 }
 
-function buildOutput(defaultBranch, history) {
+function buildOutput(findings) {
+  const repositoriesWithPossibleRemoval = findings.filter(
+    (entry) => entry.removalDetected
+  ).length;
+  const repositoriesWithMarkerAtHead = findings.filter((entry) => entry.headHasMarker).length;
+  const possibleRemovalRatePercent = roundPercent(
+    (repositoriesWithPossibleRemoval / findings.length) * 100
+  );
+
+  const summary = {
+    markerPackage: MARKER_PACKAGE,
+    repositoriesScanned: findings.length,
+    repositoriesWithPossibleRemoval,
+    repositoriesWithMarkerAtHead,
+    possibleRemovalRatePercent,
+    historyDepth: HISTORY_DEPTH,
+    unit: "percent",
+  };
+
   return {
     metric: "experimental_marker_removal_signal",
-    repository: `${OWNER}/${REPO}`,
+    sample: {
+      name: "curated_json_using_js_repositories",
+      repositories: REPOSITORIES.map((entry) => entry.name),
+    },
     source: {
-      name: "GitHub commits API and contents API",
-      url: `https://api.github.com/repos/${OWNER}/${REPO}/commits?sha=${defaultBranch}&per_page=${HISTORY_DEPTH}`,
+      name: "GitHub commits API and raw package.json history",
+      url: "https://api.github.com",
     },
-    summary: {
-      markerPackage: MARKER_PACKAGE,
-      defaultBranch,
-      commitsScanned: history.length,
-      headHasMarker: history[0].markerPresent,
-      priorPresenceCount: history.slice(1).filter((entry) => entry.markerPresent).length,
-    },
+    summary,
     series: {
-      interval: "commit",
-      unit: "marker_present",
-      values: history,
+      interval: "repository",
+      unit: "removal_detected",
+      values: findings,
     },
-    analysis: buildAnalysis(history),
+    analysis: buildAnalysis(summary),
     fetchedAt: new Date().toISOString(),
   };
 }
 
-function buildHistoryRows(history) {
-  return history
-    .map((entry) => {
-      const status = entry.markerPresent ? "present" : "absent";
-      const note = entry.note ? ` <span class="note">(${entry.note})</span>` : "";
-
-      return `<tr>
-        <td><code>${entry.commitSha.slice(0, 7)}</code></td>
-        <td>${status}${note}</td>
-      </tr>`;
-    })
+function buildTableRows(findings) {
+  return findings
+    .map(
+      (entry) => `<tr>
+        <td><code>${entry.repository}</code></td>
+        <td>${entry.headHasMarker ? "yes" : "no"}</td>
+        <td>${entry.priorPresenceCount}</td>
+        <td>${entry.removalDetected ? "possible removal" : "none detected"}</td>
+      </tr>`
+    )
     .join("\n");
 }
 
-function buildChartHtml(data) {
+function buildHtml(data) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -189,8 +267,6 @@ function buildChartHtml(data) {
       --border: #cfd8e3;
       --ink: #1f2933;
       --muted: #52606d;
-      --present: #2e7d60;
-      --absent: #8c5a3c;
     }
 
     body {
@@ -201,7 +277,7 @@ function buildChartHtml(data) {
     }
 
     main {
-      max-width: 760px;
+      max-width: 920px;
       margin: 48px auto;
       padding: 32px;
       background: var(--panel);
@@ -265,18 +341,6 @@ function buildChartHtml(data) {
       text-align: left;
     }
 
-    .note {
-      font-size: 0.9rem;
-    }
-
-    .status-present {
-      color: var(--present);
-    }
-
-    .status-absent {
-      color: var(--absent);
-    }
-
     .basis-toggle {
       margin-top: 16px;
       border: 1px solid var(--border);
@@ -305,16 +369,20 @@ function buildChartHtml(data) {
 <body>
   <main>
     <h1>experimental ajv removal signal</h1>
-    <p>Experimental signal for possible downstream marker removal in a JSON Schema-related adopter.</p>
+    <p>Experimental curated-sample check for possible removal of an explicit JSON Schema-related dependency marker.</p>
     <section class="summary">
       <div class="summary-grid">
         <section class="card">
-          <p>Target repository</p>
-          <p class="value">${data.repository}</p>
+          <p>Repositories scanned</p>
+          <p class="value">${data.summary.repositoriesScanned}</p>
         </section>
         <section class="card">
-          <p>Commits scanned</p>
-          <p class="value">${data.summary.commitsScanned}</p>
+          <p>Possible removals</p>
+          <p class="value">${data.summary.repositoriesWithPossibleRemoval}</p>
+        </section>
+        <section class="card">
+          <p>Possible removal rate</p>
+          <p class="value">${data.summary.possibleRemovalRatePercent}%</p>
         </section>
       </div>
     </section>
@@ -327,24 +395,27 @@ function buildChartHtml(data) {
         <ul class="basis-list">
           <li><strong>comparison:</strong> ${data.analysis.basis.comparison}</li>
           <li><strong>markerPackage:</strong> ${data.analysis.basis.markerPackage}</li>
-          <li><strong>headHasMarker:</strong> ${data.analysis.basis.headHasMarker}</li>
-          <li><strong>priorPresenceCount:</strong> ${data.analysis.basis.priorPresenceCount}</li>
+          <li><strong>repositoriesScanned:</strong> ${data.analysis.basis.repositoriesScanned}</li>
+          <li><strong>repositoriesWithPossibleRemoval:</strong> ${data.analysis.basis.repositoriesWithPossibleRemoval}</li>
+          <li><strong>possibleRemovalRatePercent:</strong> ${data.analysis.basis.possibleRemovalRatePercent}%</li>
+          <li><strong>historyDepth:</strong> ${data.analysis.basis.historyDepth}</li>
           <li><strong>sustainedPresenceThreshold:</strong> ${data.analysis.basis.sustainedPresenceThreshold}</li>
-          <li><strong>removalDetected:</strong> ${data.analysis.basis.removalDetected}</li>
         </ul>
       </details>
     </section>
     <section class="history">
-      <h2>Recent commit history</h2>
+      <h2>Per-repository result</h2>
       <table>
         <thead>
           <tr>
-            <th>Commit</th>
-            <th>Marker state</th>
+            <th>Repository</th>
+            <th>Head has marker</th>
+            <th>Prior presence count</th>
+            <th>Result</th>
           </tr>
         </thead>
         <tbody>
-${buildHistoryRows(data.series.values)}
+${buildTableRows(data.series.values)}
         </tbody>
       </table>
       <p><strong>Source:</strong> <code>${data.source.url}</code></p>
@@ -359,22 +430,51 @@ async function writeOutputs(data) {
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
   await fs.mkdir(CHARTS_DIR, { recursive: true });
   await fs.writeFile(OUTPUT_FILE, `${JSON.stringify(data, null, 2)}\n`, "utf8");
-  await fs.writeFile(CHART_FILE, buildChartHtml(data), "utf8");
+  await fs.writeFile(CHART_FILE, buildHtml(data), "utf8");
 }
 
 async function main() {
   try {
-    const repository = await fetchJson(`https://api.github.com/repos/${OWNER}/${REPO}`);
-    const commits = await fetchJson(
-      `https://api.github.com/repos/${OWNER}/${REPO}/commits?sha=${repository.default_branch}&per_page=${HISTORY_DEPTH}`
-    );
-    const history = [];
+    const findings = [];
 
-    for (const commit of commits) {
-      history.push(await fetchPackageJsonState(commit.sha));
+    for (const repositoryConfig of REPOSITORIES) {
+      const { name, branch } = repositoryConfig;
+      const [owner, repo] = name.split("/");
+      const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "json-schema-removal-"));
+      const repositoryDir = path.join(tempRoot, repo);
+
+      try {
+        await runGit(
+          [
+            "clone",
+            "--depth",
+            String(HISTORY_DEPTH),
+            "--branch",
+            branch,
+            `https://github.com/${owner}/${repo}.git`,
+            repositoryDir,
+          ],
+          tempRoot
+        );
+
+        const commitList = await runGit(
+          ["rev-list", `--max-count=${HISTORY_DEPTH}`, "HEAD"],
+          repositoryDir
+        );
+        const commits = commitList.split("\n").filter(Boolean);
+        const history = [];
+
+        for (const commitSha of commits) {
+          history.push(await fetchPackageJsonState(repositoryDir, commitSha));
+        }
+
+        findings.push(evaluateRepository(history, name, branch));
+      } finally {
+        await fs.rm(tempRoot, { recursive: true, force: true });
+      }
     }
 
-    const output = buildOutput(repository.default_branch, history);
+    const output = buildOutput(findings);
     await writeOutputs(output);
 
     console.log(`Saved JSON to ${OUTPUT_FILE}`);
