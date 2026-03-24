@@ -8,18 +8,21 @@
   <style>
     :root {
       color-scheme: light;
-      --bg: #f5efe3;
-      --panel: #fffaf0;
+      --bg: #eef3f7;
+      --bg-accent: #e4ebf1;
+      --panel: #fbfdfe;
+      --panel-strong: #f4f8fb;
+      --border: #cfd8e3;
       --ink: #1f2933;
       --muted: #52606d;
-      --line: #1f7a8c;
-      --line-fill: rgba(31, 122, 140, 0.16);
+      --line: #1f6f8b;
+      --line-fill: rgba(31, 111, 139, 0.12);
     }
 
     body {
       margin: 0;
       font-family: Georgia, "Times New Roman", serif;
-      background: linear-gradient(180deg, var(--bg), #efe6d3);
+      background: linear-gradient(180deg, var(--bg), var(--bg-accent));
       color: var(--ink);
     }
 
@@ -28,9 +31,9 @@
       margin: 48px auto;
       padding: 32px;
       background: var(--panel);
-      border: 1px solid #d9cdb8;
+      border: 1px solid var(--border);
       border-radius: 16px;
-      box-shadow: 0 18px 40px rgba(31, 41, 51, 0.08);
+      box-shadow: 0 10px 24px rgba(31, 41, 51, 0.05);
     }
 
     h1 {
@@ -47,9 +50,9 @@
 
     .card {
       padding: 16px;
-      border: 1px solid #d9cdb8;
+      border: 1px solid var(--border);
       border-radius: 12px;
-      background: rgba(255, 255, 255, 0.6);
+      background: var(--panel-strong);
     }
 
     p {
@@ -77,9 +80,9 @@
     .analysis {
       margin-top: 24px;
       padding: 18px;
-      border: 1px solid #d9cdb8;
+      border: 1px solid var(--border);
       border-radius: 12px;
-      background: rgba(255, 255, 255, 0.72);
+      background: var(--panel-strong);
     }
 
     .analysis h2 {
@@ -97,9 +100,9 @@
 
     .basis-toggle {
       margin-top: 16px;
-      border: 1px solid #d9cdb8;
+      border: 1px solid var(--border);
       border-radius: 10px;
-      background: rgba(245, 239, 227, 0.55);
+      background: #f7fafc;
       padding: 12px 14px;
     }
 
@@ -132,40 +135,40 @@
     <div class="summary">
       <section class="card">
         <p>Total downloads (last 12 weeks)</p>
-        <p class="value">2,274,179,560</p>
+        <p class="value">2,372,411,738</p>
       </section>
       <section class="card">
         <p>Time range</p>
         <p class="value">last-12-weeks</p>
       </section>
     </div>
-    <p>Daily downloads recorded for 2025-12-19 through 2026-03-12.</p>
+    <p>Daily downloads recorded for 2025-12-30 through 2026-03-23.</p>
     <div class="chart-wrap">
       <canvas id="downloadsChart" aria-label="Downloads trend chart"></canvas>
     </div>
     <section class="analysis">
       <h2>Short interpretation</h2>
-      <p>Ajv downloads increased 53.7% over the last 12 weeks. This suggests continued adoption for JSON Schema validation within the JavaScript ecosystem.</p>
+      <p>Ajv downloads decreased 22.3% over the last 12 weeks. This suggests softening activity for JSON Schema validation within the JavaScript ecosystem.</p>
       <p><strong>Limitation:</strong> This is a proxy metric based on npm downloads, so it can include CI traffic, automated installs, and other non-human activity.</p>
       <details class="basis-toggle">
         <summary>Show analysis basis</summary>
         <ul class="basis-list">
           <li><strong>comparison:</strong> first-7-days-vs-last-7-days-average</li>
-          <li><strong>startingAverageDownloads:</strong> 16,263,585</li>
-          <li><strong>endingAverageDownloads:</strong> 24,994,547</li>
-          <li><strong>changePercent:</strong> 53.7%</li>
+          <li><strong>startingAverageDownloads:</strong> 16,101,988</li>
+          <li><strong>endingAverageDownloads:</strong> 12,518,872</li>
+          <li><strong>changePercent:</strong> -22.3%</li>
         </ul>
         <p class="basis-note">Raw JSON available in <code>data/ajv-weekly-downloads.json</code>.</p>
       </details>
     </section>
     <div class="meta">
-      <p><strong>Source:</strong> <code>https://api.npmjs.org/downloads/range/2025-12-19:2026-03-12/ajv</code></p>
-      <p><strong>Fetched at:</strong> 2026-03-13T02:57:11.259Z</p>
+      <p><strong>Source:</strong> <code>https://api.npmjs.org/downloads/range/2025-12-30:2026-03-23/ajv</code></p>
+      <p><strong>Fetched at:</strong> 2026-03-24T01:12:54.309Z</p>
     </div>
   </main>
   <script>
-    const labels = ["2025-12-19","2025-12-20","2025-12-21","2025-12-22","2025-12-23","2025-12-24","2025-12-25","2025-12-26","2025-12-27","2025-12-28","2025-12-29","2025-12-30","2025-12-31","2026-01-01","2026-01-02","2026-01-03","2026-01-04","2026-01-05","2026-01-06","2026-01-07","2026-01-08","2026-01-09","2026-01-10","2026-01-11","2026-01-12","2026-01-13","2026-01-14","2026-01-15","2026-01-16","2026-01-17","2026-01-18","2026-01-19","2026-01-20","2026-01-21","2026-01-22","2026-01-23","2026-01-24","2026-01-25","2026-01-26","2026-01-27","2026-01-28","2026-01-29","2026-01-30","2026-01-31","2026-02-01","2026-02-02","2026-02-03","2026-02-04","2026-02-05","2026-02-06","2026-02-07","2026-02-08","2026-02-09","2026-02-10","2026-02-11","2026-02-12","2026-02-13","2026-02-14","2026-02-15","2026-02-16","2026-02-17","2026-02-18","2026-02-19","2026-02-20","2026-02-21","2026-02-22","2026-02-23","2026-02-24","2026-02-25","2026-02-26","2026-02-27","2026-02-28","2026-03-01","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-07","2026-03-08","2026-03-09","2026-03-10","2026-03-11","2026-03-12"];
-    const values = [24482793,9676172,9208569,23083867,22217576,15497608,9678509,11479814,7668124,10083110,19301252,18397320,15568628,11204407,16912568,10484417,11743907,28402671,29268169,30718097,31784392,28349692,11869075,10809474,31489879,35395198,36457473,35055662,31256945,16668406,16173091,35236205,37158785,37536574,35295206,33019807,13404252,11367009,32224250,36575736,36860570,36711919,34183999,16596752,16395625,36544570,41783986,41116320,41507244,36528339,16358212,17353826,35643382,36990245,35920156,37342091,33285597,15262830,13989193,30625731,34740335,36965057,38339722,34587694,17027573,16960633,39251687,43007044,44315813,42311084,38079677,17211422,18290209,40590226,42865001,45799176,45670104,42333700,22833376,19759451,44880913,0,45154387,0];
+    const labels = ["2025-12-30","2025-12-31","2026-01-01","2026-01-02","2026-01-03","2026-01-04","2026-01-05","2026-01-06","2026-01-07","2026-01-08","2026-01-09","2026-01-10","2026-01-11","2026-01-12","2026-01-13","2026-01-14","2026-01-15","2026-01-16","2026-01-17","2026-01-18","2026-01-19","2026-01-20","2026-01-21","2026-01-22","2026-01-23","2026-01-24","2026-01-25","2026-01-26","2026-01-27","2026-01-28","2026-01-29","2026-01-30","2026-01-31","2026-02-01","2026-02-02","2026-02-03","2026-02-04","2026-02-05","2026-02-06","2026-02-07","2026-02-08","2026-02-09","2026-02-10","2026-02-11","2026-02-12","2026-02-13","2026-02-14","2026-02-15","2026-02-16","2026-02-17","2026-02-18","2026-02-19","2026-02-20","2026-02-21","2026-02-22","2026-02-23","2026-02-24","2026-02-25","2026-02-26","2026-02-27","2026-02-28","2026-03-01","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-07","2026-03-08","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-14","2026-03-15","2026-03-16","2026-03-17","2026-03-18","2026-03-19","2026-03-20","2026-03-21","2026-03-22","2026-03-23"];
+    const values = [18397320,15568628,11204407,16912568,10484417,11743907,28402671,29268169,30718097,31784392,28349692,11869075,10809474,31489879,35395198,36457473,35055662,31256945,16668406,16173091,35236205,37158785,37536574,35295206,33019807,13404252,11367009,32224250,36575736,36860570,36711919,34183999,16596752,16395625,36544570,41783986,41116320,41507244,36528339,16358212,17353826,35643382,36990245,35920156,37342091,33285597,15262830,13989193,30625731,34740335,36965057,38339722,34587694,17027573,16960633,39251687,43007044,44315813,42311084,38079677,17211422,18290209,40590226,42865001,45799176,45670104,42333700,22833376,19759451,44880913,0,45154387,45248314,40805677,19740444,19923044,47259992,0,0,0,42435931,22332134,22864036,0];
 
     new Chart(document.getElementById("downloadsChart"), {
       type: "line",
@@ -174,8 +177,8 @@
         datasets: [{
           label: "Daily downloads",
           data: values,
-          borderColor: "#1f7a8c",
-          backgroundColor: "rgba(31, 122, 140, 0.16)",
+          borderColor: "#1f6f8b",
+          backgroundColor: "rgba(31, 111, 139, 0.12)",
           borderWidth: 2,
           tension: 0.25,
           fill: true,

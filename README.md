@@ -12,7 +12,7 @@ The proof of concept is organized around three metric types:
 - maintenance signal: release freshness for a widely used JSON Schema tool
 - experimental removal signal: detecting when a sustained JSON Schema-related marker later disappears
 
-The repository currently generates structured output and a lightweight chart for the adoption signal, and the next step is to extend the same pattern to the other two metrics.
+The repository currently generates structured output and a lightweight HTML report for all three metric types.
 
 For each metric, the goal is to produce:
 
@@ -29,28 +29,33 @@ Requirements:
 Run:
 
 ```bash
-node src/fetch-ajv-downloads.js
+npm run fetch:downloads
+npm run fetch:release
+npm run fetch:removal
 ```
 
 Current outputs:
 - `data/ajv-weekly-downloads.json`
 - `charts/ajv-weekly-downloads.html`
+- `data/ajv-release-freshness.json`
+- `charts/ajv-release-freshness.html`
+- `data/experimental-ajv-removal-signal.json`
+- `charts/experimental-ajv-removal-signal.html`
 
-To view the chart, open `charts/ajv-weekly-downloads.html` in a browser.
+To view a report, open the corresponding file in `charts/` in a browser.
 
 ## Output structure
 
-The current JSON output includes:
+Each JSON output includes:
 
 - metric metadata
 - source URL used for the fetch
-- period start and end dates
-- summary totals
-- a `series.values` array of daily download points
-- an `analysis` section with a generated interpretation, limitation, and comparison basis
+- a `summary` section with the primary metric values
+- a `series.values` array when the metric has history to show
+- an `analysis` section with a generated interpretation, limitation, and basis
 - a `fetchedAt` timestamp
 
-The chart renders the same daily series directly in the browser using Chart.js from a CDN, displays the generated interpretation and limitation below the graph, and includes a small toggle to reveal the analysis basis used to generate the interpretation.
+Each HTML report displays the metric summary, generated interpretation, limitation, and a toggle showing the analysis basis.
 
 ## Metric strategy
 
@@ -62,9 +67,9 @@ This proof of concept is intentionally oriented toward practical ecosystem signa
 
 The first metric is a rough proxy for package adoption and usage activity around `ajv`, one of the widely used JSON Schema validators. It does not measure the full ecosystem, but it gives a compact trend view for one important tool within it.
 
-The second metric is intended to show maintenance freshness, which is often important for real-world adoption decisions.
+The second metric looks at release freshness for `ajv-validator/ajv`, which is a practical proxy for ongoing maintenance.
 
-The third metric is intentionally experimental. It does not prove migration away from JSON Schema, but it can highlight repositories where sustained JSON Schema-related markers later disappear.
+The third metric is intentionally experimental. It currently scans recent `package.json` history for the downstream repository `webpack/schema-utils` and checks whether the `ajv` dependency disappears after sustained prior presence. It does not prove migration away from JSON Schema, but it can highlight repositories where sustained JSON Schema-related markers later disappear.
 
 ## Interpretation layer
 
@@ -77,23 +82,25 @@ This keeps the analysis lightweight and explicit without changing the data sourc
 
 ## Weekly automation idea
 
-For a weekly refresh, the smallest setup is a scheduled GitHub Action or a cron job that runs the metric scripts once per week and commits or uploads the refreshed JSON and chart artifacts.
+For a weekly refresh, the smallest setup is a scheduled GitHub Action or a cron job that runs the metric scripts once per week and commits or uploads the refreshed JSON and HTML artifacts.
 
 ## API choice
 
-The current downloads script builds a date-based npm downloads API URL for the last 12 weeks, in this shape:
+The downloads script builds a date-based npm downloads API URL for the last 12 weeks, in this shape:
 
 ```text
 https://api.npmjs.org/downloads/range/YYYY-MM-DD:YYYY-MM-DD/ajv
 ```
 
-That keeps the proof of concept minimal while still producing a meaningful time series for visualization. The planned maintenance and removal metrics will likely use GitHub repository metadata and commit history instead of npm data.
+That keeps the proof of concept minimal while still producing a meaningful time series for visualization.
+
+The maintenance and removal metrics use GitHub repository metadata, release data, and commit history.
 
 ## Limitations
 
 - npm downloads are a proxy signal, not direct real-world usage.
 - Release freshness is also only a proxy; recent releases do not automatically mean strong maintenance quality.
-- The experimental removal signal will need careful interpretation, because disappearing markers do not automatically prove full migration away from JSON Schema.
+- The experimental removal signal is intentionally narrow. It currently inspects only one dependency marker in one downstream repository and does not automatically prove full migration away from JSON Schema.
 - Download counts can include CI, mirrors, and automated installs.
 - One package does not represent the entire JSON Schema ecosystem.
 - The generated artifacts are point-in-time snapshots, so values change when the script is run again.

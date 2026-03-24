@@ -5,6 +5,9 @@
   "main": "src/fetch-ajv-downloads.js",
   "scripts": {
     "fetch": "node src/fetch-ajv-downloads.js",
+    "fetch:downloads": "node src/fetch-ajv-downloads.js",
+    "fetch:release": "node src/fetch-ajv-release-freshness.js",
+    "fetch:removal": "node src/fetch-experimental-removal-signal.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

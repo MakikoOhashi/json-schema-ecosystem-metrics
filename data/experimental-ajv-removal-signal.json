@@ -1,0 +1,96 @@
+{
+  "metric": "experimental_marker_removal_signal",
+  "repository": "webpack/schema-utils",
+  "source": {
+    "name": "GitHub commits API and contents API",
+    "url": "https://api.github.com/repos/webpack/schema-utils/commits?sha=main&per_page=12"
+  },
+  "summary": {
+    "markerPackage": "ajv",
+    "defaultBranch": "main",
+    "commitsScanned": 12,
+    "headHasMarker": true,
+    "priorPresenceCount": 11
+  },
+  "series": {
+    "interval": "commit",
+    "unit": "marker_present",
+    "values": [
+      {
+        "commitSha": "3b103ae25cd7cc8361a5b105d7b95b7b9babdaee",
+        "packageJsonPath": "package.json",
+        "markerPresent": true
+      },
+      {
+        "commitSha": "2a7b13dbf2741715a730022f0ecab81f087cc1f8",
+        "packageJsonPath": "package.json",
+        "markerPresent": true
+      },
+      {
+        "commitSha": "b9ca275df9cf39b16e5ee5b7fe165481e0491612",
+        "packageJsonPath": "package.json",
+        "markerPresent": true
+      },
+      {
+        "commitSha": "49af9226eb84c6b4d7d4d49d113a6f436dc214ed",
+        "packageJsonPath": "package.json",
+        "markerPresent": true
+      },
+      {
+        "commitSha": "779a1345cd74704f23d1fd8f4fcc7e7168c6063a",
+        "packageJsonPath": "package.json",
+        "markerPresent": true
+      },
+      {
+        "commitSha": "f332292a3f6ecd21c53ec5e02ab2fefde87236b0",
+        "packageJsonPath": "package.json",
+        "markerPresent": true
+      },
+      {
+        "commitSha": "f9baee8153ef042fdf85ee20d8538fb31ddaf291",
+        "packageJsonPath": "package.json",
+        "markerPresent": true
+      },
+      {
+        "commitSha": "865b87491ed34c5599f29447b38b6f51ce956732",
+        "packageJsonPath": "package.json",
+        "markerPresent": true
+      },
+      {
+        "commitSha": "3b6adc9d05327cb23a09b457c3589e40b60f5748",
+        "packageJsonPath": "package.json",
+        "markerPresent": true
+      },
+      {
+        "commitSha": "2a92a6a229a5a63f6c9eecf5cb9d78add52d59a9",
+        "packageJsonPath": "package.json",
+        "markerPresent": true
+      },
+      {
+        "commitSha": "8e31ef311484ad1c0d122266fe520d1f1cb90fad",
+        "packageJsonPath": "package.json",
+        "markerPresent": true
+      },
+      {
+        "commitSha": "1478499e3f2d404355b155690f46ab9b33daa0e6",
+        "packageJsonPath": "package.json",
+        "markerPresent": true
+      }
+    ]
+  },
+  "analysis": {
+    "interpretation": "No removal signal is currently detected: the ajv dependency is still present at HEAD in this downstream repository.",
+    "limitation": "This is an experimental proxy. It only inspects package.json history for a single dependency marker and does not prove broader migration away from JSON Schema.",
+    "basis": {
+      "comparison": "head-state-vs-recent-package-json-history",
+      "targetRepository": "webpack/schema-utils",
+      "markerPackage": "ajv",
+      "commitsScanned": 12,
+      "sustainedPresenceThreshold": 6,
+      "headHasMarker": true,
+      "priorPresenceCount": 11,
+      "removalDetected": false
+    }
+  },
+  "fetchedAt": "2026-03-24T01:11:32.764Z"
+}

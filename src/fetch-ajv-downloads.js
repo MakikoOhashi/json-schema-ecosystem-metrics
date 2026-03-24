@@ -172,18 +172,21 @@ function buildChartHtml(data) {
   <style>
     :root {
       color-scheme: light;
-      --bg: #f5efe3;
-      --panel: #fffaf0;
+      --bg: #eef3f7;
+      --bg-accent: #e4ebf1;
+      --panel: #fbfdfe;
+      --panel-strong: #f4f8fb;
+      --border: #cfd8e3;
       --ink: #1f2933;
       --muted: #52606d;
-      --line: #1f7a8c;
-      --line-fill: rgba(31, 122, 140, 0.16);
+      --line: #1f6f8b;
+      --line-fill: rgba(31, 111, 139, 0.12);
     }
 
     body {
       margin: 0;
       font-family: Georgia, "Times New Roman", serif;
-      background: linear-gradient(180deg, var(--bg), #efe6d3);
+      background: linear-gradient(180deg, var(--bg), var(--bg-accent));
       color: var(--ink);
     }
 
@@ -192,9 +195,9 @@ function buildChartHtml(data) {
       margin: 48px auto;
       padding: 32px;
       background: var(--panel);
-      border: 1px solid #d9cdb8;
+      border: 1px solid var(--border);
       border-radius: 16px;
-      box-shadow: 0 18px 40px rgba(31, 41, 51, 0.08);
+      box-shadow: 0 10px 24px rgba(31, 41, 51, 0.05);
     }
 
     h1 {
@@ -211,9 +214,9 @@ function buildChartHtml(data) {
 
     .card {
       padding: 16px;
-      border: 1px solid #d9cdb8;
+      border: 1px solid var(--border);
       border-radius: 12px;
-      background: rgba(255, 255, 255, 0.6);
+      background: var(--panel-strong);
     }
 
     p {
@@ -241,9 +244,9 @@ function buildChartHtml(data) {
     .analysis {
       margin-top: 24px;
       padding: 18px;
-      border: 1px solid #d9cdb8;
+      border: 1px solid var(--border);
       border-radius: 12px;
-      background: rgba(255, 255, 255, 0.72);
+      background: var(--panel-strong);
     }
 
     .analysis h2 {
@@ -261,9 +264,9 @@ function buildChartHtml(data) {
 
     .basis-toggle {
       margin-top: 16px;
-      border: 1px solid #d9cdb8;
+      border: 1px solid var(--border);
       border-radius: 10px;
-      background: rgba(245, 239, 227, 0.55);
+      background: #f7fafc;
       padding: 12px 14px;
     }
 
@@ -338,8 +341,8 @@ function buildChartHtml(data) {
         datasets: [{
           label: "Daily downloads",
           data: values,
-          borderColor: "#1f7a8c",
-          backgroundColor: "rgba(31, 122, 140, 0.16)",
+          borderColor: "#1f6f8b",
+          backgroundColor: "rgba(31, 111, 139, 0.12)",
           borderWidth: 2,
           tension: 0.25,
           fill: true,
