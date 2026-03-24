@@ -32,6 +32,13 @@ Run:
 npm run fetch:downloads
 npm run fetch:release
 npm run fetch:removal
+npm run build:dashboard
+```
+
+Or generate everything in one go:
+
+```bash
+npm run fetch:all
 ```
 
 Current outputs:
@@ -41,8 +48,9 @@ Current outputs:
 - `charts/ajv-release-freshness.html`
 - `data/experimental-ajv-removal-signal.json`
 - `charts/experimental-ajv-removal-signal.html`
+- `charts/observability-dashboard.html`
 
-To view a report, open the corresponding file in `charts/` in a browser.
+To view a single combined report, open `charts/observability-dashboard.html` in a browser.
 
 ## Output structure
 

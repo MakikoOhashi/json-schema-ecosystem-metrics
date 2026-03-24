@@ -8,6 +8,8 @@
     "fetch:downloads": "node src/fetch-ajv-downloads.js",
     "fetch:release": "node src/fetch-ajv-release-freshness.js",
     "fetch:removal": "node src/fetch-experimental-removal-signal.js",
+    "build:dashboard": "node src/build-observability-dashboard.js",
+    "fetch:all": "npm run fetch:downloads && npm run fetch:release && npm run fetch:removal && npm run build:dashboard",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
