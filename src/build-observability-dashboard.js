@@ -33,6 +33,18 @@ function buildHistoryRows(history) {
 function buildHtml(downloads, release, removal, proxyRate) {
   const labels = downloads.series.values.map((point) => point.day);
   const values = downloads.series.values.map((point) => point.downloads);
+  const downloadsChange = downloads.analysis.basis.changePercent;
+  const broaderAdoptionThin = proxyRate.summary.repositoriesWithAnyMarker <= 2;
+  const coreStrong = release.summary.daysSinceLatestRelease <= 60;
+  const headline = coreStrong && broaderAdoptionThin
+    ? "Strong Core, Thin Visible Adoption"
+    : "Mixed Signals Across the JSON Schema Surface";
+  const subhead = coreStrong && broaderAdoptionThin
+    ? "Ajv looks heavily used and actively maintained, but explicit JSON Schema markers appeared in only a small share of the sampled repositories."
+    : "The current indicators show mixed evidence across adoption, maintenance, and visible downstream usage.";
+  const implication = coreStrong && broaderAdoptionThin
+    ? "If this pattern holds, the ecosystem opportunity is less about rescuing the core validator and more about improving downstream adoption visibility, tooling discoverability, and support for explicit schema usage."
+    : "The current mix of signals suggests further measurement is needed before drawing a strong support-priority conclusion.";
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -117,7 +129,7 @@ function buildHtml(downloads, release, removal, proxyRate) {
 
     .summary-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 12px;
       margin-top: 20px;
     }
@@ -142,13 +154,35 @@ function buildHtml(downloads, release, removal, proxyRate) {
       color: var(--ink);
     }
 
+    .headline-card {
+      margin-top: 22px;
+      padding: 22px;
+      border-radius: 16px;
+      border: 1px solid #b7c7d4;
+      background:
+        radial-gradient(circle at top left, rgba(31, 111, 139, 0.14), transparent 32%),
+        linear-gradient(135deg, #f7fbfd, #eef5f9);
+    }
+
+    .headline-card h2 {
+      margin: 0 0 10px;
+      font-size: 1.9rem;
+    }
+
+    .headline-card .implication {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(183, 199, 212, 0.8);
+      font-size: 1rem;
+    }
+
     .downloads-panel {
-      grid-column: span 8;
+      grid-column: span 7;
       padding: 24px;
     }
 
     .signals-panel {
-      grid-column: span 4;
+      grid-column: span 5;
       padding: 24px;
     }
 
@@ -181,6 +215,10 @@ function buildHtml(downloads, release, removal, proxyRate) {
 
     .mini-card .value {
       font-size: 1.6rem;
+    }
+
+    .mini-card strong {
+      color: var(--ink);
     }
 
     .basis-toggle {
@@ -259,19 +297,24 @@ function buildHtml(downloads, release, removal, proxyRate) {
   <main>
     <section class="hero">
       <h1>JSON Schema observability dashboard</h1>
-      <p>One-sheet view of practical signals: adoption, maintenance, ecosystem proxy adoption, and an experimental removal check.</p>
+      <p>One-sheet view of practical signals organized around a single question: where does the ecosystem look strong, and where does it still need support?</p>
+      <section class="headline-card">
+        <h2>${headline}</h2>
+        <p>${subhead}</p>
+        <p class="implication"><strong>What this suggests:</strong> ${implication}</p>
+      </section>
       <div class="summary-grid">
         <section class="summary-card">
           <p>12-week ajv downloads</p>
           <p class="value">${formatNumber(downloads.summary.totalDownloads)}</p>
         </section>
         <section class="summary-card">
-          <p>Days since latest ajv release</p>
-          <p class="value">${release.summary.daysSinceLatestRelease}</p>
+          <p>7-day trend shift</p>
+          <p class="value">${downloadsChange}%</p>
         </section>
         <section class="summary-card">
-          <p>Possible removals in sample</p>
-          <p class="value">${removal.summary.repositoriesWithPossibleRemoval}</p>
+          <p>Latest ajv release age</p>
+          <p class="value">${release.summary.daysSinceLatestRelease}d</p>
         </section>
         <section class="summary-card">
           <p>Explicit schema markers in sample</p>
@@ -288,14 +331,15 @@ function buildHtml(downloads, release, removal, proxyRate) {
 
     <section class="top-grid">
       <section class="panel downloads-panel">
-        <h2>Adoption signal</h2>
-        <p>Daily npm downloads for <code>${downloads.package}</code> from ${downloads.period.start} through ${downloads.period.end}.</p>
+        <h2>Core Implementation Strength</h2>
+        <p>Daily npm downloads for <code>${downloads.package}</code> from ${downloads.period.start} through ${downloads.period.end}, plus a maintenance check from the latest GitHub release.</p>
         <div class="chart-wrap">
           <canvas id="downloadsChart" aria-label="Ajv downloads trend"></canvas>
         </div>
         <section class="analysis">
-          <h3>Short interpretation</h3>
+          <h3>What the core signals say</h3>
           <p>${downloads.analysis.interpretation}</p>
+          <p><strong>Maintenance context:</strong> ${release.analysis.interpretation}</p>
           <p><strong>Limitation:</strong> ${downloads.analysis.limitation}</p>
           <details class="basis-toggle">
             <summary>Show analysis basis</summary>
@@ -304,32 +348,32 @@ function buildHtml(downloads, release, removal, proxyRate) {
               <li><strong>startingAverageDownloads:</strong> ${formatNumber(downloads.analysis.basis.startingAverageDownloads)}</li>
               <li><strong>endingAverageDownloads:</strong> ${formatNumber(downloads.analysis.basis.endingAverageDownloads)}</li>
               <li><strong>changePercent:</strong> ${downloads.analysis.basis.changePercent}%</li>
+              <li><strong>daysSinceLatestRelease:</strong> ${release.summary.daysSinceLatestRelease}</li>
             </ul>
           </details>
         </section>
       </section>
 
       <section class="panel signals-panel">
-        <h2>Cross-over view</h2>
+        <h2>Support Implications</h2>
         <div class="stack">
           <section class="mini-card">
-            <p>Maintenance signal</p>
-            <p class="value">${release.summary.daysSinceLatestRelease}</p>
-            <p>days since latest release of <code>${release.repository}</code></p>
-            <p>${release.analysis.interpretation}</p>
-          </section>
-          <section class="mini-card">
-            <p>Schema usage proxy rate</p>
+            <p>Visible downstream adoption</p>
             <p class="value">${proxyRate.summary.repositoriesWithAnyMarker}/${proxyRate.summary.repositoriesScanned}</p>
-            <p>${proxyRate.summary.proxyRatePercent}% of the curated sample shows at least one explicit dependency marker.</p>
+            <p><strong>Read:</strong> ${proxyRate.summary.proxyRatePercent}% of the sampled repositories exposed at least one explicit dependency marker.</p>
             <p>${proxyRate.analysis.interpretation}</p>
           </section>
           <section class="mini-card">
-            <p>Experimental removal signal</p>
-            <p class="value">${removal.summary.possibleRemovalRatePercent}%</p>
-            <p>${removal.summary.repositoriesWithPossibleRemoval} of ${removal.summary.repositoriesScanned} curated repositories show a possible removal under the current rule.</p>
-            <p>Marker package: <code>${removal.summary.markerPackage}</code></p>
-            <p>${removal.analysis.interpretation}</p>
+            <p>Maintenance risk</p>
+            <p class="value">${release.summary.daysSinceLatestRelease}d</p>
+            <p><strong>Read:</strong> the core validator still shows a recent release, so this does not currently look like an urgent maintenance rescue case.</p>
+            <p>${release.analysis.limitation}</p>
+          </section>
+          <section class="mini-card">
+            <p>Possible churn signal</p>
+            <p class="value">${removal.summary.repositoriesWithPossibleRemoval}/${removal.summary.repositoriesScanned}</p>
+            <p><strong>Read:</strong> no repositories in the sample currently show a possible removal event for the <code>${removal.summary.markerPackage}</code> marker under the current rule.</p>
+            <p>${removal.analysis.limitation}</p>
           </section>
         </div>
       </section>
@@ -337,8 +381,8 @@ function buildHtml(downloads, release, removal, proxyRate) {
 
     <section class="bottom-grid">
       <section class="panel history-panel">
-        <h2>Per-repository removal check</h2>
-        <p>Curated-sample result showing whether <code>${removal.summary.markerPackage}</code> looks removed after sustained recent presence.</p>
+        <h2>Evidence Snapshot</h2>
+        <p>Per-repository result for the experimental removal check. This is supporting evidence, not the main claim of the page.</p>
         <table>
           <thead>
             <tr>
@@ -362,12 +406,13 @@ ${removal.series.values
           </tbody>
         </table>
         <section class="analysis">
-          <h3>Basis and provenance</h3>
+          <h3>Provenance and Caveats</h3>
           <p><strong>Downloads source:</strong> <code>${downloads.source.url}</code></p>
           <p><strong>Release source:</strong> <code>${release.source.url}</code></p>
           <p><strong>Proxy rate source:</strong> <code>${proxyRate.source.url}</code></p>
           <p><strong>Removal source:</strong> <code>${removal.source.url}</code></p>
           <p><strong>Dashboard built from:</strong> local JSON artifacts in <code>data/</code></p>
+          <p><strong>Big caveat:</strong> the broader-adoption and removal metrics are still proxies built from filtered samples. They are useful for directional thinking, not for ecosystem-wide claims.</p>
         </section>
       </section>
     </section>

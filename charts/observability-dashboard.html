@@ -81,7 +81,7 @@
 
     .summary-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 12px;
       margin-top: 20px;
     }
@@ -106,13 +106,35 @@
       color: var(--ink);
     }
 
+    .headline-card {
+      margin-top: 22px;
+      padding: 22px;
+      border-radius: 16px;
+      border: 1px solid #b7c7d4;
+      background:
+        radial-gradient(circle at top left, rgba(31, 111, 139, 0.14), transparent 32%),
+        linear-gradient(135deg, #f7fbfd, #eef5f9);
+    }
+
+    .headline-card h2 {
+      margin: 0 0 10px;
+      font-size: 1.9rem;
+    }
+
+    .headline-card .implication {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(183, 199, 212, 0.8);
+      font-size: 1rem;
+    }
+
     .downloads-panel {
-      grid-column: span 8;
+      grid-column: span 7;
       padding: 24px;
     }
 
     .signals-panel {
-      grid-column: span 4;
+      grid-column: span 5;
       padding: 24px;
     }
 
@@ -145,6 +167,10 @@
 
     .mini-card .value {
       font-size: 1.6rem;
+    }
+
+    .mini-card strong {
+      color: var(--ink);
     }
 
     .basis-toggle {
@@ -223,19 +249,24 @@
   <main>
     <section class="hero">
       <h1>JSON Schema observability dashboard</h1>
-      <p>One-sheet view of practical signals: adoption, maintenance, ecosystem proxy adoption, and an experimental removal check.</p>
+      <p>One-sheet view of practical signals organized around a single question: where does the ecosystem look strong, and where does it still need support?</p>
+      <section class="headline-card">
+        <h2>Strong Core, Thin Visible Adoption</h2>
+        <p>Ajv looks heavily used and actively maintained, but explicit JSON Schema markers appeared in only a small share of the sampled repositories.</p>
+        <p class="implication"><strong>What this suggests:</strong> If this pattern holds, the ecosystem opportunity is less about rescuing the core validator and more about improving downstream adoption visibility, tooling discoverability, and support for explicit schema usage.</p>
+      </section>
       <div class="summary-grid">
         <section class="summary-card">
           <p>12-week ajv downloads</p>
           <p class="value">2,372,411,738</p>
         </section>
         <section class="summary-card">
-          <p>Days since latest ajv release</p>
-          <p class="value">37</p>
+          <p>7-day trend shift</p>
+          <p class="value">-22.3%</p>
         </section>
         <section class="summary-card">
-          <p>Possible removals in sample</p>
-          <p class="value">0</p>
+          <p>Latest ajv release age</p>
+          <p class="value">37d</p>
         </section>
         <section class="summary-card">
           <p>Explicit schema markers in sample</p>
@@ -252,14 +283,15 @@
 
     <section class="top-grid">
       <section class="panel downloads-panel">
-        <h2>Adoption signal</h2>
-        <p>Daily npm downloads for <code>ajv</code> from 2025-12-30 through 2026-03-23.</p>
+        <h2>Core Implementation Strength</h2>
+        <p>Daily npm downloads for <code>ajv</code> from 2025-12-30 through 2026-03-23, plus a maintenance check from the latest GitHub release.</p>
         <div class="chart-wrap">
           <canvas id="downloadsChart" aria-label="Ajv downloads trend"></canvas>
         </div>
         <section class="analysis">
-          <h3>Short interpretation</h3>
+          <h3>What the core signals say</h3>
           <p>Ajv downloads decreased 22.3% over the last 12 weeks. This suggests softening activity for JSON Schema validation within the JavaScript ecosystem.</p>
+          <p><strong>Maintenance context:</strong> Ajv has had a recent release, which suggests active maintenance for a widely used JSON Schema implementation.</p>
           <p><strong>Limitation:</strong> This is a proxy metric based on npm downloads, so it can include CI traffic, automated installs, and other non-human activity.</p>
           <details class="basis-toggle">
             <summary>Show analysis basis</summary>
@@ -268,32 +300,32 @@
               <li><strong>startingAverageDownloads:</strong> 16,101,988</li>
               <li><strong>endingAverageDownloads:</strong> 12,518,872</li>
               <li><strong>changePercent:</strong> -22.3%</li>
+              <li><strong>daysSinceLatestRelease:</strong> 37</li>
             </ul>
           </details>
         </section>
       </section>
 
       <section class="panel signals-panel">
-        <h2>Cross-over view</h2>
+        <h2>Support Implications</h2>
         <div class="stack">
           <section class="mini-card">
-            <p>Maintenance signal</p>
-            <p class="value">37</p>
-            <p>days since latest release of <code>ajv-validator/ajv</code></p>
-            <p>Ajv has had a recent release, which suggests active maintenance for a widely used JSON Schema implementation.</p>
-          </section>
-          <section class="mini-card">
-            <p>Schema usage proxy rate</p>
+            <p>Visible downstream adoption</p>
             <p class="value">1/50</p>
-            <p>2% of the curated sample shows at least one explicit dependency marker.</p>
+            <p><strong>Read:</strong> 2% of the sampled repositories exposed at least one explicit dependency marker.</p>
             <p>Only a minority of the sampled repositories show explicit JSON Schema-related dependency markers. This suggests visible but still limited adoption within the filtered sample.</p>
           </section>
           <section class="mini-card">
-            <p>Experimental removal signal</p>
-            <p class="value">0%</p>
-            <p>0 of 8 curated repositories show a possible removal under the current rule.</p>
-            <p>Marker package: <code>ajv</code></p>
-            <p>No repositories in the curated sample currently show a possible removal event for the ajv marker under this rule-based check.</p>
+            <p>Maintenance risk</p>
+            <p class="value">37d</p>
+            <p><strong>Read:</strong> the core validator still shows a recent release, so this does not currently look like an urgent maintenance rescue case.</p>
+            <p>Release timing is only a proxy. A recent release does not guarantee issue responsiveness or implementation quality, and an older release can still reflect a stable project.</p>
+          </section>
+          <section class="mini-card">
+            <p>Possible churn signal</p>
+            <p class="value">0/8</p>
+            <p><strong>Read:</strong> no repositories in the sample currently show a possible removal event for the <code>ajv</code> marker under the current rule.</p>
+            <p>This is an experimental proxy. It only inspects recent package.json history for a single dependency marker and does not prove broader migration away from JSON Schema.</p>
           </section>
         </div>
       </section>
@@ -301,8 +333,8 @@
 
     <section class="bottom-grid">
       <section class="panel history-panel">
-        <h2>Per-repository removal check</h2>
-        <p>Curated-sample result showing whether <code>ajv</code> looks removed after sustained recent presence.</p>
+        <h2>Evidence Snapshot</h2>
+        <p>Per-repository result for the experimental removal check. This is supporting evidence, not the main claim of the page.</p>
         <table>
           <thead>
             <tr>
@@ -364,12 +396,13 @@
           </tbody>
         </table>
         <section class="analysis">
-          <h3>Basis and provenance</h3>
+          <h3>Provenance and Caveats</h3>
           <p><strong>Downloads source:</strong> <code>https://api.npmjs.org/downloads/range/2025-12-30:2026-03-23/ajv</code></p>
           <p><strong>Release source:</strong> <code>https://api.github.com/repos/ajv-validator/ajv/releases/latest</code></p>
           <p><strong>Proxy rate source:</strong> <code>https://api.github.com/search/repositories</code></p>
           <p><strong>Removal source:</strong> <code>https://api.github.com</code></p>
           <p><strong>Dashboard built from:</strong> local JSON artifacts in <code>data/</code></p>
+          <p><strong>Big caveat:</strong> the broader-adoption and removal metrics are still proxies built from filtered samples. They are useful for directional thinking, not for ecosystem-wide claims.</p>
         </section>
       </section>
     </section>
