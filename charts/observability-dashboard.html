@@ -208,7 +208,7 @@
 
     .ring-eligible {
       inset: 26px;
-      background: conic-gradient(#3f7d92 0 77.5%, #dbe5ec 0 100%);
+      background: conic-gradient(#3f7d92 0 9%, #dbe5ec 0 100%);
     }
 
     .ring-eligible::after {
@@ -217,7 +217,7 @@
 
     .ring-sampled {
       inset: 50px;
-      background: conic-gradient(#7299aa 0 25%, #dbe5ec 0 100%);
+      background: conic-gradient(#7299aa 0 9%, #dbe5ec 0 100%);
     }
 
     .ring-sampled::after {
@@ -311,7 +311,7 @@
         </section>
         <section class="summary-card">
           <p>Exploratory downstream usage</p>
-          <p class="value">1/50</p>
+          <p class="value">1/18</p>
         </section>
       </div>
     </section>
@@ -384,12 +384,12 @@
               <div class="ring-legend-row">
                 <span class="swatch swatch-eligible"></span>
                 <span>Eligible after filtering</span>
-                <strong>155</strong>
+                <strong>18</strong>
               </div>
               <div class="ring-legend-row">
                 <span class="swatch swatch-sampled"></span>
                 <span>Repositories sampled</span>
-                <strong>50</strong>
+                <strong>18</strong>
               </div>
               <div class="ring-legend-row">
                 <span class="swatch swatch-marker"></span>
@@ -399,14 +399,14 @@
             </div>
             <section class="mini-card">
               <p>Ajv marker in sample</p>
-              <p class="value">1/50</p>
-              <p><strong>Read:</strong> the current sample shows <code>ajv</code> in 1 of 50 sampled repositories.</p>
+              <p class="value">1/18</p>
+              <p><strong>Read:</strong> the current sample shows <code>ajv</code> in 1 of 18 sampled repositories.</p>
               <p>This helps show how hard explicit downstream schema usage is to see from a broad filtered sample.</p>
             </section>
             <section class="mini-card">
               <p>Any schema marker in sample</p>
-              <p class="value">1/50</p>
-              <p><strong>Read:</strong> 2% of the sampled repositories exposed at least one explicit dependency marker.</p>
+              <p class="value">1/18</p>
+              <p><strong>Read:</strong> 5.6% of the sampled repositories exposed at least one explicit dependency marker.</p>
               <p>This is exploratory and should not be read as an ecosystem-wide share.</p>
             </section>
           </div>

@@ -10,6 +10,8 @@ const MIN_SIZE = 50;
 const CANDIDATES_PER_LANGUAGE = 100;
 const NOISE_PATTERN =
   /\b(test|tests|example|examples|demo|sandbox|starter|boilerplate|template|tutorial)\b/i;
+const SIGNAL_PATTERN =
+  /\b(api|openapi|json|schema|config|validate|validation|spec)\b/i;
 const OUTPUT_DIR = path.join(__dirname, "..", "data");
 const OUTPUT_FILE = path.join(OUTPUT_DIR, "exploratory-downstream-usage.json");
 const SCHEMA_DEPENDENCY_MARKERS = [
@@ -159,7 +161,8 @@ function buildSearchUrl(language) {
 }
 
 function evaluateEligibility(repository) {
-  const haystack = `${repository.name} ${repository.description || ""}`;
+  const topics = Array.isArray(repository.topics) ? repository.topics.join(" ") : "";
+  const haystack = `${repository.name} ${repository.description || ""} ${topics}`;
 
   if (repository.fork) {
     return { eligible: false, reason: "fork" };
@@ -185,7 +188,14 @@ function evaluateEligibility(repository) {
     return { eligible: false, reason: "demo_like" };
   }
 
-  return { eligible: true };
+  if (!SIGNAL_PATTERN.test(haystack)) {
+    return { eligible: false, reason: "low_schema_signal" };
+  }
+
+  return {
+    eligible: true,
+    prioritizedBySignalTerms: true,
+  };
 }
 
 async function searchCandidateRepositories() {
@@ -263,19 +273,21 @@ function buildAnalysis(summary) {
       "Some of the sampled repositories show explicit JSON Schema-related dependency markers, but adoption does not look dominant across the filtered sample.";
   } else {
     interpretation =
-      "Only a minority of the sampled repositories show explicit JSON Schema-related dependency markers. This suggests visible but still limited adoption within the filtered sample.";
+      "No sampled repositories showed one of the explicit JSON Schema-related dependency markers checked here. In this proof of concept, that says more about how hard downstream usage is to observe from repository metadata than it does about true absence of JSON Schema usage.";
   }
 
   return {
     interpretation,
     limitation:
-      "This is still a proxy, not a census. The result depends on the GitHub search frame, the eligibility filters, the sample size, and the specific dependency markers checked.",
+      "This is still a proxy, not a census. The result depends on the GitHub search frame, the stricter eligibility filters, the sample size, and the specific dependency markers checked.",
     basis: {
       comparison: "filtered-github-search-sample",
       randomSeed: RANDOM_SEED,
       sampleSize: SAMPLE_SIZE,
       candidateReposFound: summary.candidateReposFound,
       eligibleReposAfterFiltering: summary.eligibleReposAfterFiltering,
+      eligibleReposPrioritizedBySignalTerms:
+        summary.eligibleReposPrioritizedBySignalTerms,
       sampledRepos: summary.repositoriesScanned,
       repositoriesWithAnyMarker: summary.repositoriesWithAnyMarker,
       proxyRatePercent: summary.proxyRatePercent,
@@ -293,6 +305,8 @@ function buildOutput(sampledFindings, selection) {
   const summary = {
     candidateReposFound: selection.candidateReposFound,
     eligibleReposAfterFiltering: selection.eligibleReposAfterFiltering,
+    eligibleReposPrioritizedBySignalTerms:
+      selection.eligibleReposPrioritizedBySignalTerms,
     repositoriesScanned: sampledFindings.length,
     repositoriesWithAnyMarker,
     proxyRatePercent,
@@ -316,6 +330,16 @@ function buildOutput(sampledFindings, selection) {
         archivedExcluded: true,
         demoLikeNamesExcluded: true,
         packageJsonRequired: true,
+        prioritizedSignalTerms: [
+          "api",
+          "openapi",
+          "json",
+          "schema",
+          "config",
+          "validate",
+          "validation",
+          "spec",
+        ],
       },
     },
     source: {
@@ -325,6 +349,8 @@ function buildOutput(sampledFindings, selection) {
     filtering: {
       candidateReposFound: selection.candidateReposFound,
       eligibleReposAfterFiltering: selection.eligibleReposAfterFiltering,
+      eligibleReposPrioritizedBySignalTerms:
+        selection.eligibleReposPrioritizedBySignalTerms,
       excludedCounts: selection.excludedCounts,
     },
     summary,
@@ -565,9 +591,11 @@ async function main() {
     const candidates = await searchCandidateRepositories();
     const excludedReasons = [];
     const filteredCandidates = [];
+    const eligibilityMap = new Map();
 
     for (const repository of candidates) {
       const eligibility = evaluateEligibility(repository);
+      eligibilityMap.set(repository.full_name, eligibility);
 
       if (!eligibility.eligible) {
         excludedReasons.push(eligibility.reason);
@@ -579,6 +607,7 @@ async function main() {
 
     const eligibleFindings = [];
     const packageJsonMissing = [];
+    let eligiblePrioritizedCount = 0;
 
     for (const repository of filteredCandidates) {
       const finding = await attachPackageJsonCheck(repository);
@@ -588,6 +617,12 @@ async function main() {
         continue;
       }
 
+      if (eligibilityMap.get(repository.full_name)?.prioritizedBySignalTerms) {
+        eligiblePrioritizedCount += 1;
+      }
+
+      finding.prioritizedBySignalTerms =
+        eligibilityMap.get(repository.full_name)?.prioritizedBySignalTerms || false;
       eligibleFindings.push(finding);
     }
 
@@ -596,6 +631,7 @@ async function main() {
     const output = buildOutput(sampledFindings, {
       candidateReposFound: candidates.length,
       eligibleReposAfterFiltering: eligibleFindings.length,
+      eligibleReposPrioritizedBySignalTerms: eligiblePrioritizedCount,
       excludedCounts: summarizeExclusions([...excludedReasons, ...packageJsonMissing]),
     });
 

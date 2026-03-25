@@ -15,7 +15,17 @@
       "forksExcluded": true,
       "archivedExcluded": true,
       "demoLikeNamesExcluded": true,
-      "packageJsonRequired": true
+      "packageJsonRequired": true,
+      "prioritizedSignalTerms": [
+        "api",
+        "openapi",
+        "json",
+        "schema",
+        "config",
+        "validate",
+        "validation",
+        "spec"
+      ]
     }
   },
   "source": {
@@ -24,18 +34,21 @@
   },
   "filtering": {
     "candidateReposFound": 200,
-    "eligibleReposAfterFiltering": 155,
+    "eligibleReposAfterFiltering": 18,
+    "eligibleReposPrioritizedBySignalTerms": 18,
     "excludedCounts": {
+      "low_schema_signal": 175,
       "demo_like": 4,
-      "missing_package_json": 41
+      "missing_package_json": 3
     }
   },
   "summary": {
     "candidateReposFound": 200,
-    "eligibleReposAfterFiltering": 155,
-    "repositoriesScanned": 50,
+    "eligibleReposAfterFiltering": 18,
+    "eligibleReposPrioritizedBySignalTerms": 18,
+    "repositoriesScanned": 18,
     "repositoriesWithAnyMarker": 1,
-    "proxyRatePercent": 2,
+    "proxyRatePercent": 5.6,
     "sampleSize": 50,
     "randomSeed": "gsoc-observability-2026",
     "unit": "percent"
@@ -45,571 +58,238 @@
     "unit": "marker_present",
     "values": [
       {
-        "repository": "carbon-design-system/carbon-components-svelte",
-        "language": "TypeScript",
-        "defaultBranch": "master",
-        "stars": 2861,
-        "size": 31060,
-        "pushedAt": "2026-03-24T02:46:10Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "ComposioHQ/agent-orchestrator",
+        "repository": "slack-edge/slack-web-api-client",
         "language": "TypeScript",
         "defaultBranch": "main",
-        "stars": 5198,
-        "size": 9338,
-        "pushedAt": "2026-03-24T02:43:34Z",
+        "stars": 42,
+        "size": 1989,
+        "pushedAt": "2026-03-25T03:21:26Z",
         "packageJsonPresent": true,
         "dependencyMarkers": [],
-        "hasAnyMarker": false
+        "hasAnyMarker": false,
+        "prioritizedBySignalTerms": true
       },
       {
-        "repository": "paperclipai/paperclip",
-        "language": "TypeScript",
-        "defaultBranch": "master",
-        "stars": 32248,
-        "size": 11433,
-        "pushedAt": "2026-03-24T02:41:39Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "Blorp-Labs/blorp",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 116,
-        "size": 34246,
-        "pushedAt": "2026-03-24T02:44:31Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "2Toad/Profanity",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 130,
-        "size": 590,
-        "pushedAt": "2026-03-24T02:50:01Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "vikejs/vike",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 5666,
-        "size": 46532,
-        "pushedAt": "2026-03-24T02:44:31Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "longbridge/developers",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 27,
-        "size": 4603,
-        "pushedAt": "2026-03-24T02:47:36Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "Effect-TS/effect-smol",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 495,
-        "size": 21575,
-        "pushedAt": "2026-03-24T02:41:44Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "layer5io/docs",
+        "repository": "xiadd/tg-wb-trending",
         "language": "JavaScript",
         "defaultBranch": "master",
-        "stars": 85,
-        "size": 443407,
-        "pushedAt": "2026-03-24T02:32:36Z",
+        "stars": 82,
+        "size": 319743,
+        "pushedAt": "2026-03-25T03:05:07Z",
         "packageJsonPresent": true,
         "dependencyMarkers": [],
-        "hasAnyMarker": false
+        "hasAnyMarker": false,
+        "prioritizedBySignalTerms": true
       },
       {
-        "repository": "poiyomi/PoiyomiDocs",
+        "repository": "afoim/Static_RandomPicAPI",
         "language": "JavaScript",
         "defaultBranch": "main",
-        "stars": 10,
-        "size": 729252,
-        "pushedAt": "2026-03-24T02:32:13Z",
+        "stars": 36,
+        "size": 1122594,
+        "pushedAt": "2026-03-25T03:18:06Z",
         "packageJsonPresent": true,
         "dependencyMarkers": [],
-        "hasAnyMarker": false
+        "hasAnyMarker": false,
+        "prioritizedBySignalTerms": true
       },
       {
-        "repository": "cmintey/wishlist",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 515,
-        "size": 6452,
-        "pushedAt": "2026-03-24T02:45:27Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "tscircuit/cli",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 16,
-        "size": 5091,
-        "pushedAt": "2026-03-24T02:50:08Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "robinspt/tickflow-assist",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 13,
-        "size": 466,
-        "pushedAt": "2026-03-24T02:42:00Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "tznthou/muripo-hq",
-        "language": "JavaScript",
-        "defaultBranch": "main",
-        "stars": 41,
-        "size": 31120,
-        "pushedAt": "2026-03-24T02:36:44Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "takeshy/obsidian-gemini-helper",
+        "repository": "html-validate/html-validate",
         "language": "TypeScript",
         "defaultBranch": "master",
-        "stars": 78,
-        "size": 31424,
-        "pushedAt": "2026-03-24T02:42:34Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "MetaMask/eth-phishing-detect",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 1261,
-        "size": 40361995,
-        "pushedAt": "2026-03-24T02:44:44Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "tscircuit/runframe",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 16,
-        "size": 8489,
-        "pushedAt": "2026-03-24T02:45:56Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "mitre/saf",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 174,
-        "size": 82837,
-        "pushedAt": "2026-03-24T02:49:33Z",
+        "stars": 14,
+        "size": 43630,
+        "pushedAt": "2026-03-25T03:22:50Z",
         "packageJsonPresent": true,
         "dependencyMarkers": [
           "ajv"
         ],
-        "hasAnyMarker": true
+        "hasAnyMarker": true,
+        "prioritizedBySignalTerms": true
       },
       {
-        "repository": "BradGroux/veritas-kanban",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 658,
-        "size": 59544,
-        "pushedAt": "2026-03-24T02:42:21Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "basellm/llm-metadata",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 93,
-        "size": 139965,
-        "pushedAt": "2026-03-24T02:43:17Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "defremont/Shipyard",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 24,
-        "size": 4728,
-        "pushedAt": "2026-03-24T02:46:28Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "Tai-ch0802/arc-like-chrome-extension",
+        "repository": "fdciabdul/Vpngate-Scraper-API",
         "language": "JavaScript",
         "defaultBranch": "main",
-        "stars": 34,
-        "size": 18163,
-        "pushedAt": "2026-03-24T02:42:11Z",
+        "stars": 73,
+        "size": 1641043,
+        "pushedAt": "2026-03-25T03:19:57Z",
         "packageJsonPresent": true,
         "dependencyMarkers": [],
-        "hasAnyMarker": false
+        "hasAnyMarker": false,
+        "prioritizedBySignalTerms": true
       },
       {
-        "repository": "xOS/Config",
+        "repository": "forwardemail/tangerine",
         "language": "JavaScript",
-        "defaultBranch": "Her",
-        "stars": 182,
-        "size": 382322,
-        "pushedAt": "2026-03-24T02:31:04Z",
+        "defaultBranch": "main",
+        "stars": 201,
+        "size": 932,
+        "pushedAt": "2026-03-25T03:18:19Z",
         "packageJsonPresent": true,
         "dependencyMarkers": [],
-        "hasAnyMarker": false
+        "hasAnyMarker": false,
+        "prioritizedBySignalTerms": true
       },
       {
-        "repository": "destinygg/chat-bot",
+        "repository": "globlord/AIstudioProxyAPI",
         "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 45,
+        "size": 3622,
+        "pushedAt": "2026-03-25T03:09:47Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false,
+        "prioritizedBySignalTerms": true
+      },
+      {
+        "repository": "sourcey/sourcey",
+        "language": "TypeScript",
         "defaultBranch": "master",
-        "stars": 43,
-        "size": 1134,
-        "pushedAt": "2026-03-24T02:32:26Z",
+        "stars": 1280,
+        "size": 2388,
+        "pushedAt": "2026-03-25T03:19:57Z",
         "packageJsonPresent": true,
         "dependencyMarkers": [],
-        "hasAnyMarker": false
+        "hasAnyMarker": false,
+        "prioritizedBySignalTerms": true
       },
       {
-        "repository": "wxkingstar/SpecFusion",
+        "repository": "cita-777/metapi",
         "language": "TypeScript",
         "defaultBranch": "main",
-        "stars": 15,
-        "size": 6261,
-        "pushedAt": "2026-03-24T02:45:54Z",
+        "stars": 1233,
+        "size": 30953,
+        "pushedAt": "2026-03-25T03:22:37Z",
         "packageJsonPresent": true,
         "dependencyMarkers": [],
-        "hasAnyMarker": false
+        "hasAnyMarker": false,
+        "prioritizedBySignalTerms": true
       },
       {
-        "repository": "nestcn/docs.nestjs.cn",
+        "repository": "zenstackhq/zenstack",
         "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 977,
-        "size": 25643,
-        "pushedAt": "2026-03-24T02:49:09Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "neomjs/neo",
-        "language": "JavaScript",
         "defaultBranch": "dev",
-        "stars": 3159,
-        "size": 1580335,
-        "pushedAt": "2026-03-24T02:38:18Z",
+        "stars": 2849,
+        "size": 13576,
+        "pushedAt": "2026-03-25T03:15:23Z",
         "packageJsonPresent": true,
         "dependencyMarkers": [],
-        "hasAnyMarker": false
+        "hasAnyMarker": false,
+        "prioritizedBySignalTerms": true
       },
       {
-        "repository": "heli1x3T/Helius_Crypter",
+        "repository": "yuzutech/kroki",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 4042,
+        "size": 95454,
+        "pushedAt": "2026-03-25T03:06:53Z",
+        "packageJsonPresent": true,
+        "dependencyMarkers": [],
+        "hasAnyMarker": false,
+        "prioritizedBySignalTerms": true
+      },
+      {
+        "repository": "mastercomfig/comfig-app",
         "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 15,
-        "size": 1426,
-        "pushedAt": "2026-03-24T02:49:57Z",
+        "defaultBranch": "develop",
+        "stars": 27,
+        "size": 263364,
+        "pushedAt": "2026-03-25T03:18:57Z",
         "packageJsonPresent": true,
         "dependencyMarkers": [],
-        "hasAnyMarker": false
+        "hasAnyMarker": false,
+        "prioritizedBySignalTerms": true
       },
       {
-        "repository": "rabbitmq/rabbitmq-website",
+        "repository": "9xN/auto-ovpn",
         "language": "JavaScript",
         "defaultBranch": "main",
-        "stars": 1130,
-        "size": 140634,
-        "pushedAt": "2026-03-24T02:49:42Z",
+        "stars": 72,
+        "size": 931554,
+        "pushedAt": "2026-03-25T03:13:04Z",
         "packageJsonPresent": true,
         "dependencyMarkers": [],
-        "hasAnyMarker": false
+        "hasAnyMarker": false,
+        "prioritizedBySignalTerms": true
       },
       {
-        "repository": "pancakeswap/pancakeswap-ai",
+        "repository": "amalik/convoke-agents",
         "language": "JavaScript",
         "defaultBranch": "main",
-        "stars": 15,
-        "size": 1184,
-        "pushedAt": "2026-03-24T02:44:05Z",
+        "stars": 28,
+        "size": 7247,
+        "pushedAt": "2026-03-25T03:12:20Z",
         "packageJsonPresent": true,
         "dependencyMarkers": [],
-        "hasAnyMarker": false
+        "hasAnyMarker": false,
+        "prioritizedBySignalTerms": true
       },
       {
-        "repository": "microlinkhq/www",
+        "repository": "pmuens/defi-llama-watcher",
         "language": "JavaScript",
         "defaultBranch": "master",
-        "stars": 135,
-        "size": 59532,
-        "pushedAt": "2026-03-24T02:39:38Z",
+        "stars": 13,
+        "size": 5856,
+        "pushedAt": "2026-03-25T03:19:05Z",
         "packageJsonPresent": true,
         "dependencyMarkers": [],
-        "hasAnyMarker": false
+        "hasAnyMarker": false,
+        "prioritizedBySignalTerms": true
       },
       {
-        "repository": "sieteunoseis/cisco-axl",
-        "language": "JavaScript",
+        "repository": "kanaa257/sosumi.ai",
+        "language": "TypeScript",
         "defaultBranch": "main",
         "stars": 12,
-        "size": 575,
-        "pushedAt": "2026-03-24T02:48:04Z",
+        "size": 2015,
+        "pushedAt": "2026-03-25T03:20:19Z",
         "packageJsonPresent": true,
         "dependencyMarkers": [],
-        "hasAnyMarker": false
+        "hasAnyMarker": false,
+        "prioritizedBySignalTerms": true
       },
       {
-        "repository": "jdx/mise-versions",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 13,
-        "size": 87514,
-        "pushedAt": "2026-03-24T02:43:09Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "Lianues/Iris",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 31,
-        "size": 2321,
-        "pushedAt": "2026-03-24T02:42:19Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "devsolux/iptv-playlist",
-        "language": "JavaScript",
-        "defaultBranch": "master",
-        "stars": 50,
-        "size": 235338,
-        "pushedAt": "2026-03-24T02:49:19Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "esaio/esa-mcp-server",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 50,
-        "size": 1001,
-        "pushedAt": "2026-03-24T02:50:03Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "zorn-v/nextcloud-social-login",
-        "language": "JavaScript",
-        "defaultBranch": "master",
-        "stars": 234,
-        "size": 2705,
-        "pushedAt": "2026-03-24T02:43:04Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "SplashtopInc/winstall",
-        "language": "JavaScript",
-        "defaultBranch": "master",
-        "stars": 1314,
-        "size": 3401,
-        "pushedAt": "2026-03-24T02:37:06Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "l4uy/waves",
-        "language": "JavaScript",
-        "defaultBranch": "prod",
-        "stars": 35,
-        "size": 1024149,
-        "pushedAt": "2026-03-24T02:33:00Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "expo/orbit",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 744,
-        "size": 8103,
-        "pushedAt": "2026-03-24T02:45:36Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "DrakiaXYZ/SPT-LiveFleaPriceDB",
+        "repository": "puzzlers-labs/chrome-webstore-publish",
         "language": "JavaScript",
         "defaultBranch": "main",
-        "stars": 19,
-        "size": 1432856,
-        "pushedAt": "2026-03-24T02:46:07Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "chrispyers/openkiwi",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 83,
-        "size": 15424,
-        "pushedAt": "2026-03-24T02:47:46Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "lingdojo/kana-dojo",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 1974,
-        "size": 91903,
-        "pushedAt": "2026-03-24T02:43:17Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "victorGPT/vibeusage",
-        "language": "JavaScript",
-        "defaultBranch": "main",
-        "stars": 103,
-        "size": 22393,
-        "pushedAt": "2026-03-24T02:47:03Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "chaterm/Chaterm",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 2521,
-        "size": 38205,
-        "pushedAt": "2026-03-24T02:42:42Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "Colorado-Mesh/mesh-client",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 15,
-        "size": 16488,
-        "pushedAt": "2026-03-24T02:48:20Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "liuxingyx/TOMATOX",
-        "language": "TypeScript",
-        "defaultBranch": "master",
         "stars": 16,
-        "size": 6621,
-        "pushedAt": "2026-03-24T02:42:44Z",
+        "size": 975,
+        "pushedAt": "2026-03-25T03:01:04Z",
         "packageJsonPresent": true,
         "dependencyMarkers": [],
-        "hasAnyMarker": false
+        "hasAnyMarker": false,
+        "prioritizedBySignalTerms": true
       },
       {
-        "repository": "Fannon/search-bookmarks-history-and-tabs",
-        "language": "JavaScript",
-        "defaultBranch": "main",
-        "stars": 309,
-        "size": 13349,
-        "pushedAt": "2026-03-24T02:47:11Z",
+        "repository": "Kong/insomnia",
+        "language": "TypeScript",
+        "defaultBranch": "develop",
+        "stars": 38171,
+        "size": 145326,
+        "pushedAt": "2026-03-25T03:23:30Z",
         "packageJsonPresent": true,
         "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "jsnli/steamappidlist",
-        "language": "JavaScript",
-        "defaultBranch": "master",
-        "stars": 23,
-        "size": 380176,
-        "pushedAt": "2026-03-24T02:28:07Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
-      },
-      {
-        "repository": "rixinhahaha/snip",
-        "language": "JavaScript",
-        "defaultBranch": "main",
-        "stars": 38,
-        "size": 32845,
-        "pushedAt": "2026-03-24T02:33:40Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false
+        "hasAnyMarker": false,
+        "prioritizedBySignalTerms": true
       }
     ]
   },
   "analysis": {
-    "interpretation": "Only a minority of the sampled repositories show explicit JSON Schema-related dependency markers. This suggests visible but still limited adoption within the filtered sample.",
-    "limitation": "This is still a proxy, not a census. The result depends on the GitHub search frame, the eligibility filters, the sample size, and the specific dependency markers checked.",
+    "interpretation": "No sampled repositories showed one of the explicit JSON Schema-related dependency markers checked here. In this proof of concept, that says more about how hard downstream usage is to observe from repository metadata than it does about true absence of JSON Schema usage.",
+    "limitation": "This is still a proxy, not a census. The result depends on the GitHub search frame, the stricter eligibility filters, the sample size, and the specific dependency markers checked.",
     "basis": {
       "comparison": "filtered-github-search-sample",
       "randomSeed": "gsoc-observability-2026",
       "sampleSize": 50,
       "candidateReposFound": 200,
-      "eligibleReposAfterFiltering": 155,
-      "sampledRepos": 50,
+      "eligibleReposAfterFiltering": 18,
+      "eligibleReposPrioritizedBySignalTerms": 18,
+      "sampledRepos": 18,
       "repositoriesWithAnyMarker": 1,
-      "proxyRatePercent": 2,
+      "proxyRatePercent": 5.6,
       "dependencyMarkersChecked": [
         "ajv",
         "ajv-formats",
@@ -622,5 +302,5 @@
       ]
     }
   },
-  "fetchedAt": "2026-03-24T02:51:12.320Z"
+  "fetchedAt": "2026-03-25T03:24:03.240Z"
 }
