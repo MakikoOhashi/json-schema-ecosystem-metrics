@@ -12,9 +12,7 @@ const COMPARISON_PACKAGES = [
 ];
 const WEEKS = 12;
 const OUTPUT_DIR = path.join(__dirname, "..", "data");
-const CHARTS_DIR = path.join(__dirname, "..", "charts");
-const OUTPUT_FILE = path.join(OUTPUT_DIR, "ajv-weekly-downloads.json");
-const CHART_FILE = path.join(CHARTS_DIR, "ajv-weekly-downloads.html");
+const OUTPUT_FILE = path.join(OUTPUT_DIR, "primary-validator-adoption.json");
 
 function formatDate(date) {
   return date.toISOString().slice(0, 10);
@@ -380,7 +378,7 @@ function buildChartHtml(data) {
           <li><strong>ajvRankInSelectedSet:</strong> ${data.analysis.basis.ajvRankInSelectedSet}</li>
           <li><strong>ajvSharePercentInSelectedSet:</strong> ${data.analysis.basis.ajvSharePercentInSelectedSet}%</li>
         </ul>
-        <p class="basis-note">Raw JSON available in <code>data/ajv-weekly-downloads.json</code>.</p>
+        <p class="basis-note">Raw JSON available in <code>data/primary-validator-adoption.json</code>.</p>
       </details>
     </section>
     <div class="meta">
@@ -464,9 +462,7 @@ function buildChartHtml(data) {
 
 async function writeOutputs(data) {
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
-  await fs.mkdir(CHARTS_DIR, { recursive: true });
   await fs.writeFile(OUTPUT_FILE, `${JSON.stringify(data, null, 2)}\n`, "utf8");
-  await fs.writeFile(CHART_FILE, buildChartHtml(data), "utf8");
 }
 
 async function main() {
@@ -487,7 +483,6 @@ async function main() {
     await writeOutputs(output);
 
     console.log(`Saved JSON to ${OUTPUT_FILE}`);
-    console.log(`Saved chart to ${CHART_FILE}`);
   } catch (error) {
     console.error(`Failed to fetch ${PACKAGE_NAME} weekly downloads: ${error.message}`);
     process.exitCode = 1;

@@ -673,9 +673,9 @@ ${removal.series.values
 
 async function main() {
   const [downloads, removal, proxyRate] = await Promise.all([
-    readJson("ajv-weekly-downloads.json"),
-    readJson("experimental-ajv-removal-signal.json"),
-    readJson("schema-usage-proxy-rate.json"),
+    readJson("primary-validator-adoption.json"),
+    readJson("exploratory-removal-signal.json"),
+    readJson("exploratory-downstream-usage.json"),
   ]);
 
   await fs.mkdir(CHARTS_DIR, { recursive: true });

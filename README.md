@@ -50,15 +50,12 @@ npm run fetch:all
 ```
 
 Current outputs:
-- `data/ajv-weekly-downloads.json`
-- `charts/ajv-weekly-downloads.html`
-- `data/experimental-ajv-removal-signal.json`
-- `charts/experimental-ajv-removal-signal.html`
-- `data/schema-usage-proxy-rate.json`
-- `charts/schema-usage-proxy-rate.html`
+- `data/primary-validator-adoption.json`
+- `data/exploratory-downstream-usage.json`
+- `data/exploratory-removal-signal.json`
 - `charts/observability-dashboard.html`
 
-The main report is `charts/observability-dashboard.html`. The metric-specific files remain supporting artifacts, but the dashboard is intended to stand on its own.
+The main report is `charts/observability-dashboard.html`. The JSON files are internal inputs to that dashboard.
 
 ## Output structure
 
@@ -71,7 +68,7 @@ Each JSON output includes:
 - an `analysis` section with a generated interpretation, limitation, and basis
 - a `fetchedAt` timestamp
 
-Each JSON artifact has its own supporting HTML report, but the main dashboard is the intended single-page entry point.
+The JSON artifacts are supporting inputs, but the main dashboard is the intended single-page entry point.
 
 ## Metric strategy
 

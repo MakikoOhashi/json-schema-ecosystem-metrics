@@ -6,10 +6,8 @@ const MARKER_PACKAGE = "ajv";
 const HISTORY_DEPTH = 12;
 const MIN_SUSTAINED_PRESENCE = 6;
 const OUTPUT_DIR = path.join(__dirname, "..", "data");
-const CHARTS_DIR = path.join(__dirname, "..", "charts");
-const PROXY_RATE_FILE = path.join(OUTPUT_DIR, "schema-usage-proxy-rate.json");
-const OUTPUT_FILE = path.join(OUTPUT_DIR, "experimental-ajv-removal-signal.json");
-const CHART_FILE = path.join(CHARTS_DIR, "experimental-ajv-removal-signal.html");
+const PROXY_RATE_FILE = path.join(OUTPUT_DIR, "exploratory-downstream-usage.json");
+const OUTPUT_FILE = path.join(OUTPUT_DIR, "exploratory-removal-signal.json");
 
 function fetchJson(url) {
   return new Promise((resolve, reject) => {
@@ -429,9 +427,7 @@ ${buildTableRows(data.series.values)}
 
 async function writeOutputs(data) {
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
-  await fs.mkdir(CHARTS_DIR, { recursive: true });
   await fs.writeFile(OUTPUT_FILE, `${JSON.stringify(data, null, 2)}\n`, "utf8");
-  await fs.writeFile(CHART_FILE, buildHtml(data), "utf8");
 }
 
 async function main() {
@@ -467,7 +463,6 @@ async function main() {
     await writeOutputs(output);
 
     console.log(`Saved JSON to ${OUTPUT_FILE}`);
-    console.log(`Saved chart to ${CHART_FILE}`);
   } catch (error) {
     console.error(`Failed to fetch experimental removal signal: ${error.message}`);
     process.exitCode = 1;

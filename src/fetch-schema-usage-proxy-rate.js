@@ -11,9 +11,7 @@ const CANDIDATES_PER_LANGUAGE = 100;
 const NOISE_PATTERN =
   /\b(test|tests|example|examples|demo|sandbox|starter|boilerplate|template|tutorial)\b/i;
 const OUTPUT_DIR = path.join(__dirname, "..", "data");
-const CHARTS_DIR = path.join(__dirname, "..", "charts");
-const OUTPUT_FILE = path.join(OUTPUT_DIR, "schema-usage-proxy-rate.json");
-const CHART_FILE = path.join(CHARTS_DIR, "schema-usage-proxy-rate.html");
+const OUTPUT_FILE = path.join(OUTPUT_DIR, "exploratory-downstream-usage.json");
 const SCHEMA_DEPENDENCY_MARKERS = [
   "ajv",
   "ajv-formats",
@@ -559,9 +557,7 @@ ${buildTableRows(data.series.values)}
 
 async function writeOutputs(data) {
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
-  await fs.mkdir(CHARTS_DIR, { recursive: true });
   await fs.writeFile(OUTPUT_FILE, `${JSON.stringify(data, null, 2)}\n`, "utf8");
-  await fs.writeFile(CHART_FILE, buildHtml(data), "utf8");
 }
 
 async function main() {
@@ -606,7 +602,6 @@ async function main() {
     await writeOutputs(output);
 
     console.log(`Saved JSON to ${OUTPUT_FILE}`);
-    console.log(`Saved chart to ${CHART_FILE}`);
   } catch (error) {
     console.error(`Failed to fetch schema usage proxy rate: ${error.message}`);
     process.exitCode = 1;
