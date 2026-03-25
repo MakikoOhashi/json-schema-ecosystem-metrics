@@ -249,11 +249,11 @@
   <main>
     <section class="hero">
       <h1>JSON Schema observability dashboard</h1>
-      <p>One-sheet view of practical signals organized around a single question: where does the ecosystem look strong, and where does it still need support?</p>
+      <p>One-sheet view of practical signals organized around a single question: where does JSON Schema look clearly used, and where is downstream adoption still hard to see?</p>
       <section class="headline-card">
-        <h2>Strong Core, Limited Visible Adoption</h2>
-        <p>Ajv appears heavily used and recently maintained, while explicit JSON Schema markers appeared in only a small share of the sampled repositories.</p>
-        <p class="implication"><strong>What this suggests:</strong> One possible implication is that the ecosystem may benefit less from emergency core-validator support and more from better visibility into downstream schema adoption, tooling discoverability, and support for explicit schema usage.</p>
+        <h2>Strong Validator Usage, Limited Visible Downstream Adoption</h2>
+        <p>Ajv appears heavily used, while explicit JSON Schema-related dependency markers appeared in only a small share of the sampled repositories.</p>
+        <p class="implication"><strong>What this suggests:</strong> One possible implication is that the ecosystem may benefit less from focusing on the validator itself and more from improving downstream schema adoption visibility, tooling discoverability, and support for explicit schema usage.</p>
       </section>
       <div class="summary-grid">
         <section class="summary-card">
@@ -265,8 +265,8 @@
           <p class="value">-22.3%</p>
         </section>
         <section class="summary-card">
-          <p>Latest ajv release age</p>
-          <p class="value">37d</p>
+          <p>Possible removals in sample</p>
+          <p class="value">0/8</p>
         </section>
         <section class="summary-card">
           <p>Explicit schema markers in sample</p>
@@ -275,7 +275,6 @@
       </div>
       <div class="links">
         <a href="./ajv-weekly-downloads.html">Downloads detail</a>
-        <a href="./ajv-release-freshness.html">Release detail</a>
         <a href="./experimental-ajv-removal-signal.html">Removal detail</a>
         <a href="./schema-usage-proxy-rate.html">Proxy rate detail</a>
       </div>
@@ -283,15 +282,14 @@
 
     <section class="top-grid">
       <section class="panel downloads-panel">
-        <h2>Core Implementation Strength</h2>
-        <p>Daily npm downloads for <code>ajv</code> from 2025-12-30 through 2026-03-23, plus a maintenance check from the latest GitHub release.</p>
+        <h2>Observed Usage Signal</h2>
+        <p>Daily npm downloads for <code>ajv</code> from 2025-12-30 through 2026-03-23. This is the strongest direct usage proxy in the current proof of concept.</p>
         <div class="chart-wrap">
           <canvas id="downloadsChart" aria-label="Ajv downloads trend"></canvas>
         </div>
         <section class="analysis">
-          <h3>What the core signals say</h3>
+          <h3>What the usage signal says</h3>
           <p>Ajv downloads decreased 22.3% over the last 12 weeks. This suggests softening activity for JSON Schema validation within the JavaScript ecosystem.</p>
-          <p><strong>Maintenance context:</strong> Ajv has had a recent release, which suggests active maintenance for a widely used JSON Schema implementation.</p>
           <p><strong>Limitation:</strong> This is a proxy metric based on npm downloads, so it can include CI traffic, automated installs, and other non-human activity.</p>
           <details class="basis-toggle">
             <summary>Show analysis basis</summary>
@@ -300,7 +298,6 @@
               <li><strong>startingAverageDownloads:</strong> 16,101,988</li>
               <li><strong>endingAverageDownloads:</strong> 12,518,872</li>
               <li><strong>changePercent:</strong> -22.3%</li>
-              <li><strong>daysSinceLatestRelease:</strong> 37</li>
             </ul>
           </details>
         </section>
@@ -316,16 +313,16 @@
             <p>Only a minority of the sampled repositories show explicit JSON Schema-related dependency markers. This suggests visible but still limited adoption within the filtered sample.</p>
           </section>
           <section class="mini-card">
-            <p>Maintenance risk</p>
-            <p class="value">37d</p>
-            <p><strong>Read:</strong> the core validator still shows a recent release, so this does not currently look like an urgent maintenance rescue case.</p>
-            <p>Release timing is only a proxy. A recent release does not guarantee issue responsiveness or implementation quality, and an older release can still reflect a stable project.</p>
-          </section>
-          <section class="mini-card">
             <p>Possible churn signal</p>
             <p class="value">0/8</p>
             <p><strong>Read:</strong> no repositories in the sample currently show a possible removal event for the <code>ajv</code> marker under the current rule.</p>
             <p>This is an experimental proxy. It only inspects recent package.json history for a single dependency marker and does not prove broader migration away from JSON Schema.</p>
+          </section>
+          <section class="mini-card">
+            <p>Decision frame</p>
+            <p class="value">84</p>
+            <p><strong>Read:</strong> the current evidence is stronger on package-level usage than on broad downstream explicit adoption. That suggests a visibility gap more than a core-validator crisis.</p>
+            <p>This is still only a directional reading from a small proof of concept.</p>
           </section>
         </div>
       </section>
@@ -398,7 +395,6 @@
         <section class="analysis">
           <h3>Provenance and Caveats</h3>
           <p><strong>Downloads source:</strong> <code>https://api.npmjs.org/downloads/range/2025-12-30:2026-03-23/ajv</code></p>
-          <p><strong>Release source:</strong> <code>https://api.github.com/repos/ajv-validator/ajv/releases/latest</code></p>
           <p><strong>Proxy rate source:</strong> <code>https://api.github.com/search/repositories</code></p>
           <p><strong>Removal source:</strong> <code>https://api.github.com</code></p>
           <p><strong>Dashboard built from:</strong> local JSON artifacts in <code>data/</code></p>

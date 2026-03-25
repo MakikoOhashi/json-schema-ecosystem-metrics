@@ -9,11 +9,10 @@ This repository is being used for the GSoC observability qualification task. The
 The proof of concept is organized around three metric types:
 
 - adoption signal: `ajv` npm downloads trend
-- maintenance signal: release freshness for a widely used JSON Schema tool
 - broader adoption proxy: schema usage proxy rate across a filtered random sample of eligible JS/TS repositories
 - experimental removal signal: counting repositories in a curated sample where a sustained JSON Schema-related marker later disappears
 
-The repository currently generates structured output and a lightweight HTML report for all three metric types.
+The repository currently generates structured output and a lightweight HTML report for these signals.
 
 For each metric, the goal is to produce:
 
@@ -39,7 +38,6 @@ Run:
 
 ```bash
 npm run fetch:downloads
-npm run fetch:release
 npm run fetch:removal
 npm run fetch:proxy-rate
 npm run build:dashboard
@@ -54,8 +52,6 @@ npm run fetch:all
 Current outputs:
 - `data/ajv-weekly-downloads.json`
 - `charts/ajv-weekly-downloads.html`
-- `data/ajv-release-freshness.json`
-- `charts/ajv-release-freshness.html`
 - `data/experimental-ajv-removal-signal.json`
 - `charts/experimental-ajv-removal-signal.html`
 - `data/schema-usage-proxy-rate.json`
@@ -82,17 +78,14 @@ Each HTML report displays the metric summary, generated interpretation, limitati
 This proof of concept is intentionally oriented toward practical ecosystem signals:
 
 - adoption: is a major JSON Schema implementation actually being used?
-- maintenance: does it still look actively maintained?
 - broader adoption: how often do explicit JSON Schema-related markers appear in a wider JSON-using sample?
 - removal risk: are there signs that previously sustained JSON Schema usage markers disappear from a project?
 
 The first metric is a rough proxy for package adoption and usage activity around `ajv`, one of the widely used JSON Schema validators. It does not measure the full ecosystem, but it gives a compact trend view for one important tool within it.
 
-The second metric looks at release freshness for `ajv-validator/ajv`, which is a practical proxy for ongoing maintenance.
+The second metric is a broader adoption proxy. It uses GitHub search to collect candidate JavaScript and TypeScript repositories, filters out forks, archived repositories, tiny low-signal repos, and obvious demo-like repos, confirms that `package.json` exists, and then takes a seeded random sample of 50 repositories. It checks that sampled set for explicit JSON Schema-related dependency markers in `package.json`.
 
-The third metric is a broader adoption proxy. It uses GitHub search to collect candidate JavaScript and TypeScript repositories, filters out forks, archived repositories, tiny low-signal repos, and obvious demo-like repos, confirms that `package.json` exists, and then takes a seeded random sample of 50 repositories. It checks that sampled set for explicit JSON Schema-related dependency markers in `package.json`.
-
-The fourth metric is intentionally experimental. It scans recent `package.json` history across the same curated sample and counts repositories where the `ajv` dependency is absent at `HEAD` after sustained prior presence in the recent commit window. It does not prove migration away from JSON Schema, but it can highlight possible removal events.
+The third metric is intentionally experimental. It scans recent `package.json` history across the same filtered sample and counts repositories where the `ajv` dependency is absent at `HEAD` after sustained prior presence in the recent commit window. It does not prove migration away from JSON Schema, but it can highlight possible removal events.
 
 ## Interpretation layer
 
@@ -117,12 +110,11 @@ https://api.npmjs.org/downloads/range/YYYY-MM-DD:YYYY-MM-DD/ajv
 
 That keeps the proof of concept minimal while still producing a meaningful time series for visualization.
 
-The maintenance metric uses GitHub release metadata. The proxy-rate metric uses raw `package.json` files from GitHub. The experimental removal metric uses recent git history plus `package.json` checks across the curated sample.
+The downloads metric uses the npm downloads API. The proxy-rate metric uses GitHub search plus raw `package.json` files from GitHub. The experimental removal metric uses recent git history plus `package.json` checks across the filtered sample.
 
 ## Limitations
 
 - npm downloads are a proxy signal, not direct real-world usage.
-- Release freshness is also only a proxy; recent releases do not automatically mean strong maintenance quality.
 - The schema usage proxy rate depends on a filtered random sample, GitHub search coverage, and explicit dependency markers, so it is not a complete measure of all JSON Schema adoption.
 - The experimental removal signal is intentionally narrow. It currently inspects only one dependency marker across a curated repository sample and does not automatically prove full migration away from JSON Schema.
 - Download counts can include CI, mirrors, and automated installs.

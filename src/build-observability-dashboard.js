@@ -15,35 +15,19 @@ function formatNumber(value) {
   return value.toLocaleString();
 }
 
-function markerStatusClass(markerPresent) {
-  return markerPresent ? "status-present" : "status-absent";
-}
-
-function buildHistoryRows(history) {
-  return history
-    .map(
-      (entry) => `<tr>
-        <td><code>${entry.commitSha.slice(0, 7)}</code></td>
-        <td class="${markerStatusClass(entry.markerPresent)}">${entry.markerPresent ? "present" : "absent"}</td>
-      </tr>`
-    )
-    .join("\n");
-}
-
-function buildHtml(downloads, release, removal, proxyRate) {
+function buildHtml(downloads, removal, proxyRate) {
   const labels = downloads.series.values.map((point) => point.day);
   const values = downloads.series.values.map((point) => point.downloads);
   const downloadsChange = downloads.analysis.basis.changePercent;
   const broaderAdoptionThin = proxyRate.summary.repositoriesWithAnyMarker <= 2;
-  const coreStrong = release.summary.daysSinceLatestRelease <= 60;
-  const headline = coreStrong && broaderAdoptionThin
-    ? "Strong Core, Limited Visible Adoption"
+  const headline = broaderAdoptionThin
+    ? "Strong Validator Usage, Limited Visible Downstream Adoption"
     : "Mixed Signals Across the JSON Schema Surface";
-  const subhead = coreStrong && broaderAdoptionThin
-    ? "Ajv appears heavily used and recently maintained, while explicit JSON Schema markers appeared in only a small share of the sampled repositories."
-    : "The current indicators suggest mixed evidence across adoption, maintenance, and visible downstream usage.";
-  const implication = coreStrong && broaderAdoptionThin
-    ? "One possible implication is that the ecosystem may benefit less from emergency core-validator support and more from better visibility into downstream schema adoption, tooling discoverability, and support for explicit schema usage."
+  const subhead = broaderAdoptionThin
+    ? "Ajv appears heavily used, while explicit JSON Schema-related dependency markers appeared in only a small share of the sampled repositories."
+    : "The current indicators suggest mixed evidence across package usage, downstream visibility, and potential churn.";
+  const implication = broaderAdoptionThin
+    ? "One possible implication is that the ecosystem may benefit less from focusing on the validator itself and more from improving downstream schema adoption visibility, tooling discoverability, and support for explicit schema usage."
     : "The current mix of signals suggests that further measurement may be needed before drawing a stronger support-priority conclusion.";
 
   return `<!DOCTYPE html>
@@ -297,7 +281,7 @@ function buildHtml(downloads, release, removal, proxyRate) {
   <main>
     <section class="hero">
       <h1>JSON Schema observability dashboard</h1>
-      <p>One-sheet view of practical signals organized around a single question: where does the ecosystem look strong, and where does it still need support?</p>
+      <p>One-sheet view of practical signals organized around a single question: where does JSON Schema look clearly used, and where is downstream adoption still hard to see?</p>
       <section class="headline-card">
         <h2>${headline}</h2>
         <p>${subhead}</p>
@@ -313,8 +297,8 @@ function buildHtml(downloads, release, removal, proxyRate) {
           <p class="value">${downloadsChange}%</p>
         </section>
         <section class="summary-card">
-          <p>Latest ajv release age</p>
-          <p class="value">${release.summary.daysSinceLatestRelease}d</p>
+          <p>Possible removals in sample</p>
+          <p class="value">${removal.summary.repositoriesWithPossibleRemoval}/${removal.summary.repositoriesScanned}</p>
         </section>
         <section class="summary-card">
           <p>Explicit schema markers in sample</p>
@@ -323,7 +307,6 @@ function buildHtml(downloads, release, removal, proxyRate) {
       </div>
       <div class="links">
         <a href="./ajv-weekly-downloads.html">Downloads detail</a>
-        <a href="./ajv-release-freshness.html">Release detail</a>
         <a href="./experimental-ajv-removal-signal.html">Removal detail</a>
         <a href="./schema-usage-proxy-rate.html">Proxy rate detail</a>
       </div>
@@ -331,15 +314,14 @@ function buildHtml(downloads, release, removal, proxyRate) {
 
     <section class="top-grid">
       <section class="panel downloads-panel">
-        <h2>Core Implementation Strength</h2>
-        <p>Daily npm downloads for <code>${downloads.package}</code> from ${downloads.period.start} through ${downloads.period.end}, plus a maintenance check from the latest GitHub release.</p>
+        <h2>Observed Usage Signal</h2>
+        <p>Daily npm downloads for <code>${downloads.package}</code> from ${downloads.period.start} through ${downloads.period.end}. This is the strongest direct usage proxy in the current proof of concept.</p>
         <div class="chart-wrap">
           <canvas id="downloadsChart" aria-label="Ajv downloads trend"></canvas>
         </div>
         <section class="analysis">
-          <h3>What the core signals say</h3>
+          <h3>What the usage signal says</h3>
           <p>${downloads.analysis.interpretation}</p>
-          <p><strong>Maintenance context:</strong> ${release.analysis.interpretation}</p>
           <p><strong>Limitation:</strong> ${downloads.analysis.limitation}</p>
           <details class="basis-toggle">
             <summary>Show analysis basis</summary>
@@ -348,7 +330,6 @@ function buildHtml(downloads, release, removal, proxyRate) {
               <li><strong>startingAverageDownloads:</strong> ${formatNumber(downloads.analysis.basis.startingAverageDownloads)}</li>
               <li><strong>endingAverageDownloads:</strong> ${formatNumber(downloads.analysis.basis.endingAverageDownloads)}</li>
               <li><strong>changePercent:</strong> ${downloads.analysis.basis.changePercent}%</li>
-              <li><strong>daysSinceLatestRelease:</strong> ${release.summary.daysSinceLatestRelease}</li>
             </ul>
           </details>
         </section>
@@ -364,16 +345,16 @@ function buildHtml(downloads, release, removal, proxyRate) {
             <p>${proxyRate.analysis.interpretation}</p>
           </section>
           <section class="mini-card">
-            <p>Maintenance risk</p>
-            <p class="value">${release.summary.daysSinceLatestRelease}d</p>
-            <p><strong>Read:</strong> the core validator still shows a recent release, so this does not currently look like an urgent maintenance rescue case.</p>
-            <p>${release.analysis.limitation}</p>
-          </section>
-          <section class="mini-card">
             <p>Possible churn signal</p>
             <p class="value">${removal.summary.repositoriesWithPossibleRemoval}/${removal.summary.repositoriesScanned}</p>
             <p><strong>Read:</strong> no repositories in the sample currently show a possible removal event for the <code>${removal.summary.markerPackage}</code> marker under the current rule.</p>
             <p>${removal.analysis.limitation}</p>
+          </section>
+          <section class="mini-card">
+            <p>Decision frame</p>
+            <p class="value">${downloads.summary.points}</p>
+            <p><strong>Read:</strong> the current evidence is stronger on package-level usage than on broad downstream explicit adoption. That suggests a visibility gap more than a core-validator crisis.</p>
+            <p>This is still only a directional reading from a small proof of concept.</p>
           </section>
         </div>
       </section>
@@ -408,7 +389,6 @@ ${removal.series.values
         <section class="analysis">
           <h3>Provenance and Caveats</h3>
           <p><strong>Downloads source:</strong> <code>${downloads.source.url}</code></p>
-          <p><strong>Release source:</strong> <code>${release.source.url}</code></p>
           <p><strong>Proxy rate source:</strong> <code>${proxyRate.source.url}</code></p>
           <p><strong>Removal source:</strong> <code>${removal.source.url}</code></p>
           <p><strong>Dashboard built from:</strong> local JSON artifacts in <code>data/</code></p>
@@ -462,9 +442,8 @@ ${removal.series.values
 }
 
 async function main() {
-  const [downloads, release, removal, proxyRate] = await Promise.all([
+  const [downloads, removal, proxyRate] = await Promise.all([
     readJson("ajv-weekly-downloads.json"),
-    readJson("ajv-release-freshness.json"),
     readJson("experimental-ajv-removal-signal.json"),
     readJson("schema-usage-proxy-rate.json"),
   ]);
@@ -472,7 +451,7 @@ async function main() {
   await fs.mkdir(CHARTS_DIR, { recursive: true });
   await fs.writeFile(
     OUTPUT_FILE,
-    buildHtml(downloads, release, removal, proxyRate),
+    buildHtml(downloads, removal, proxyRate),
     "utf8"
   );
   console.log(`Saved dashboard to ${OUTPUT_FILE}`);
