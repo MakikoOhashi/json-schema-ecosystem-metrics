@@ -18,7 +18,6 @@
       --line: #1f6f8b;
       --line-fill: rgba(31, 111, 139, 0.12);
       --present: #2e7d60;
-      --absent: #8c5a3c;
     }
 
     * {
@@ -38,17 +37,43 @@
       padding: 28px;
     }
 
+    .panel,
     .hero,
-    .panel {
+    .section-toggle {
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 18px;
       box-shadow: 0 10px 24px rgba(31, 41, 51, 0.05);
     }
 
-    .hero {
-      padding: 28px;
-      margin-bottom: 20px;
+    .hero,
+    .panel {
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+
+    .section-toggle {
+      margin-bottom: 18px;
+      overflow: hidden;
+    }
+
+    .section-toggle summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 18px 24px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .section-toggle summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .section-toggle .panel {
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
     }
 
     h1,
@@ -62,19 +87,23 @@
       font-size: 2.3rem;
     }
 
-    h2 {
-      margin: 0 0 14px;
-      font-size: 1.35rem;
-    }
-
     p {
       color: var(--muted);
       line-height: 1.55;
     }
 
+    .section-kicker {
+      margin: 0 0 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--line);
+    }
+
     .summary-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 12px;
       margin-top: 20px;
     }
@@ -99,35 +128,41 @@
       color: var(--ink);
     }
 
-    .headline-card {
-      margin-top: 22px;
-      padding: 22px;
-      border-radius: 16px;
-      border: 1px solid #b7c7d4;
-      background:
-        radial-gradient(circle at top left, rgba(31, 111, 139, 0.14), transparent 32%),
-        linear-gradient(135deg, #f7fbfd, #eef5f9);
+    .chart-wrap {
+      height: 340px;
+      margin-top: 16px;
     }
 
-    .headline-card h2 {
-      margin: 0 0 10px;
-      font-size: 1.9rem;
-    }
-
-    .headline-card .implication {
+    .analysis {
       margin-top: 18px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(183, 199, 212, 0.8);
-      font-size: 1rem;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel-strong);
     }
 
-    .section-panel {
-      padding: 24px;
-      margin-bottom: 18px;
+    .analysis p:last-child {
+      margin-bottom: 0;
     }
 
-    .history-panel {
-      padding: 24px;
+    .basis-toggle {
+      margin-top: 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #f7fafc;
+      padding: 12px 14px;
+    }
+
+    .basis-toggle summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .basis-list {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
     }
 
     .visible-usage-layout {
@@ -154,9 +189,6 @@
       position: absolute;
       inset: 0;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .ring::after {
@@ -247,126 +279,9 @@
     .swatch-sampled { background: #7299aa; }
     .swatch-marker { background: var(--present); }
 
-    .section-kicker {
-      margin: 0 0 8px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--line);
-    }
-
-    .chart-wrap {
-      height: 340px;
-      margin-top: 16px;
-    }
-
-    .analysis {
-      margin-top: 18px;
-      padding: 18px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: var(--panel-strong);
-    }
-
-    .analysis p:last-child {
-      margin-bottom: 0;
-    }
-
     .stack {
       display: grid;
       gap: 14px;
-    }
-
-    .mini-card .value {
-      font-size: 1.6rem;
-    }
-
-    .mini-card strong {
-      color: var(--ink);
-    }
-
-    .basis-toggle {
-      margin-top: 14px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: #f7fafc;
-      padding: 12px 14px;
-    }
-
-    .basis-toggle summary {
-      cursor: pointer;
-      font-weight: 700;
-      color: var(--ink);
-    }
-
-    .basis-list {
-      margin: 12px 0 0;
-      padding-left: 18px;
-      color: var(--muted);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 12px;
-    }
-
-    th,
-    td {
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-      text-align: left;
-      color: var(--muted);
-    }
-
-    .status-present {
-      color: var(--present);
-      font-weight: 700;
-    }
-
-    .status-absent {
-      color: var(--absent);
-      font-weight: 700;
-    }
-
-    code {
-      font-family: "SFMono-Regular", Consolas, monospace;
-    }
-
-    .links {
-      margin-top: 18px;
-      font-size: 0.95rem;
-    }
-
-    .section-toggle {
-      margin-bottom: 18px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: 0 10px 24px rgba(31, 41, 51, 0.05);
-      overflow: hidden;
-    }
-
-    .section-toggle summary {
-      cursor: pointer;
-      list-style: none;
-      padding: 18px 24px;
-      font-weight: 700;
-      color: var(--ink);
-      background: var(--panel);
-    }
-
-    .section-toggle summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .section-toggle .section-panel,
-    .section-toggle .history-panel {
-      margin-bottom: 0;
-      border: 0;
-      border-radius: 0;
-      box-shadow: none;
     }
 
     @media (max-width: 900px) {
@@ -384,12 +299,7 @@
   <main>
     <section class="hero">
       <h1>JSON Schema observability dashboard</h1>
-      <p>One-sheet view of practical signals organized into position, trend, and support implication.</p>
-      <section class="headline-card">
-        <h2>Primary Metric First, Exploratory Signals Second</h2>
-        <p>This proof of concept is centered on one main metric: Ajv npm downloads as a validator-level adoption proxy. Broader usage and removal checks are included below as exploratory follow-ons.</p>
-        <p class="implication"><strong>What this suggests:</strong> The main deliverable is the Ajv adoption signal. The exploratory sections are useful context, but they should be read as supporting hypotheses rather than firm ecosystem conclusions.</p>
-      </section>
+      <p>This proof of concept centers one primary metric first, then keeps broader ecosystem ideas as exploratory follow-ons.</p>
       <div class="summary-grid">
         <section class="summary-card">
           <p>Primary metric</p>
@@ -403,55 +313,49 @@
           <p>Exploratory downstream usage</p>
           <p class="value">1/50</p>
         </section>
-        <section class="summary-card">
-          <p>Exploratory removals</p>
-          <p class="value">0/50</p>
-        </section>
       </div>
     </section>
 
-      <section class="panel section-panel">
-        <p class="section-kicker">Primary Metric</p>
-        <h2>Ajv Validator-Level Adoption</h2>
-        <p>This is the main Part 1 metric. It tracks npm download activity for <code>ajv</code> as a practical proxy for validator-level adoption in the JavaScript ecosystem.</p>
-        <div class="summary-grid">
-          <section class="summary-card">
-            <p>Ajv usage proxy</p>
-            <p class="value">2,593,863,693</p>
-          </section>
-          <section class="summary-card">
-            <p>12-week direction</p>
-            <p class="value">86.7%</p>
-          </section>
-          <section class="summary-card">
-            <p>Observed points</p>
-            <p class="value">84</p>
-          </section>
-        </div>
-        <div class="chart-wrap">
-          <canvas id="downloadsChart" aria-label="Ajv downloads trend"></canvas>
-        </div>
-        <section class="analysis">
-          <h3>Position Read</h3>
-          <p>Ajv downloads increased 86.7% over the last 12 weeks. This suggests continued activity around one widely used JSON Schema implementation.</p>
-          <p><strong>Downstream read:</strong> the current sample shows <code>ajv</code> in 1 of 50 sampled repositories, while any explicit schema-related marker appeared in 1 of 50.</p>
-          <p><strong>What seems important now:</strong> validator-level activity around <code>ajv</code> still looks large, but explicit downstream schema usage is much harder to see in the sampled repositories.</p>
-          <p><strong>Limitation:</strong> This is a proxy metric based on npm downloads, so it can include CI traffic, automated installs, and other non-human activity.</p>
-          <details class="basis-toggle">
-            <summary>Show analysis basis</summary>
-            <ul class="basis-list">
-              <li><strong>comparison:</strong> first-7-days-vs-last-7-days-average</li>
-              <li><strong>startingAverageDownloads:</strong> 17,654,967</li>
-              <li><strong>endingAverageDownloads:</strong> 32,967,212</li>
-              <li><strong>changePercent:</strong> 86.7%</li>
-            </ul>
-          </details>
+    <section class="panel">
+      <p class="section-kicker">Primary Metric</p>
+      <h2>Ajv Validator-Level Adoption</h2>
+      <p>This is the main Part 1 metric. It tracks npm download activity for <code>ajv</code> as a practical proxy for validator-level adoption in the JavaScript ecosystem.</p>
+      <div class="summary-grid">
+        <section class="summary-card">
+          <p>Ajv usage proxy</p>
+          <p class="value">2,593,863,693</p>
         </section>
+        <section class="summary-card">
+          <p>12-week direction</p>
+          <p class="value">86.7%</p>
+        </section>
+        <section class="summary-card">
+          <p>Observed points</p>
+          <p class="value">84</p>
+        </section>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="downloadsChart" aria-label="Ajv downloads trend"></canvas>
+      </div>
+      <section class="analysis">
+        <h3>Primary Read</h3>
+        <p>Ajv downloads increased 86.7% over the last 12 weeks. This suggests continued activity around one widely used JSON Schema implementation.</p>
+        <p><strong>Limitation:</strong> This is a proxy metric based on npm downloads, so it can include CI traffic, automated installs, and other non-human activity.</p>
+        <details class="basis-toggle">
+          <summary>Show analysis basis</summary>
+          <ul class="basis-list">
+            <li><strong>comparison:</strong> first-7-days-vs-last-7-days-average</li>
+            <li><strong>startingAverageDownloads:</strong> 17,654,967</li>
+            <li><strong>endingAverageDownloads:</strong> 32,967,212</li>
+            <li><strong>changePercent:</strong> 86.7%</li>
+          </ul>
+        </details>
       </section>
+    </section>
 
-      <details class="section-toggle">
-        <summary>Exploratory Metric: Downstream Visible Usage</summary>
-      <section class="panel section-panel">
+    <details class="section-toggle">
+      <summary>Exploratory Metric: Downstream Visible Usage</summary>
+      <section class="panel">
         <p class="section-kicker">Exploratory Metric</p>
         <h2>Downstream Visible Usage</h2>
         <p>This section is exploratory. It asks whether explicit JSON Schema-related markers are easy to see in a filtered random sample of eligible JS/TS repositories.</p>
@@ -493,42 +397,30 @@
                 <strong>1</strong>
               </div>
             </div>
-          <section class="mini-card">
-            <p>12-week direction</p>
-            <p class="value">86.7%</p>
-            <p><strong>Read:</strong> this compares the first 7-day average with the last 7-day average in the Ajv downloads series.</p>
-            <p>This does not currently show a strong short-term decline signal in the validator-level proxy.</p>
-          </section>
-          <section class="mini-card">
-            <p>Visible downstream usage</p>
-            <p class="value">1/50</p>
-            <p><strong>Read:</strong> 2% of the sampled repositories exposed at least one explicit dependency marker.</p>
-            <p>This is less a change metric than a present-tense visibility check. Right now, downstream explicit usage still looks sparse in the sampled set.</p>
-          </section>
-          <section class="mini-card">
-            <p>Sampling frame</p>
-            <p class="value">155</p>
-            <p><strong>Read:</strong> 50 repositories were sampled from a filtered pool of 155 eligible JS/TS repositories.</p>
-            <p>This section is meant to show visible downstream usage, not ecosystem-wide adoption.</p>
-          </section>
+            <section class="mini-card">
+              <p>Ajv marker in sample</p>
+              <p class="value">1/50</p>
+              <p><strong>Read:</strong> the current sample shows <code>ajv</code> in 1 of 50 sampled repositories.</p>
+              <p>This helps show how hard explicit downstream schema usage is to see from a broad filtered sample.</p>
+            </section>
+            <section class="mini-card">
+              <p>Any schema marker in sample</p>
+              <p class="value">1/50</p>
+              <p><strong>Read:</strong> 2% of the sampled repositories exposed at least one explicit dependency marker.</p>
+              <p>This is exploratory and should not be read as an ecosystem-wide share.</p>
+            </section>
           </div>
         </div>
       </section>
-      </details>
+    </details>
 
-      <details class="section-toggle">
-        <summary>Exploratory Metric: Removal Signal and Support Hypothesis</summary>
-      <section class="panel history-panel">
-        <p class="section-kicker">Exploratory Metric</p>
-        <h2>Removal Signal and Support Hypothesis</h2>
-        <p>This section is the most tentative part of the page. It combines the current proxies into a support hypothesis and keeps the removal table as supporting evidence.</p>
+    <details class="section-toggle">
+      <summary>Support Signals</summary>
+      <section class="panel">
+        <p class="section-kicker">Support Signals</p>
+        <h2>Provisional Support Read</h2>
+        <p>This section turns the current two metrics into cautious decision hints. It is intentionally a hypothesis layer, not a firm recommendation.</p>
         <div class="stack">
-          <section class="mini-card">
-            <p>What should likely be supported?</p>
-            <p class="value">downstream</p>
-            <p><strong>Read:</strong> validator-level usage looks strong, but explicit schema markers remain sparse downstream.</p>
-            <p>If this pattern is real, the stronger support candidate is downstream visibility, tooling discoverability, and explicit schema usage support rather than emergency core rescue.</p>
-          </section>
           <section class="mini-card">
             <p>What looks important now?</p>
             <p class="value">core usage</p>
@@ -536,347 +428,27 @@
             <p>That makes it a useful anchor for observability, but not the whole ecosystem.</p>
           </section>
           <section class="mini-card">
+            <p>What should likely be supported?</p>
+            <p class="value">downstream</p>
+            <p><strong>Read:</strong> validator-level usage looks strong, but explicit schema markers remain sparse downstream.</p>
+            <p>If this pattern is real, downstream visibility, tooling discoverability, and explicit schema usage support may matter more than core-validator rescue.</p>
+          </section>
+          <section class="mini-card">
             <p>What may be weakening?</p>
             <p class="value">no sharp decline</p>
-            <p><strong>Read:</strong> the 12-week downloads direction is the current weakening signal we have, while the removal check does not yet show widespread disappearance.</p>
+            <p><strong>Read:</strong> the 12-week downloads direction is the main weakening signal currently available in this proof of concept.</p>
             <p>This is a watch signal, not a diagnosis.</p>
           </section>
-          <section class="mini-card">
-            <p>Where might investment help?</p>
-            <p class="value">mapping + downstream</p>
-            <p><strong>Read:</strong> investment may be more useful in ecosystem mapping, downstream usage visibility, and support for explicit schema adoption than in the core validator alone.</p>
-            <p>This is the most synthetic and most tentative conclusion on the page.</p>
-          </section>
-          <section class="mini-card">
-            <p>Possible removal signal</p>
-            <p class="value">0/50</p>
-            <p><strong>Read:</strong> no repositories in the sample currently show a possible removal event for the <code>ajv</code> marker under the current rule.</p>
-            <p>This is an experimental proxy. It only inspects recent package.json history for a single dependency marker and does not prove broader migration away from JSON Schema.</p>
-          </section>
         </div>
-        <h3>Experimental Removal Table</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Repository</th>
-              <th>Head has marker</th>
-              <th>Prior presence count</th>
-              <th>Result</th>
-            </tr>
-          </thead>
-          <tbody>
-<tr>
-              <td><code>carbon-design-system/carbon-components-svelte</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>ComposioHQ/agent-orchestrator</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>paperclipai/paperclip</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>Blorp-Labs/blorp</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>2Toad/Profanity</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>vikejs/vike</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>longbridge/developers</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>Effect-TS/effect-smol</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>layer5io/docs</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>poiyomi/PoiyomiDocs</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>cmintey/wishlist</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>tscircuit/cli</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>robinspt/tickflow-assist</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>tznthou/muripo-hq</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>takeshy/obsidian-gemini-helper</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>MetaMask/eth-phishing-detect</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>tscircuit/runframe</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>mitre/saf</code></td>
-              <td>yes</td>
-              <td>11</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>BradGroux/veritas-kanban</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>basellm/llm-metadata</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>defremont/Shipyard</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>Tai-ch0802/arc-like-chrome-extension</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>xOS/Config</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>destinygg/chat-bot</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>wxkingstar/SpecFusion</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>nestcn/docs.nestjs.cn</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>neomjs/neo</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>heli1x3T/Helius_Crypter</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>rabbitmq/rabbitmq-website</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>pancakeswap/pancakeswap-ai</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>microlinkhq/www</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>sieteunoseis/cisco-axl</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>jdx/mise-versions</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>Lianues/Iris</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>devsolux/iptv-playlist</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>esaio/esa-mcp-server</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>zorn-v/nextcloud-social-login</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>SplashtopInc/winstall</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>l4uy/waves</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>expo/orbit</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>DrakiaXYZ/SPT-LiveFleaPriceDB</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>chrispyers/openkiwi</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>lingdojo/kana-dojo</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>victorGPT/vibeusage</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>chaterm/Chaterm</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>Colorado-Mesh/mesh-client</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>liuxingyx/TOMATOX</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>Fannon/search-bookmarks-history-and-tabs</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>jsnli/steamappidlist</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-<tr>
-              <td><code>rixinhahaha/snip</code></td>
-              <td>no</td>
-              <td>0</td>
-              <td>none detected</td>
-            </tr>
-          </tbody>
-        </table>
         <section class="analysis">
           <h3>Provenance and Caveats</h3>
           <p><strong>Downloads source:</strong> <code>https://api.npmjs.org/downloads/range/2025-12-31:2026-03-24/ajv</code></p>
           <p><strong>Proxy rate source:</strong> <code>https://api.github.com/search/repositories</code></p>
-          <p><strong>Removal source:</strong> <code>https://api.github.com</code></p>
           <p><strong>Dashboard built from:</strong> local JSON artifacts in <code>data/</code></p>
-          <p><strong>Big caveat:</strong> the broader-adoption and removal metrics are still proxies built from filtered samples. They are useful for directional thinking, not for ecosystem-wide claims.</p>
+          <p><strong>Big caveat:</strong> the exploratory metric is still a proxy built from a filtered sample. It is useful for directional thinking, not for ecosystem-wide claims.</p>
         </section>
       </section>
-      </details>
+    </details>
   </main>
   <script>
     const labels = ["2025-12-31","2026-01-01","2026-01-02","2026-01-03","2026-01-04","2026-01-05","2026-01-06","2026-01-07","2026-01-08","2026-01-09","2026-01-10","2026-01-11","2026-01-12","2026-01-13","2026-01-14","2026-01-15","2026-01-16","2026-01-17","2026-01-18","2026-01-19","2026-01-20","2026-01-21","2026-01-22","2026-01-23","2026-01-24","2026-01-25","2026-01-26","2026-01-27","2026-01-28","2026-01-29","2026-01-30","2026-01-31","2026-02-01","2026-02-02","2026-02-03","2026-02-04","2026-02-05","2026-02-06","2026-02-07","2026-02-08","2026-02-09","2026-02-10","2026-02-11","2026-02-12","2026-02-13","2026-02-14","2026-02-15","2026-02-16","2026-02-17","2026-02-18","2026-02-19","2026-02-20","2026-02-21","2026-02-22","2026-02-23","2026-02-24","2026-02-25","2026-02-26","2026-02-27","2026-02-28","2026-03-01","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-07","2026-03-08","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-14","2026-03-15","2026-03-16","2026-03-17","2026-03-18","2026-03-19","2026-03-20","2026-03-21","2026-03-22","2026-03-23","2026-03-24"];

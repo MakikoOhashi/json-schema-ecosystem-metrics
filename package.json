@@ -6,10 +6,9 @@
   "scripts": {
     "fetch": "node src/fetch-ajv-downloads.js",
     "fetch:downloads": "node src/fetch-ajv-downloads.js",
-    "fetch:removal": "node src/fetch-experimental-removal-signal.js",
     "fetch:proxy-rate": "node src/fetch-schema-usage-proxy-rate.js",
     "build:dashboard": "node src/build-observability-dashboard.js",
-    "fetch:all": "npm run fetch:downloads && npm run fetch:removal && npm run fetch:proxy-rate && npm run build:dashboard",
+    "fetch:all": "npm run fetch:downloads && npm run fetch:proxy-rate && npm run build:dashboard",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

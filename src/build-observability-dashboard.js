@@ -15,11 +15,10 @@ function formatNumber(value) {
   return value.toLocaleString();
 }
 
-function buildHtml(downloads, removal, proxyRate) {
+function buildHtml(downloads, proxyRate) {
   const labels = downloads.series.values.map((point) => point.day);
   const values = downloads.series.values.map((point) => point.downloads);
   const downloadsChange = downloads.analysis.basis.changePercent;
-  const broaderAdoptionThin = proxyRate.summary.repositoriesWithAnyMarker <= 2;
   const candidateCount = proxyRate.summary.candidateReposFound;
   const eligibleCount = proxyRate.summary.eligibleReposAfterFiltering;
   const sampledCount = proxyRate.summary.repositoriesScanned;
@@ -27,15 +26,8 @@ function buildHtml(downloads, removal, proxyRate) {
   const ajvMarkerCount = proxyRate.series.values.filter((entry) =>
     (entry.dependencyMarkers || []).includes("ajv")
   ).length;
-  const eligibleShare = candidateCount ? (eligibleCount / candidateCount) * 100 : 0;
-  const sampledShare = candidateCount ? (sampledCount / candidateCount) * 100 : 0;
-  const markerShare = candidateCount ? (markerCount / candidateCount) * 100 : 0;
-  const visibilityGap = ajvMarkerCount <= 1 && downloads.summary.totalDownloads > 1000000000;
-  const headline = "Primary Metric First, Exploratory Signals Second";
-  const subhead =
-    "This proof of concept is centered on one main metric: Ajv npm downloads as a validator-level adoption proxy. Broader usage and removal checks are included below as exploratory follow-ons.";
-  const implication =
-    "The main deliverable is the Ajv adoption signal. The exploratory sections are useful context, but they should be read as supporting hypotheses rather than firm ecosystem conclusions.";
+  const visibilityGap =
+    ajvMarkerCount <= 1 && downloads.summary.totalDownloads > 1000000000;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -57,7 +49,6 @@ function buildHtml(downloads, removal, proxyRate) {
       --line: #1f6f8b;
       --line-fill: rgba(31, 111, 139, 0.12);
       --present: #2e7d60;
-      --absent: #8c5a3c;
     }
 
     * {
@@ -77,17 +68,43 @@ function buildHtml(downloads, removal, proxyRate) {
       padding: 28px;
     }
 
+    .panel,
     .hero,
-    .panel {
+    .section-toggle {
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 18px;
       box-shadow: 0 10px 24px rgba(31, 41, 51, 0.05);
     }
 
-    .hero {
-      padding: 28px;
-      margin-bottom: 20px;
+    .hero,
+    .panel {
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+
+    .section-toggle {
+      margin-bottom: 18px;
+      overflow: hidden;
+    }
+
+    .section-toggle summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 18px 24px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .section-toggle summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .section-toggle .panel {
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
     }
 
     h1,
@@ -101,19 +118,23 @@ function buildHtml(downloads, removal, proxyRate) {
       font-size: 2.3rem;
     }
 
-    h2 {
-      margin: 0 0 14px;
-      font-size: 1.35rem;
-    }
-
     p {
       color: var(--muted);
       line-height: 1.55;
     }
 
+    .section-kicker {
+      margin: 0 0 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--line);
+    }
+
     .summary-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 12px;
       margin-top: 20px;
     }
@@ -138,35 +159,41 @@ function buildHtml(downloads, removal, proxyRate) {
       color: var(--ink);
     }
 
-    .headline-card {
-      margin-top: 22px;
-      padding: 22px;
-      border-radius: 16px;
-      border: 1px solid #b7c7d4;
-      background:
-        radial-gradient(circle at top left, rgba(31, 111, 139, 0.14), transparent 32%),
-        linear-gradient(135deg, #f7fbfd, #eef5f9);
+    .chart-wrap {
+      height: 340px;
+      margin-top: 16px;
     }
 
-    .headline-card h2 {
-      margin: 0 0 10px;
-      font-size: 1.9rem;
-    }
-
-    .headline-card .implication {
+    .analysis {
       margin-top: 18px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(183, 199, 212, 0.8);
-      font-size: 1rem;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel-strong);
     }
 
-    .section-panel {
-      padding: 24px;
-      margin-bottom: 18px;
+    .analysis p:last-child {
+      margin-bottom: 0;
     }
 
-    .history-panel {
-      padding: 24px;
+    .basis-toggle {
+      margin-top: 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #f7fafc;
+      padding: 12px 14px;
+    }
+
+    .basis-toggle summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .basis-list {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
     }
 
     .visible-usage-layout {
@@ -193,9 +220,6 @@ function buildHtml(downloads, removal, proxyRate) {
       position: absolute;
       inset: 0;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .ring::after {
@@ -215,7 +239,7 @@ function buildHtml(downloads, removal, proxyRate) {
 
     .ring-eligible {
       inset: 26px;
-      background: conic-gradient(#3f7d92 0 ${eligibleShare}%, #dbe5ec 0 100%);
+      background: conic-gradient(#3f7d92 0 ${(eligibleCount / candidateCount) * 100}%, #dbe5ec 0 100%);
     }
 
     .ring-eligible::after {
@@ -224,7 +248,7 @@ function buildHtml(downloads, removal, proxyRate) {
 
     .ring-sampled {
       inset: 50px;
-      background: conic-gradient(#7299aa 0 ${sampledShare}%, #dbe5ec 0 100%);
+      background: conic-gradient(#7299aa 0 ${(sampledCount / candidateCount) * 100}%, #dbe5ec 0 100%);
     }
 
     .ring-sampled::after {
@@ -233,7 +257,7 @@ function buildHtml(downloads, removal, proxyRate) {
 
     .ring-marker {
       inset: 72px;
-      background: conic-gradient(var(--present) 0 ${markerShare}%, #dbe5ec 0 100%);
+      background: conic-gradient(var(--present) 0 ${(markerCount / candidateCount) * 100}%, #dbe5ec 0 100%);
     }
 
     .ring-marker::after {
@@ -286,126 +310,9 @@ function buildHtml(downloads, removal, proxyRate) {
     .swatch-sampled { background: #7299aa; }
     .swatch-marker { background: var(--present); }
 
-    .section-kicker {
-      margin: 0 0 8px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--line);
-    }
-
-    .chart-wrap {
-      height: 340px;
-      margin-top: 16px;
-    }
-
-    .analysis {
-      margin-top: 18px;
-      padding: 18px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: var(--panel-strong);
-    }
-
-    .analysis p:last-child {
-      margin-bottom: 0;
-    }
-
     .stack {
       display: grid;
       gap: 14px;
-    }
-
-    .mini-card .value {
-      font-size: 1.6rem;
-    }
-
-    .mini-card strong {
-      color: var(--ink);
-    }
-
-    .basis-toggle {
-      margin-top: 14px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: #f7fafc;
-      padding: 12px 14px;
-    }
-
-    .basis-toggle summary {
-      cursor: pointer;
-      font-weight: 700;
-      color: var(--ink);
-    }
-
-    .basis-list {
-      margin: 12px 0 0;
-      padding-left: 18px;
-      color: var(--muted);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 12px;
-    }
-
-    th,
-    td {
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-      text-align: left;
-      color: var(--muted);
-    }
-
-    .status-present {
-      color: var(--present);
-      font-weight: 700;
-    }
-
-    .status-absent {
-      color: var(--absent);
-      font-weight: 700;
-    }
-
-    code {
-      font-family: "SFMono-Regular", Consolas, monospace;
-    }
-
-    .links {
-      margin-top: 18px;
-      font-size: 0.95rem;
-    }
-
-    .section-toggle {
-      margin-bottom: 18px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: 0 10px 24px rgba(31, 41, 51, 0.05);
-      overflow: hidden;
-    }
-
-    .section-toggle summary {
-      cursor: pointer;
-      list-style: none;
-      padding: 18px 24px;
-      font-weight: 700;
-      color: var(--ink);
-      background: var(--panel);
-    }
-
-    .section-toggle summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .section-toggle .section-panel,
-    .section-toggle .history-panel {
-      margin-bottom: 0;
-      border: 0;
-      border-radius: 0;
-      box-shadow: none;
     }
 
     @media (max-width: 900px) {
@@ -423,12 +330,7 @@ function buildHtml(downloads, removal, proxyRate) {
   <main>
     <section class="hero">
       <h1>JSON Schema observability dashboard</h1>
-      <p>One-sheet view of practical signals organized into position, trend, and support implication.</p>
-      <section class="headline-card">
-        <h2>${headline}</h2>
-        <p>${subhead}</p>
-        <p class="implication"><strong>What this suggests:</strong> ${implication}</p>
-      </section>
+      <p>This proof of concept centers one primary metric first, then keeps broader ecosystem ideas as exploratory follow-ons.</p>
       <div class="summary-grid">
         <section class="summary-card">
           <p>Primary metric</p>
@@ -440,57 +342,51 @@ function buildHtml(downloads, removal, proxyRate) {
         </section>
         <section class="summary-card">
           <p>Exploratory downstream usage</p>
-          <p class="value">${proxyRate.summary.repositoriesWithAnyMarker}/${proxyRate.summary.repositoriesScanned}</p>
-        </section>
-        <section class="summary-card">
-          <p>Exploratory removals</p>
-          <p class="value">${removal.summary.repositoriesWithPossibleRemoval}/${removal.summary.repositoriesScanned}</p>
+          <p class="value">${markerCount}/${sampledCount}</p>
         </section>
       </div>
     </section>
 
-      <section class="panel section-panel">
-        <p class="section-kicker">Primary Metric</p>
-        <h2>Ajv Validator-Level Adoption</h2>
-        <p>This is the main Part 1 metric. It tracks npm download activity for <code>ajv</code> as a practical proxy for validator-level adoption in the JavaScript ecosystem.</p>
-        <div class="summary-grid">
-          <section class="summary-card">
-            <p>Ajv usage proxy</p>
-            <p class="value">${formatNumber(downloads.summary.totalDownloads)}</p>
-          </section>
-          <section class="summary-card">
-            <p>12-week direction</p>
-            <p class="value">${downloadsChange}%</p>
-          </section>
-          <section class="summary-card">
-            <p>Observed points</p>
-            <p class="value">${downloads.summary.points}</p>
-          </section>
-        </div>
-        <div class="chart-wrap">
-          <canvas id="downloadsChart" aria-label="Ajv downloads trend"></canvas>
-        </div>
-        <section class="analysis">
-          <h3>Position Read</h3>
-          <p>${downloads.analysis.interpretation}</p>
-          <p><strong>Downstream read:</strong> the current sample shows <code>ajv</code> in ${ajvMarkerCount} of ${sampledCount} sampled repositories, while any explicit schema-related marker appeared in ${markerCount} of ${sampledCount}.</p>
-          <p><strong>What seems important now:</strong> validator-level activity around <code>ajv</code> still looks large, but explicit downstream schema usage is much harder to see in the sampled repositories.</p>
-          <p><strong>Limitation:</strong> ${downloads.analysis.limitation}</p>
-          <details class="basis-toggle">
-            <summary>Show analysis basis</summary>
-            <ul class="basis-list">
-              <li><strong>comparison:</strong> ${downloads.analysis.basis.comparison}</li>
-              <li><strong>startingAverageDownloads:</strong> ${formatNumber(downloads.analysis.basis.startingAverageDownloads)}</li>
-              <li><strong>endingAverageDownloads:</strong> ${formatNumber(downloads.analysis.basis.endingAverageDownloads)}</li>
-              <li><strong>changePercent:</strong> ${downloads.analysis.basis.changePercent}%</li>
-            </ul>
-          </details>
+    <section class="panel">
+      <p class="section-kicker">Primary Metric</p>
+      <h2>Ajv Validator-Level Adoption</h2>
+      <p>This is the main Part 1 metric. It tracks npm download activity for <code>ajv</code> as a practical proxy for validator-level adoption in the JavaScript ecosystem.</p>
+      <div class="summary-grid">
+        <section class="summary-card">
+          <p>Ajv usage proxy</p>
+          <p class="value">${formatNumber(downloads.summary.totalDownloads)}</p>
         </section>
+        <section class="summary-card">
+          <p>12-week direction</p>
+          <p class="value">${downloadsChange}%</p>
+        </section>
+        <section class="summary-card">
+          <p>Observed points</p>
+          <p class="value">${downloads.summary.points}</p>
+        </section>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="downloadsChart" aria-label="Ajv downloads trend"></canvas>
+      </div>
+      <section class="analysis">
+        <h3>Primary Read</h3>
+        <p>${downloads.analysis.interpretation}</p>
+        <p><strong>Limitation:</strong> ${downloads.analysis.limitation}</p>
+        <details class="basis-toggle">
+          <summary>Show analysis basis</summary>
+          <ul class="basis-list">
+            <li><strong>comparison:</strong> ${downloads.analysis.basis.comparison}</li>
+            <li><strong>startingAverageDownloads:</strong> ${formatNumber(downloads.analysis.basis.startingAverageDownloads)}</li>
+            <li><strong>endingAverageDownloads:</strong> ${formatNumber(downloads.analysis.basis.endingAverageDownloads)}</li>
+            <li><strong>changePercent:</strong> ${downloads.analysis.basis.changePercent}%</li>
+          </ul>
+        </details>
       </section>
+    </section>
 
-      <details class="section-toggle">
-        <summary>Exploratory Metric: Downstream Visible Usage</summary>
-      <section class="panel section-panel">
+    <details class="section-toggle">
+      <summary>Exploratory Metric: Downstream Visible Usage</summary>
+      <section class="panel">
         <p class="section-kicker">Exploratory Metric</p>
         <h2>Downstream Visible Usage</h2>
         <p>This section is exploratory. It asks whether explicit JSON Schema-related markers are easy to see in a filtered random sample of eligible JS/TS repositories.</p>
@@ -532,42 +428,30 @@ function buildHtml(downloads, removal, proxyRate) {
                 <strong>${markerCount}</strong>
               </div>
             </div>
-          <section class="mini-card">
-            <p>12-week direction</p>
-            <p class="value">${downloadsChange}%</p>
-            <p><strong>Read:</strong> this compares the first 7-day average with the last 7-day average in the Ajv downloads series.</p>
-            <p>${downloadsChange < -3 ? "This points to a short-term softening signal in the current validator-level proxy." : "This does not currently show a strong short-term decline signal in the validator-level proxy."}</p>
-          </section>
-          <section class="mini-card">
-            <p>Visible downstream usage</p>
-            <p class="value">${proxyRate.summary.repositoriesWithAnyMarker}/${proxyRate.summary.repositoriesScanned}</p>
-            <p><strong>Read:</strong> ${proxyRate.summary.proxyRatePercent}% of the sampled repositories exposed at least one explicit dependency marker.</p>
-            <p>This is less a change metric than a present-tense visibility check. Right now, downstream explicit usage still looks sparse in the sampled set.</p>
-          </section>
-          <section class="mini-card">
-            <p>Sampling frame</p>
-            <p class="value">${proxyRate.summary.eligibleReposAfterFiltering}</p>
-            <p><strong>Read:</strong> ${proxyRate.summary.repositoriesScanned} repositories were sampled from a filtered pool of ${proxyRate.summary.eligibleReposAfterFiltering} eligible JS/TS repositories.</p>
-            <p>This section is meant to show visible downstream usage, not ecosystem-wide adoption.</p>
-          </section>
+            <section class="mini-card">
+              <p>Ajv marker in sample</p>
+              <p class="value">${ajvMarkerCount}/${sampledCount}</p>
+              <p><strong>Read:</strong> the current sample shows <code>ajv</code> in ${ajvMarkerCount} of ${sampledCount} sampled repositories.</p>
+              <p>This helps show how hard explicit downstream schema usage is to see from a broad filtered sample.</p>
+            </section>
+            <section class="mini-card">
+              <p>Any schema marker in sample</p>
+              <p class="value">${markerCount}/${sampledCount}</p>
+              <p><strong>Read:</strong> ${proxyRate.summary.proxyRatePercent}% of the sampled repositories exposed at least one explicit dependency marker.</p>
+              <p>This is exploratory and should not be read as an ecosystem-wide share.</p>
+            </section>
           </div>
         </div>
       </section>
-      </details>
+    </details>
 
-      <details class="section-toggle">
-        <summary>Exploratory Metric: Removal Signal and Support Hypothesis</summary>
-      <section class="panel history-panel">
-        <p class="section-kicker">Exploratory Metric</p>
-        <h2>Removal Signal and Support Hypothesis</h2>
-        <p>This section is the most tentative part of the page. It combines the current proxies into a support hypothesis and keeps the removal table as supporting evidence.</p>
+    <details class="section-toggle">
+      <summary>Support Signals</summary>
+      <section class="panel">
+        <p class="section-kicker">Support Signals</p>
+        <h2>Provisional Support Read</h2>
+        <p>This section turns the current two metrics into cautious decision hints. It is intentionally a hypothesis layer, not a firm recommendation.</p>
         <div class="stack">
-          <section class="mini-card">
-            <p>What should likely be supported?</p>
-            <p class="value">${visibilityGap ? "downstream" : "unclear"}</p>
-            <p><strong>Read:</strong> validator-level usage looks strong, but explicit schema markers remain sparse downstream.</p>
-            <p>If this pattern is real, the stronger support candidate is downstream visibility, tooling discoverability, and explicit schema usage support rather than emergency core rescue.</p>
-          </section>
           <section class="mini-card">
             <p>What looks important now?</p>
             <p class="value">core usage</p>
@@ -575,57 +459,27 @@ function buildHtml(downloads, removal, proxyRate) {
             <p>That makes it a useful anchor for observability, but not the whole ecosystem.</p>
           </section>
           <section class="mini-card">
+            <p>What should likely be supported?</p>
+            <p class="value">${visibilityGap ? "downstream" : "unclear"}</p>
+            <p><strong>Read:</strong> validator-level usage looks strong, but explicit schema markers remain sparse downstream.</p>
+            <p>If this pattern is real, downstream visibility, tooling discoverability, and explicit schema usage support may matter more than core-validator rescue.</p>
+          </section>
+          <section class="mini-card">
             <p>What may be weakening?</p>
             <p class="value">${downloadsChange < -15 ? "watch trend" : "no sharp decline"}</p>
-            <p><strong>Read:</strong> the 12-week downloads direction is the current weakening signal we have, while the removal check does not yet show widespread disappearance.</p>
+            <p><strong>Read:</strong> the 12-week downloads direction is the main weakening signal currently available in this proof of concept.</p>
             <p>This is a watch signal, not a diagnosis.</p>
           </section>
-          <section class="mini-card">
-            <p>Where might investment help?</p>
-            <p class="value">${visibilityGap ? "mapping + downstream" : "more data"}</p>
-            <p><strong>Read:</strong> investment may be more useful in ecosystem mapping, downstream usage visibility, and support for explicit schema adoption than in the core validator alone.</p>
-            <p>This is the most synthetic and most tentative conclusion on the page.</p>
-          </section>
-          <section class="mini-card">
-            <p>Possible removal signal</p>
-            <p class="value">${removal.summary.repositoriesWithPossibleRemoval}/${removal.summary.repositoriesScanned}</p>
-            <p><strong>Read:</strong> no repositories in the sample currently show a possible removal event for the <code>${removal.summary.markerPackage}</code> marker under the current rule.</p>
-            <p>${removal.analysis.limitation}</p>
-          </section>
         </div>
-        <h3>Experimental Removal Table</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Repository</th>
-              <th>Head has marker</th>
-              <th>Prior presence count</th>
-              <th>Result</th>
-            </tr>
-          </thead>
-          <tbody>
-${removal.series.values
-  .map(
-    (entry) => `<tr>
-              <td><code>${entry.repository}</code></td>
-              <td>${entry.headHasMarker ? "yes" : "no"}</td>
-              <td>${entry.priorPresenceCount}</td>
-              <td>${entry.removalDetected ? "possible removal" : "none detected"}</td>
-            </tr>`
-  )
-  .join("\n")}
-          </tbody>
-        </table>
         <section class="analysis">
           <h3>Provenance and Caveats</h3>
           <p><strong>Downloads source:</strong> <code>${downloads.source.url}</code></p>
           <p><strong>Proxy rate source:</strong> <code>${proxyRate.source.url}</code></p>
-          <p><strong>Removal source:</strong> <code>${removal.source.url}</code></p>
           <p><strong>Dashboard built from:</strong> local JSON artifacts in <code>data/</code></p>
-          <p><strong>Big caveat:</strong> the broader-adoption and removal metrics are still proxies built from filtered samples. They are useful for directional thinking, not for ecosystem-wide claims.</p>
+          <p><strong>Big caveat:</strong> the exploratory metric is still a proxy built from a filtered sample. It is useful for directional thinking, not for ecosystem-wide claims.</p>
         </section>
       </section>
-      </details>
+    </details>
   </main>
   <script>
     const labels = ${JSON.stringify(labels)};
@@ -672,18 +526,13 @@ ${removal.series.values
 }
 
 async function main() {
-  const [downloads, removal, proxyRate] = await Promise.all([
+  const [downloads, proxyRate] = await Promise.all([
     readJson("primary-validator-adoption.json"),
-    readJson("exploratory-removal-signal.json"),
     readJson("exploratory-downstream-usage.json"),
   ]);
 
   await fs.mkdir(CHARTS_DIR, { recursive: true });
-  await fs.writeFile(
-    OUTPUT_FILE,
-    buildHtml(downloads, removal, proxyRate),
-    "utf8"
-  );
+  await fs.writeFile(OUTPUT_FILE, buildHtml(downloads, proxyRate), "utf8");
   console.log(`Saved dashboard to ${OUTPUT_FILE}`);
 }
 
