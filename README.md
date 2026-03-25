@@ -22,6 +22,14 @@ For each metric, the goal is to produce:
 
 The current downloads implementation fetches a daily series covering the last 12 weeks, then adds a short auto-generated interpretation and a limitation note. The output filenames still use `weekly`, but the data points themselves are daily.
 
+## Start Here
+
+If you only open one file, open:
+
+- `charts/observability-dashboard.html`
+
+That combined dashboard is the main deliverable view for this proof of concept. The other HTML and JSON files are supporting artifacts for the individual metrics.
+
 ## Run instructions
 
 Requirements:
@@ -54,7 +62,7 @@ Current outputs:
 - `charts/schema-usage-proxy-rate.html`
 - `charts/observability-dashboard.html`
 
-To view a single combined report, open `charts/observability-dashboard.html` in a browser.
+The main report is `charts/observability-dashboard.html`. The metric-specific files are supporting detail views.
 
 ## Output structure
 
