@@ -1,16 +1,58 @@
 {
   "metric": "experimental_marker_removal_signal",
   "sample": {
-    "name": "curated_json_using_js_repositories",
+    "name": "filtered_random_sample_from_schema_usage_proxy_rate",
     "repositories": [
-      "webpack/webpack",
-      "vitejs/vite",
-      "eslint/eslint",
-      "prettier/prettier",
-      "axios/axios",
-      "expressjs/express",
-      "facebook/jest",
-      "openai/openai-node"
+      "carbon-design-system/carbon-components-svelte",
+      "ComposioHQ/agent-orchestrator",
+      "paperclipai/paperclip",
+      "Blorp-Labs/blorp",
+      "2Toad/Profanity",
+      "vikejs/vike",
+      "longbridge/developers",
+      "Effect-TS/effect-smol",
+      "layer5io/docs",
+      "poiyomi/PoiyomiDocs",
+      "cmintey/wishlist",
+      "tscircuit/cli",
+      "robinspt/tickflow-assist",
+      "tznthou/muripo-hq",
+      "takeshy/obsidian-gemini-helper",
+      "MetaMask/eth-phishing-detect",
+      "tscircuit/runframe",
+      "mitre/saf",
+      "BradGroux/veritas-kanban",
+      "basellm/llm-metadata",
+      "defremont/Shipyard",
+      "Tai-ch0802/arc-like-chrome-extension",
+      "xOS/Config",
+      "destinygg/chat-bot",
+      "wxkingstar/SpecFusion",
+      "nestcn/docs.nestjs.cn",
+      "neomjs/neo",
+      "heli1x3T/Helius_Crypter",
+      "rabbitmq/rabbitmq-website",
+      "pancakeswap/pancakeswap-ai",
+      "microlinkhq/www",
+      "sieteunoseis/cisco-axl",
+      "jdx/mise-versions",
+      "Lianues/Iris",
+      "devsolux/iptv-playlist",
+      "esaio/esa-mcp-server",
+      "zorn-v/nextcloud-social-login",
+      "SplashtopInc/winstall",
+      "l4uy/waves",
+      "expo/orbit",
+      "DrakiaXYZ/SPT-LiveFleaPriceDB",
+      "chrispyers/openkiwi",
+      "lingdojo/kana-dojo",
+      "victorGPT/vibeusage",
+      "chaterm/Chaterm",
+      "Colorado-Mesh/mesh-client",
+      "liuxingyx/TOMATOX",
+      "Fannon/search-bookmarks-history-and-tabs",
+      "jsnli/steamappidlist",
+      "rixinhahaha/snip"
     ]
   },
   "source": {
@@ -19,7 +61,7 @@
   },
   "summary": {
     "markerPackage": "ajv",
-    "repositoriesScanned": 8,
+    "repositoriesScanned": 50,
     "repositoriesWithPossibleRemoval": 0,
     "repositoriesWithMarkerAtHead": 1,
     "possibleRemovalRatePercent": 0,
@@ -31,7 +73,65 @@
     "unit": "removal_detected",
     "values": [
       {
-        "repository": "webpack/webpack",
+        "repository": "carbon-design-system/carbon-components-svelte",
+        "defaultBranch": "master",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "1d1777cadd3d9036d7be86b3592489ca9cac7ef9",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "eb898a6b1c3b23374175674678efaf2d8c4fed43",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "dcf161c79459c9a3237885cfd11653bfb145b2bb",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "3b69911efa72c30494446b36cd6ec2b036de75c5",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "32fdb6ee20f006a6ad01622cdccf9c77292ca23c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "354df2788c1b5c2dda63c9e9ce51c9de56d954da",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "823be784e74ce701e85db93a08314ebfa7049d58",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6bc0b27a3cfd66206f7f5fc5799f9d09bb6b7c8f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "9b8f432d756683e043aaba48ab2b1f12ab166958",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "3625b735f26434acf9c3e60279dbb9563f5033ec",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c270325a6dc73dc68d4eef7d2de85952b6f9e5d3",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0f6336091764433ecd9b3c363ce6b7ad52fe3054",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "ComposioHQ/agent-orchestrator",
         "defaultBranch": "main",
         "commitsScanned": 12,
         "headHasMarker": false,
@@ -39,57 +139,115 @@
         "removalDetected": false,
         "history": [
           {
-            "commitSha": "d9e11489a8ec52f5a850b11c353790ae089c937f",
+            "commitSha": "4741ba24617eee1a60c5be68c1597db1df081b54",
             "markerPresent": false
           },
           {
-            "commitSha": "8a8519353c3146b8a2a0a1568a1668899f379661",
+            "commitSha": "254d64de8fe59f905d603b746a1984e8a0c05774",
             "markerPresent": false
           },
           {
-            "commitSha": "70867d612e1920dc2d28b9a541e8bcb6d2154deb",
+            "commitSha": "8e34695eecdcacaeb1c8a5569c79cc824c0082c7",
             "markerPresent": false
           },
           {
-            "commitSha": "a4755121e8d63e64eea9d8bbdaeea380a8192100",
+            "commitSha": "0fe6340594adb2727fc5dde6f9dfdb4102c03eba",
             "markerPresent": false
           },
           {
-            "commitSha": "2665dfb0cf0554132035191d2d2c85a33b8eedb5",
+            "commitSha": "f781be04b19c2be5e8be884d26e38880c875d321",
             "markerPresent": false
           },
           {
-            "commitSha": "89a1ca3894f924d9c2a8d41e06d982ebc333c52f",
+            "commitSha": "b6637dec6c1a097ae80cceefdf0e32dad24e70bf",
             "markerPresent": false
           },
           {
-            "commitSha": "72a7ef35d5175d27604c2974e4062cb14d4f66a7",
+            "commitSha": "6b7a8bd20cbc6eed4858d1b3ee0946b05d6446b3",
             "markerPresent": false
           },
           {
-            "commitSha": "1cd34509522f187642c617d5dfe46a2c254e2238",
+            "commitSha": "9ee1660dfa56fe1c8746c0a80678cb350d331d95",
             "markerPresent": false
           },
           {
-            "commitSha": "abba60629f857a939e99533511511d74704e9984",
+            "commitSha": "a37a210977561f50138e3104b9c5c880bff18198",
             "markerPresent": false
           },
           {
-            "commitSha": "aa4705aea67442740938068391c2251abcf5d524",
+            "commitSha": "6d1055f41289498edc20eff29d0283cfa27ab432",
             "markerPresent": false
           },
           {
-            "commitSha": "a836e064c80df16f69a3a185a0ee37a7648f3ab9",
+            "commitSha": "36098efd0b5ad9a0dae2cfce13f0994ab467f6a8",
             "markerPresent": false
           },
           {
-            "commitSha": "0b344de2f7bed54fcc63808ebbbb23cc56598268",
+            "commitSha": "fb86167639cbca2d0b3cc0825c93c81d9b2af2bb",
             "markerPresent": false
           }
         ]
       },
       {
-        "repository": "vitejs/vite",
+        "repository": "paperclipai/paperclip",
+        "defaultBranch": "master",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "b1d12d2f3771c50f848f9edcf86b56bf2168573f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0a952dc93dfc82bcb003065bb2ce19fab59aa8a4",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ff8b839f42a8a06d7df792d0bb68ead9b7e66451",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "fea892c8b37c35213a03dcd2649affa9a003b2cd",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "1696ff0c3fd304331ac55b4dcaa555acdf9a8590",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "4eecd23ea3ed4f61e1c8c419d7dcc2b4f2ea2a3d",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "4da83296a9d43839e118e8a173c2bbbd1671f28b",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0ce4134ce16031956ac1e4482c0ebd4acdc86115",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "03f44d008977615c48c2ee5f856e1ed763386789",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d38d5e1a7b16adf41181b2e4f32bb59b34ade095",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "add6ca5648c0cd4edeed1f38c111808041eabbb3",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "04a07080affc916cac07138567e8305ddaa72103",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "Blorp-Labs/blorp",
         "defaultBranch": "main",
         "commitsScanned": 12,
         "headHasMarker": false,
@@ -97,57 +255,811 @@
         "removalDetected": false,
         "history": [
           {
-            "commitSha": "130ef31b4863d25008db2206a4aa855b4935ebcd",
+            "commitSha": "44bcf161bd11611634b45f67d7b377daef413e93",
             "markerPresent": false
           },
           {
-            "commitSha": "faeb746721da80689d2cb62b589cc45edb779bdc",
+            "commitSha": "8f9ef7684a945df1bf1aac17550bcac8509a2dea",
             "markerPresent": false
           },
           {
-            "commitSha": "ff91c319facd602dc5eea81ed7e7d79ae7dadb95",
+            "commitSha": "969229edd5f11374b4b9b5550c98058fdfe73ae9",
             "markerPresent": false
           },
           {
-            "commitSha": "3aea2b89d028d4dd87b9390167c942a522afcee3",
+            "commitSha": "5db50cbab1aa2d8727c7aac52fc2692c8483e456",
             "markerPresent": false
           },
           {
-            "commitSha": "4f7e5217c141836720051a3e49f871af0fa40408",
+            "commitSha": "740aadac38d5ec1416238d386115a36b677db261",
             "markerPresent": false
           },
           {
-            "commitSha": "b2dd65bf2f113719b72450f2e19696213fd9e255",
+            "commitSha": "25e608c57a382a754c18fc544c1b04c95a2acd52",
             "markerPresent": false
           },
           {
-            "commitSha": "50b87f63295708a10012b79649551c9b901f3ef4",
+            "commitSha": "864184f8101282a427855f722ac17bf7f030f7f5",
             "markerPresent": false
           },
           {
-            "commitSha": "b5b8f9b75561dfbec729059c5fa87a889c89bcf2",
+            "commitSha": "2c1d74003f129182aebf79d3190cbcf3b4bbd709",
             "markerPresent": false
           },
           {
-            "commitSha": "e4f83402c21774bbce30178a601511dd626e14c6",
+            "commitSha": "698d2b1ce4b3ed3bd382d1627e001fa573ccb583",
             "markerPresent": false
           },
           {
-            "commitSha": "9b7d15002a75474421bc5636238336d88c7fe2f3",
+            "commitSha": "611eda90225e06b75ff2562e897d79a71c8ed5f7",
             "markerPresent": false
           },
           {
-            "commitSha": "087371c30a9fe9d281ebed4c765083b4d0016d3a",
+            "commitSha": "3584f06bb1a6eb08de9ba3ed0e5736f971a10a25",
             "markerPresent": false
           },
           {
-            "commitSha": "80a76204dd3868f8392a419482138ce80bce6b15",
+            "commitSha": "5ee30f589610d2b0820052309dee951a2ceac788",
             "markerPresent": false
           }
         ]
       },
       {
-        "repository": "eslint/eslint",
+        "repository": "2Toad/Profanity",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "19d6da192d61bd14544b7e417ea2613a2ba8357f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "810b0e15a974846722a29d069a6008049fd1610c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "1285c4b69493e0704e5e0765301ef0bc849b862c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "701aeb2deaa73e14a9fccda7ff5427a49bc9914b",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "85b88c05317c002428cf0a55d6edf7301d513fe2",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "8516f8055ff81b77bf17383d66a7fed6bf5be23f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "77ee4f2515877cc7599c96e1fbd0c417e38365c1",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "cfb4dcd026f11525d1bd20d4950aac110db02d65",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c120ad8051855bf7a585daf7fcadc27fc80de63a",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "819161774bb2760779a9ef6573f9dd54b72f9c09",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c3da1c5a32815193d0f46e8aa5fc4fee184b6379",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "22cee7aec3e61f6f0e91a3c9b03b50a9a1a7fa2c",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "vikejs/vike",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "4a1771684c2d22f548c321eba323d738f033969d",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "8373f3a8c36e612879432962fd7d6a0a003099ff",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "352b8b773ee5c2ef9da2cebdd5411ebaab93c508",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "71b8e6c8e9173272211666ff6643decea91ecae6",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "06b3c16e80879a20b07e1a0269011becfbf3f5c2",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "336118c1ba885ad11c98010af028f840d5d18bdd",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "7e391be07db6a1028f203a90bae895918232d0d2",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0fdca9e7ce8d7b8016054378de0877297262cfdf",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6339491de0b4977758aeb6e85eb7d64f78a41a28",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "8c8766400b00cee6424bd84220306e611146616d",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "70ffad944df2e75f1a75ba449c6c2558e3e3fc56",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "1b27705947c3c9b9ee0464d99539f966aa9ca482",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "longbridge/developers",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "9476486b6428084dffedc6f79cc43f443a923167",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6a4b5436455724d4e6fb75ff0740a8c56acc9d99",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d7bf3369f6d0543ecfbf6d6faf2d10fc50c1d5db",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "35821a9ee726911d7c98f34403f7211276d50d54",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f8de020b1d184d5d30fd225c6686ce1c356813a7",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ea373ea17b33169e30f09b65238a86500744dfcf",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c4dd3714c49077cfe62c2ad25778b954d31cc63b",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "7a07e916c05c0bc7f2f06b0525e81c7cb44a02bb",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "67e3857f58e1d53e06396f3839aca9d36babc85a",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "e18f7061fcfffe4aee763a9ebccbe9a2d4bf628a",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ad5c458345b96855f8496bb827e121888dcc94b4",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "e03897ccd85b2d0bad5de8e02ee5de0afdc5b386",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "Effect-TS/effect-smol",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "07fb967a4e0f35f04eb14c97154e7f69741948e0",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "973f2812529aadc1cc54598b2039799fa72b80f8",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f62860f0e5e45978fabf7256ae620a13152a772a",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6df20c566ee23f20ce295976bf147b763962954c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b47db0bd5802064b6a24b3ea27c6ff2e0520d513",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "fb5db8ef64f04594d8acc88c0c4aaeff61441ef3",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "fb8d29c21f1b2ba8d13f22acbce02cbb615d5659",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "edaae9d65f464f941d7eddd723cd33d324f4b071",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "7c22b315d198dcbf44ae8cdb8b37879e1c9e3996",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "a4a1ec96696cc65dba6104acfcddb15715afb980",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "2ef9a9e6de62ccd760ed5cdf27f866eb0bb23ccc",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "82d3c8e4f3f49b00df611b25aa6f8f74ec21b59b",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "layer5io/docs",
+        "defaultBranch": "master",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "c667090924bdfb73d5c79c001f8adf50746f4394",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "126776b890ab42c728a464bb9f20645871578a6e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "9ccdeac0a5850f7e041a3ab5e47026c82f3029e4",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d4e821824b76972e33e4d4b77c88bb64ed22c889",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "1383a0cde25b24e10894f4a0245c51b69dc3b565",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "4f8c3686428ea2c229914851d31ca704588f4184",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6c0bcf03847d557551d8946ebe65986cfeeb133c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "11d765bd34c6bd3c4360f3769d7ca6236ca4cf4b",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "9611e9ae0921283c842cc9fe74d78c7fa09516e6",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "1392a753421a0abc59803a9c24e3d6123e3cbaee",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "8b61ad9fd4401332ba9d9e8738aa0538d7bd7641",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "2959980147092ba7e34ff724b86313e55e0c1d5c",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "poiyomi/PoiyomiDocs",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "02cbcdddd2d96278aa62d2e3d92423b339bf11b5",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "a91492d3caba15bd806b1caa6c9697a3c19c1a77",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "53ffc910fe48770f588906dd1750c2df9d1d8572",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "bc22f65e48e310994f4e3574e3ff0b3858765f92",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "830c547ed31129d74e017abab8e24a2185ae2b28",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "2ffcbb7b84c9356051af836cf651816e05dfe3b7",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "2c6269bb8c926405ec215902d7f499cb931b6532",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "cf380d93641bb1d779dbdb871794890a5fd79605",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ecacad97940ea53b075f26add8a65a17ad97cc91",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b99a1882285a08341e7f0bbbd2d10b53f949d13a",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0be041090d5d161c6f55f2f385bcd3f0bdce1371",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "632cbabef7d28c956e0a1082f06c135d3974508b",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "cmintey/wishlist",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "716c29c5a88a7e87d9cd9b761a1270ae8d57f279",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "fa0f8ea5af1c29093006d7e4390785bdbf221500",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "90bda6c9d677b66a3867d94caf0c8935cb3dc824",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "20d925bdd5dab429d7bd129ac7538462d6d8296c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "a315b2abcc7f95eabfdf03bc1cd5528d522eea89",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "9a5a7bd9ab019c2194693c9da2ed9a64abb63d24",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b18033da91dabb345bce90568f6bf14ed7116108",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "abe778738564313c57c15c4815da2d2c4651dafe",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b752a95069b7e8557f8e7fcb259db243682ba043",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "253326eea34534394460f32df5c6af8e6bb4a446",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0caf020a3604535e81cf9ec9ee999d8e9f92726d",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f98c067941ff3a203c6fbca3b424582fe9093a45",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "tscircuit/cli",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "7b2f719eeefd73ee2786a987e5b5184b22603f95",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f41e9d2ad2ab8b0c24f2ca4a86cf89b60602f34f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "aca0b01ae617dea73112c511690ab3d02f86b8c7",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ade3ca16ba26c159c4f12c0af0489bd677ae3b23",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "e9179468bb9da0141e27a43b1af333d4c2c3f888",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "a24d434e7c232c9d2c5f08f134dde796abbb96ba",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d3e6d8250c612fa3e0b8d881b44906506c998497",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "9c84afbc3b823c2946d395ec2b20722dd83d7318",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "5e5ede78e4fde0864f2cb57d8a410dedd0e5b657",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ac573620fb83d50d013ca10676d124856f496742",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c8327387a680c98158345504230da1029b3ce930",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f68904a40201962c5ab40732861ca604af917178",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "robinspt/tickflow-assist",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "3d0ee5e48b02094bf2b5ad42f651f0d82b9c89be",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "e6cc5df50ef0fc9cb713836a3cbab7ab868870b5",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "19bbdb4057a13026891524b8786ea935ca796e5f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6483ee72f18b120b918d7385c7af77dc0aebe48a",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "a3e5b5ad9c76a70008f7f26720748af14cc270a1",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "9b3b1c1ecd65f49cf851baf8fe252ffb0c1b58df",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "78fddfe4580025c8f236ac14d70a27b6b0d75c11",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "85211f8ca022170e69c6e472871f4986d2c5fa61",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "28f10dbccf43a670eab5f2d5597fa67c36a5f89e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "17f6b05a06b8a66f77daebdc3e00dc5d81b04aec",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "85dc5592a504987eec07c6a2ce1d0fa17bb16e3c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "9ffcffa8ff83422df3aae62df541bb7137d0b245",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "tznthou/muripo-hq",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "5c1e7ce57b2ab1d0e6566a3f7f3ed752fde96fe0",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "e1f8365d3ab3b2b5b42a7a35c0cb65a59a6cf7b6",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "79f29f37c47e9e62a1a629316bd499cb8f1e1361",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f87fdab197a2ebe3ccca3fa23367de4bcabe976d",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c7a7d72abff5ad6b272f604664d48addd6f3d209",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "bb2d0b81155b4e98b9fab0f6c2d012ca5fbd272d",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "70ea07a7ef7f176fdcc3c1c011f85973653e2844",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ca0a10715ef255c2ae50c2829fa9ea8dfe7016f7",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "392a20d73b19ae62e2ecbbbcff7118a61c80c41d",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "29c34a55efef93c2c5784e09abbb6da895ee1a2f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "814bf4e76011d708c2215af604589a28e3c4273a",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "4c462860190c503d30d0db0478f9699a916afaf5",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "takeshy/obsidian-gemini-helper",
+        "defaultBranch": "master",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "fbc7eaf635ed740ea0a2781999f103a25b6945e5",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6f4d238d97cb02058f4d12500474da2578b93579",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6cf6b8bcf711e17b4bec850a289a95e884350c75",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "139a8cba187700be232282f5ec2ddc12004e654a",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d26964a711f3d2d63e2b10e60c03138b8298e09e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "1051dd40f89120644246e5ac17bbc8bb75cf7c38",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "dfeb569ecfd52a0dc31720c1710066627f7cc781",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "82ef9201a5905e5ecd2353c89c1dc7b711410caf",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "9709c407d5abba1cf57481667639daa633e94890",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "372e73ebb991846d04c0c5ad23131a5fb0a9f84f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d3ec5a1011ee219dab16b8d2121a204647aae9a7",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "3ea7405143746cc10ae5f12713a352d9b12822ce",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "MetaMask/eth-phishing-detect",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "84af3f9bbfeb5589c747ee0a24c0fa4f3e93ddf0",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ddcab3d05aa18ab28b3827801b76794d4abd6718",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "121e0ff00bb28447cfe7d79bd5baabd45fbdfa6b",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0e173c37656849659598ac10d51a80f5e9295bca",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d97a0c9760012683b165a2e28c6394690bdf119c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "296fc059d123d6fe262cc83b106dd7a5d0bf1fae",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "73636cebc344ba30cfd9e09c1e581ebdc9c8312f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "dc1ea1a4021eb8dc985e05623a2b0744415444e7",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "34a69bfce3a1d8ca8a583fa528a61e5826d5cf95",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "3086bedce320f7c6f368f4f51359b2d4d5dc5097",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0e198386d9368bdf7bdba6cb93c189af5bdff1df",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "33b466734ed80bf57b1452d89e12a635e1a7f251",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "tscircuit/runframe",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "8790f12d7edc276892cb51bac23c605f79703dbc",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0298340bf98a253f63098609a821498867bf4419",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "5a9bdca816b9be2f99b1fa0d08dc91fa834a289a",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "95919f999fbf0ea7d504847198de4c91143fb75e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "724bf683c688a8ed9d939b6eb5a5b1015e27a31a",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "73ca0638b6d82124706bf618cd0f572a55702513",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ca6478bf54a1fc7539abf3cd57a3d5a5df06eb03",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "39df5e0a913e39eae34cd1c6a9ca7b14f60feaac",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f4db4d717ad165c12d8fe1685d887163e408ac6e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c090126994a01931a5d7731879099e5d9b08d0f2",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "dcee4923dc52b254adeb8063375487b143f5e77f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "fba924df891a50ab4ceca93c0160aea6f9435e2f",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "mitre/saf",
         "defaultBranch": "main",
         "commitsScanned": 12,
         "headHasMarker": true,
@@ -155,57 +1067,57 @@
         "removalDetected": false,
         "history": [
           {
-            "commitSha": "811f4930f82ee2b6ac8eae75cade9bed63de0781",
+            "commitSha": "382216084864e322e8bd8a93b82f4d0a9a3f9c7b",
             "markerPresent": true
           },
           {
-            "commitSha": "eab65c700ebb16a6e790910c720450c9908961fd",
+            "commitSha": "d2673196eebaa06c65a25c17c25974691e090b4a",
             "markerPresent": true
           },
           {
-            "commitSha": "6b86fcfc5c75d6a3b8a2cf7bcdb3ef60635a9a03",
+            "commitSha": "fd5d4bdf86d3e0aafc39dbe6c50dfc167267d507",
             "markerPresent": true
           },
           {
-            "commitSha": "632c4f83bf32b77981c7d395cacddd1bb172ee25",
+            "commitSha": "1c1fdcf5ccac0dcc9d1fd917e6f272653836c5d8",
             "markerPresent": true
           },
           {
-            "commitSha": "b0b0f21927e03ba092400e3c70d7058f537765c8",
+            "commitSha": "2e0cba0fa1b42aabee4e3ee4b70aff9a7e4fa11e",
             "markerPresent": true
           },
           {
-            "commitSha": "3e4a29903bf31f0998e45ad9128a265bce1edc56",
+            "commitSha": "78ae927a592d04ee91e929277c8f6cf6cf0ba281",
             "markerPresent": true
           },
           {
-            "commitSha": "228a2dd4b272c17f516ee3541f1dd69eca0a8ab0",
+            "commitSha": "14d48750ee72bfab8bfacd2639707b2a4b4d0a06",
             "markerPresent": true
           },
           {
-            "commitSha": "3ab4d7e244df244102de9d0d250b2ff12456a785",
+            "commitSha": "e48d31743af0984683de4966533286c8d41ab54c",
             "markerPresent": true
           },
           {
-            "commitSha": "8351ec7aaa0f7d4753ff39bb9d6260f2ac9e1f1a",
+            "commitSha": "40e1ce677bf847839200d67cf4f663872a924335",
             "markerPresent": true
           },
           {
-            "commitSha": "3270bc12165d62646fd0edaab2c28809302663a1",
+            "commitSha": "d7298d6624488f0c794c2eca969d63d378c18e10",
             "markerPresent": true
           },
           {
-            "commitSha": "a9f9cce82d80b540a0e3549d0e91c16df28740d8",
+            "commitSha": "c1f8b8369ac2883885f6d6eda6d7f9f519de0d42",
             "markerPresent": true
           },
           {
-            "commitSha": "1f42bd7876ae4192cf7f7f4faf73b4ef3d2563cb",
+            "commitSha": "c863cd417f1ac3dd7f2765a9c9dbf790553b11cf",
             "markerPresent": true
           }
         ]
       },
       {
-        "repository": "prettier/prettier",
+        "repository": "BradGroux/veritas-kanban",
         "defaultBranch": "main",
         "commitsScanned": 12,
         "headHasMarker": false,
@@ -213,173 +1125,57 @@
         "removalDetected": false,
         "history": [
           {
-            "commitSha": "80a2fdb5e88ce220b88d9122cd74303d71e4d8c0",
+            "commitSha": "02df89345a94829e3394cd61165afb3c5bd33818",
             "markerPresent": false
           },
           {
-            "commitSha": "9d6833e74a151c8ec5cc5486604fb30c0a5fcaca",
+            "commitSha": "bee813b2d6dc829dd22d2be2630e673b41501f53",
             "markerPresent": false
           },
           {
-            "commitSha": "79c0929b3b02bd624c92be63e7245c38ac3ff37a",
+            "commitSha": "a4a506c5c41137c8961e37129cbcf13a30d88e98",
             "markerPresent": false
           },
           {
-            "commitSha": "648eef6c2c080bbc184bd7070a186313022d482b",
+            "commitSha": "9f49379b721e95773f169b410d79210bf28d06f5",
             "markerPresent": false
           },
           {
-            "commitSha": "f71939fb8295083df43e483d76cd285f23304f82",
+            "commitSha": "3328a79b3fc882d02557e27024c39b85712b38f0",
             "markerPresent": false
           },
           {
-            "commitSha": "723adee63506fb91dcee87412a1c2b56a50f15db",
+            "commitSha": "c89c5e5d7eb70043ffdaef1969bf2667a3c09e03",
             "markerPresent": false
           },
           {
-            "commitSha": "bba9b92d2a381a90fd5f9e936dce76df92e1cd14",
+            "commitSha": "07f1b9857ea4adac74a0d97cb6529e23009dbe8b",
             "markerPresent": false
           },
           {
-            "commitSha": "81b803f361ac3524acdbfa282ed9acb7dda576f6",
+            "commitSha": "c23d261b9e43becf3cd762b52300c9e5cc84f5e5",
             "markerPresent": false
           },
           {
-            "commitSha": "5332b2716692f8675dcf6b2d68a545c9ecd9c797",
+            "commitSha": "450ee469cec504fd087cfae73347ab622822cc69",
             "markerPresent": false
           },
           {
-            "commitSha": "af5a7c074d54fd91015f6cdc05d1bb0f5dcfaa18",
+            "commitSha": "c4cbd715de73ee4a62842ffe401baa8e5b629f64",
             "markerPresent": false
           },
           {
-            "commitSha": "21c8abfd39f0cd4746dab1988458031ea2ad4add",
+            "commitSha": "8fe134bd7d9e09f5bc36d0da6f8a272c0a303086",
             "markerPresent": false
           },
           {
-            "commitSha": "38266e1ebc3ab4d8db4c7acc36e78f794ab2f982",
+            "commitSha": "2fb680003eaf3eaa90d310033fb1b26c5d20cb74",
             "markerPresent": false
           }
         ]
       },
       {
-        "repository": "axios/axios",
-        "defaultBranch": "v1.x",
-        "commitsScanned": 12,
-        "headHasMarker": false,
-        "priorPresenceCount": 0,
-        "removalDetected": false,
-        "history": [
-          {
-            "commitSha": "4d8931ca8a92e53c5dcf02cf46d1016a10e60ec0",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "3a6f5c1ae1f9b58198e9f3109896a2c11d017c58",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "bcfd2997dc93b56669dd03b29b83d8a868797937",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "d6dcbfd53e9506d9c8c0b1fd09c4d960bea9b9f0",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "5dd7ba78b8960fb29e39b6918ee5cb9a2130f15c",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "525e6fbeb060cba17f84a757f60aabf8d6b84a4e",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "9e705864d2d10e6a25fa641a064f75f70b3167fe",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "94e1543576aec5381607dde6f3356a9073dc97bf",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "76794ac27a7222f22f69f96e01305f1ae836c131",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "8077435407a5067ecbb13d8546f3911216277845",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "3f1b6b83a3518d1be59e4004dbae0e22dfca8ad2",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "0efcefe761f5d4ab6d93897929b3aa12c790053b",
-            "markerPresent": false
-          }
-        ]
-      },
-      {
-        "repository": "expressjs/express",
-        "defaultBranch": "master",
-        "commitsScanned": 12,
-        "headHasMarker": false,
-        "priorPresenceCount": 0,
-        "removalDetected": false,
-        "history": [
-          {
-            "commitSha": "6c4249feec8ab40631817c8e7001baf2ed022224",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "06e2367f91490f241e8932b56ffda042ec0debb5",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "e3b962c558cc1c24fb69da285f42c3aa0c1c1da2",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "411061d94e7180343ebf1c86afd30dfb8746cbe7",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "b4ab7d65d7724d9309b6faaaf82ad492da2a6d35",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "c4cc78bdf55ae657536239aad2077425f7d79045",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "925a1dff1e42f1b393c977b8b77757fcf633e09f",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "9c85a25c02e83ad16e1561d02c8ede652f0ef15b",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "1140301f6a0ed5a05bc1ef38d48294f75a49580c",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "c76ed5ae05a0b4174374482a6534ce96023597bf",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "2d4192ebb325315c6dd7bb2743ea65a7eb30a049",
-            "markerPresent": false
-          },
-          {
-            "commitSha": "66404b347a1690c0b783f47a8cf04a37caea8de5",
-            "markerPresent": false
-          }
-        ]
-      },
-      {
-        "repository": "facebook/jest",
+        "repository": "basellm/llm-metadata",
         "defaultBranch": "main",
         "commitsScanned": 12,
         "headHasMarker": false,
@@ -387,57 +1183,231 @@
         "removalDetected": false,
         "history": [
           {
-            "commitSha": "efb59c2e81083f8dc941f20d6d20a3af2dc8d068",
+            "commitSha": "a3b4b33b8a78138f87a2a175500d301406e2888c",
             "markerPresent": false
           },
           {
-            "commitSha": "df732790f3accd5f739e2fb43d0bbbc84885e468",
+            "commitSha": "1efc198fc4c9cec21836570c23af751956391b52",
             "markerPresent": false
           },
           {
-            "commitSha": "0b079c121040de21a009853557490174f82e18ab",
+            "commitSha": "69e8bdbb6dd4310005c5cf312f9faa539882a118",
             "markerPresent": false
           },
           {
-            "commitSha": "d8192b58a7809fff334a1296d322ab548d7bc195",
+            "commitSha": "e0d44300cdc240c34599bbceddfb02ac71bdf112",
             "markerPresent": false
           },
           {
-            "commitSha": "3f17932061c0203999451e5852664093de876709",
+            "commitSha": "d58a880b78cdeed3cc6fbc1d9938c563a495c6de",
             "markerPresent": false
           },
           {
-            "commitSha": "fafabc3cb59be8c68eb71f30012434d58bc9af57",
+            "commitSha": "4b0df9ae0f21c248e959545e93b83294fd88febd",
             "markerPresent": false
           },
           {
-            "commitSha": "f459dd6377127410ded569cd4aa176834c4ec845",
+            "commitSha": "0de63ca4e86cfa21e6cc7cfd11d734db00d1875d",
             "markerPresent": false
           },
           {
-            "commitSha": "905bcbced3d40cdf7aadc4cdf6fb731c4bb3dbe3",
+            "commitSha": "d44c5c070f21bff6216c0b99c96c9c52f4cbbcd8",
             "markerPresent": false
           },
           {
-            "commitSha": "3570d36866fdef27457a915a7b0078009ae5f000",
+            "commitSha": "3c40a22afc4768c869cca6b11277bcb9ac670911",
             "markerPresent": false
           },
           {
-            "commitSha": "b23a7e01b040a9b445af735a5fabc2c409b26759",
+            "commitSha": "68b5d08db4ca0f6aefa65e1f49512ee772adc834",
             "markerPresent": false
           },
           {
-            "commitSha": "c3b5db890bd721c532903884a326f9b278c45d3f",
+            "commitSha": "37fd5d8cc08f87fd5439d5cc93b0f340d51d623b",
             "markerPresent": false
           },
           {
-            "commitSha": "8d25fc0abbabe67ced78b0f0d883b8cca0c0a92c",
+            "commitSha": "c9c9e7a6198d5cae008ddd3ebc8bc172270e4522",
             "markerPresent": false
           }
         ]
       },
       {
-        "repository": "openai/openai-node",
+        "repository": "defremont/Shipyard",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "3363220f7297d90632ab74bc92e00aa6d4de02a4",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "bb04c3f057424e3eb4cd73fe1c52ae9eb7b6c292",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "9d067a993f7ee7e60d4943579a58484de96bebec",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "26506908026953159cf66a4fb8ee5e7c36febafe",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d1d99158ecb9244ee40ceb3f6812f002b1a2ff31",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "faaf4f4d81ed1f8802a22516a27ec02ab5009ffc",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6fa14c0e0e3fdfccde956d7eef057fcf025ad094",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "7d5405a9b9e1223dbb6e34e166c939bcbdd6f4f0",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "11ec3792d011c6a41a10706d7417b1442645fa41",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "155dfbb3dba23caac42615cfc7f4afea9dc974ec",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "2cc31d81569bd981db17124fc25d793f72bb97b5",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "12e31e1131bc0afda0c45339cc858ef716c435ad",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "Tai-ch0802/arc-like-chrome-extension",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "1493a5edb5008ac0c6f2893c5df8e044dbc23123",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "e80431743a0ab75e444f638504f063d7042f2a86",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6c84512081a7d394ff387b3d72d8db63d656aed1",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "55092a106e767bb1fbc1e2565c2d0227b1b703d6",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "e84fc6a08016b608f8d4df9c73d278ef34770dec",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "9b783523c1c721d0b00d5be481ec37760e54dab1",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "e2b51a4d9f81a05e103a734fe01cb28597f8d325",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "4cde0482af65285da6a5f17d9683837bc91aace2",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "46b8f5324a2a53f77b5a187c976dc8f926d22966",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "898d180da8370cedc46f1fb9a4e2b266f8e4222c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "5f0ed06a9f2d63feae5cfbf7e45a07f30c2e2a49",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0a2a71c6d40d66fe764e16ec30e9097925c19577",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "xOS/Config",
+        "defaultBranch": "Her",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "52f9e7c4fad150d11a91015ec28b221479a4f55f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "70b46185bd32a4cb9710ab2a27ee9ed8fe356a9c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "13597d81625109467b34de9ab9ae49e8902b3072",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6af7cafb156cfb261c339e5802ecd7c0218e2c77",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b9bfcef1e26fae877aa4c475cd418af564d314b8",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "85350c3aa7e28a7adc5c04a6171b17b508aca95e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "844f0a2863d8bc9a8795ca1baecfe267273e82e6",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c9f2f76b7b4a577fab05cc195744482e11b8986d",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "a30f4202f9c02e3d9c3f7feed7b8b26ae7ae35e3",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "99e4d48a958e466ed114198c97073c3154a46f6e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b04baaed8cef25127cbfba6bcb25cbcb21005fe1",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b8b5273206cca763953875cbf44ffe9abad211b2",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "destinygg/chat-bot",
         "defaultBranch": "master",
         "commitsScanned": 12,
         "headHasMarker": false,
@@ -445,51 +1415,1559 @@
         "removalDetected": false,
         "history": [
           {
-            "commitSha": "d95158f4b01ab416a168fcbc863952bf02558baf",
+            "commitSha": "80427174955f93d4d7a50449b1f01a06289cdaea",
             "markerPresent": false
           },
           {
-            "commitSha": "b6f0f44a61aef179f90a8be05891c52f8522372f",
+            "commitSha": "d2d0e2be882602503212d00b92284c02fc5cf3de",
             "markerPresent": false
           },
           {
-            "commitSha": "c1c713ebc8c7cab60a9f33e7795c2b2468f6c0fa",
+            "commitSha": "f4cd5f76bb79c8e645882125c8f1e92c2bab2c63",
             "markerPresent": false
           },
           {
-            "commitSha": "96166dadff57272ff2b183893093bd5c8c47e4a1",
+            "commitSha": "d5278f4a5507ea0b4e0708544ca9a8418c65d708",
             "markerPresent": false
           },
           {
-            "commitSha": "00ef21d98d052a9c9d58d5677e14de7218440c27",
+            "commitSha": "21e90b975a4b97b263155d5f8c11491991f03469",
             "markerPresent": false
           },
           {
-            "commitSha": "f3c92c73d3d398468a9df670c65dc167f13f8107",
+            "commitSha": "62c58278072a3131017a38bf06f40367f0af6f6b",
             "markerPresent": false
           },
           {
-            "commitSha": "6359334b79fded7a214d4853d6946639ef8569fd",
+            "commitSha": "4a2f3a89382fcff94b8d83a576954d038b10d797",
             "markerPresent": false
           },
           {
-            "commitSha": "ce33e4c7abbfee06053d22227bfd37194c962b5d",
+            "commitSha": "c1b2d44dc60a55b4e5df3b77207cd57c4f9ca1af",
             "markerPresent": false
           },
           {
-            "commitSha": "3d195aa892ba82d2170881dea3880dbd9a16553a",
+            "commitSha": "eaafef0cea62993663c572b007deb5935cb034dc",
             "markerPresent": false
           },
           {
-            "commitSha": "ba14ec88f6cb67898770be5d7f08a8861b4059e3",
+            "commitSha": "42606aef0f0a8c50bdf787a75d8ad98a9def0ad2",
             "markerPresent": false
           },
           {
-            "commitSha": "577a54cdc83e28cb34208fe14dcecdf38c4e8abe",
+            "commitSha": "c7badaab6208f9bbb5974ee1ceba3795839e18ca",
             "markerPresent": false
           },
           {
-            "commitSha": "6de3617f7db3e60eb67d4acda7a389ffd7349d64",
+            "commitSha": "8c212981da3739885f1d9e6aa7f5effb0aab2de5",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "wxkingstar/SpecFusion",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "4dbd8557ccc9f093099d38c223b195163a0ea2bc",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "1db5c116de6d8006372c381ab95333de6784d1ac",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ace27f8e390edc23c5e438dbcd534d80001f2bd2",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "08aace4ea37b2a798f328c8a13127665073ba7d8",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "3bcf5b5994a205004536cefa90c394180cc39180",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "64b49a68156e91e95afa9cbcf31cf71e63dbbd82",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0d39dab55bbbe47673f363a878b3506796ab1fab",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "44badde3ee64ce777da34d82cc522d817b7c5c45",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "84ded5b01f6a11c758d5fc1a9fe250f01b2f20f7",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6396caf1f6dd92fe4e08a8970b3b0f5f160055e3",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c78d1439d6b51fda422b25b75227c8d7e3adaf91",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "a5652bbd98f4798777914b0dc6aacd6bc7a150db",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "nestcn/docs.nestjs.cn",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "99b19efc784206bd09fae2dbe4b0409d0f94ff28",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "e757d65f839201ed90039f4b1a819cc79c9a2ab8",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b3cbf12443b21e95e8a9b8ddcc95361cb5c13e40",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d52cef44e0f518adb5a3401ecbe24e114a005ca7",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6fbcdc3b4cac8254f8c9f738ccec560d11c9bbbe",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "4c18dc4866f4f9c62c4f84ba2cee20513476fdf0",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "17f00003b834630d6e07c4801233f067f0d803af",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c9250922d199bda5f9f8274ea796114ccd31bed0",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "119d55b7db135adeff5c8d3589c287448d3b4827",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "32cd81d296e8e25401e6cbd3cc200eec34b2b780",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f94a02bf338398040f7ab19b97892d392dd75aa4",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b7dcf3e2d673d4949f2a3742a8f0b6de75ca74a3",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "neomjs/neo",
+        "defaultBranch": "dev",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "e503508e65496daa6a708b6929a1101484ecdd29",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f3ecd653d40cdcc29d520b5d7b829d262c407688",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "1ef691823f70357aef29406c120b2e92c6de435f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "752d144d40e34916c577d5d2680ce4d6e94b37ab",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b86088c519bb10f0ba753584a44cef4292ab7f26",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "4a7fb20b91bd25f4e5cd0ab4fbef90e1f5ce73b6",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "573a49c20e729db450e4d3d52ddbfcb034336931",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f3e27437f113d1339c78210f2f45d22943277b93",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "2b9b44b004059056d25ffba91880d212ea92eb39",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ca3b26ee34023cffb033b71c36e162dc1f5c8de3",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0c2e195c641ca0eea9649fad6841eecca5417c9e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "3c8640f04caf26e9d7b0813dab7b89be4a046663",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "heli1x3T/Helius_Crypter",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "09b2459601f461710a2fffc2fa3555eec0078e59",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f9fd33f88552fd1309211822aa5ffa2d0ba28da0",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "76015525d1b071c0b55dc158e14658bddbb4d40e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "88dcdf8744386e78b823475f332ba3bf7a0ef21e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "64330c017d905ca8a2356ddbe209f84360c3adea",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b54b9eb17476a3cdbb7bd72982bdb7be284bea83",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "346b697f1c838a4beec888507fcde0e54cd204e7",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d62722efe483473e6c02c0bcd42e6de25e7e4bba",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "27b0e652c854df57b96f714070467a6cc7f28f74",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "074c8924aae349f5baba7926e609c2950344ab25",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6dcf4cca41693a5587722d41039b4fb95c585c0c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "cb6a09852124751cb3e2921ede98a415f8b88f4e",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "rabbitmq/rabbitmq-website",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "2a162d8d02d10a1ccac37814bed1d96edfb50d7e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "5321a3d6933dd61fa1f5fb8098c3fdf2f7d9c802",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "372aeafb97a538631fa1a0b2abab0738f53abb97",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d0095cf9dca85ebeb7c449111534c8b5c22c4ba1",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "55f333dac5145fb8380cae449d37884e1dfcae3e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "1c9a4d0ec386a0dd91b478210461f31ec2e70a74",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "bf455c3f1c29312f367ab67259566eaa49e49ddf",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b52adadcbd4d7efaeb5a4c9b43c1958c2d69296d",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d7c088fad1b83b85b38617ecf256fa9f556d798e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c6c0620e51b6e1867eded85c46828ce10da149c6",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6ddf7baad723db38677e52ce1fe6e4503e024172",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0b87b8f7ace22a61e369d64e4a220e10300addce",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "pancakeswap/pancakeswap-ai",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "de1bcea46ab5d94e496aedef0903712195cef2a4",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6fca2ddc884955c7d27cf0a7c0b0424107c65289",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "947a5849cee9681498b9f530cf4a2cf6e46933a9",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "e5564bcc70296ed0e90e27c33c24671b18c380b4",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "e663427b53c13b62442321605b0bd306079320e2",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "2f62b3275eb154260a6ebca2cbf9eac530f8b5d8",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "61b6b0b690a70c1ad49415c262ab5bfd7869d00a",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "653abeac4f13d2fc7a316e32787e9159eb836675",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "2ccf90ef17700a281b0dc032691726b42243ac43",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c5374603cdcc78c885689bb129879d59cf48456e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f34ed23e28eb919f13ad8fcbf4660137c4d53026",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "72ac17980e815c0a35bcc97244964301d09cdc10",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "microlinkhq/www",
+        "defaultBranch": "master",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "31fc463f1144bab5cf84c6551ae1504a9f8cba64",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "8daf1cc07b03b5649364db4a9ccc8797660b80b1",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "409981c76180d59a9c97c07208f5b8a45fd4e220",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "8a2e24cdfb9f05fca4ec20dcf546b64c53699f0f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "cacdf9ec09ee2358d675a697fa94d52638953d09",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "67dbc51ddf19a9d1793e92e733cc9dcd174353b2",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "4997c05fefe57c287b305fbcce82b75083640789",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "265c14e76aa3519367473f6cafc5a91a900facad",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c332cbb8524f542d4e49bf2e001f741a5d9ff898",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "aed3ec2305e5e91905ddf36e4441b3108d4a05b8",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "5fc210ff46bfe0980ca112966c51e27c64f47ac8",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "a1591e94e6e2bdc6a013f924d54a61370098b643",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "sieteunoseis/cisco-axl",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "5e9b2fb1dc26eb2f941465a573e255dd634c7096",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "8e39d65255c3888e5072bfae307bdf30f666ae7f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "db7bd7ae671c2d71b7e1cccbfb33b80f479b5572",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "1300ab79e7c53c6ec07b9ed985af28362bff8307",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "a8bc685caabfcfbb460a9dbdd9e37e14e559c590",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "40c9ba843265587e0458de0fd4f59a5bbc3cce6f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "7339b8b51634f9c0226138f1b584a76d99cf313e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ecc0435c5e15d92eafd4726d0a53b0a4e2aa0107",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "9931bd3daf4b8a8dd95bdb1a23d17feba97ddf8c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "3ce20e11dfbd6a5ab40d34201a8988b885d8012d",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c8d89569580c5de723e1efa2717512bffc6e42e4",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "56002765fe1dddb7df0e43806c7f6b19f9dff709",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "jdx/mise-versions",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "9cf8a16e63de0acec97f3518d37a23549afe6467",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "a5b4f07f4d0b79058993a91529c508bfa9143463",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0071d6d3eb502556b2a081c72c7e4fdf47db1e0c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "928f0c6264d2e7535e9907a97f7d33e3bb955cdf",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "e48cfa4543cf555e5104019414270b8b49971a8d",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "970d4e98e80a112476a8c193200fb589adc51422",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "2e7c69a3615d41ec5711acc43bf236a6be25654f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "1710460f5f874248ac11689343eb596f51999b50",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "a82b26f5d0c410c5709c94caeccdf683c72ab28d",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "9f31a0677e94adbf82286dd108cd4fef1120e613",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "3d671a2460ebfe1d3d47baa8a86ec504597f69c1",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "65d2a8be127bd4d332a897fd6a44d98ba4ef4b5f",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "Lianues/Iris",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "cfb80c4f88ce50160c638d9999bc04830ff5bbbb",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0895c8b8d26a28b249af0603d7dd6b63341b36e4",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "4d167733d9f1f60fc1c48afa783ec57f0c1fd730",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "77c2ed9e7fa67e903816d2a1402218711a9dc1a7",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "eaeac4247c9eea13785db16fc61b8d9718bdfa2e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "66f830fdf754dea2017ff39bb0fa0545a773ae99",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "a55929ffb88d7f11ebff100928f7661701cf4e01",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "33104a00cabbd62eefa2043c8ad4fd023fa8ee29",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "5b161edb10c37b8f93eca8593ed86a011af876a3",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "dc8feb6901361c413a77c208608e4ac7a0c0f772",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "e6e9bfb0f450cb0e00075b5a47fa4f9d5cfbb161",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b2d95d0e9de5c11803e2a97631d7052133f1ddc4",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "devsolux/iptv-playlist",
+        "defaultBranch": "master",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "9567f8f6638c5d57d834b389f83814937eaa17ca",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "522ea41f40eb1d5c47b71dc5eb443f53d1a1005a",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c747c802f06fb5a09127bc245782334670bfb5b6",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "1fd09e58311793d07b983730884a128ba2847cce",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0af66695c0458333bb14222de30c33346eab2c41",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0d1529807fdc5643714db17f622d7eca6ebcc0e2",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "de66f8c35b5faa230395e0b2d48bb315035959e9",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "75b7c97fca32ad3f7cff25205311caa639c7d6b0",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "394af469e93113d1205b201682ee2c507344cf20",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "1ac615519dcff47583717854c412dd04cc751fc0",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d90350d211dd6c0e32c82246e3dd4bb14d3c1645",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "1a1a84ff08e44f91af44ed361780657a4f3a0dfe",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "esaio/esa-mcp-server",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "402260bf8bea1126737e57a644beab60c79d5db1",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "3f522195ce830bb08d1ef14af2673701234ca3ec",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "784dd66b9e2604e1c225f75b94187da98c679d2f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "eb3bfbed537ffafd907bed720353074feefbdbbb",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "de7e5827d2898149dea58e9f554c5f79cd7a06a3",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "bf1fa95fe0309e8ebfd984f14f5caa8313c6b725",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "963fe658e4a92d2cdef46b9c55a7bc8381015019",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "7fb29e5295e4f01324cd7c9af9e34240e2794d28",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d8f5327c7819d344aac42060615045543c9e30da",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "943ba26b6b8b081a5f47eaa96492c54226a45d56",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "57a699e5ea5dccb7eb7d60c9e132137fb5ca0b88",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "35232a6ae009c93148d153f814650a61975937d2",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "zorn-v/nextcloud-social-login",
+        "defaultBranch": "master",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "e957e928af8b81cb5b120f35f6fa1415a71e27da",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "a1c633ffbbe7dc6fc17c7fbc960bf7ddd8d4e47f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b9dfc8aba7cabfedf468f208116355fe76d5421f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "3005815a9897756968ec2a43f08e2a589ccb1bc8",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "e86fa5b0c9c1c0e00f9907b3f699db03d1fd2929",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "a79ec5fa098581a64901d72245bc1415fb4b777e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ec4bed0abb4ebb40662447c5c93802857ba812ad",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "14fc33636b092e2f411cf5706ae768df0c50e590",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "9988c36e628e376e0a2c24c9fccccc66e2c23478",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6f06e7ed431fb7b8fe781ec561f2c59ed377ce3f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c0f304719957c0fa39aed33bdbb2ae339f992e32",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "dea917b145286eeae26796b0511327387565442d",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "SplashtopInc/winstall",
+        "defaultBranch": "master",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "4733e36a617bd9955d60ed6512900771e02922a5",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "3537e2424749f57944f5adfcd47c67ea04f9c6b2",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "827cf22948ed5c7d60861e29a743a1a73797ba44",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "e0a4f84df577c202d298daa9c807ca3a49d07964",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0350e159abaaeec4515c0adba0d9a930c2627464",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "7e1d284cea54a4b1d265cf0084fb84f1dec4ae38",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ba07754da40891bed6c74f9135c884bc7edcbb78",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "aecc33ad8c7f59c9f919d7ceb2291bb868f82b1d",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c70aab9a77e8e5ed47b1fb6b578b9a109b9b7dc2",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "14740dad020f7bfd55c49729433ce2380df59213",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "fe1a171c497845696e5935b00e26e779ed06676a",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "1c1acad4245e9bf4cf98a405757e2f2fcbc5dcec",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "l4uy/waves",
+        "defaultBranch": "prod",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "3e4555a11939815bfba7d90b472afc70703989bd",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "fc80c22a02aec451ed123671f1881d543d66d46f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "262acf536cf4a66e81f6ebb770df79fea65c6b7f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "531a6ea6dfad1f248af7b2c24ffb05cbd0340940",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "aad70d0d26f9150e52de423b4773adf15a01cf2c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "7194110623a5e89402671072f354302f6fa985f9",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "331f3f03c4a348d669dfc043ab415890b7a9ffad",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "07e786696761214c3517fdd3f68ea7b562b2d0be",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "960f7ec00d9a47665dacc67130449cafe4da6912",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "de8ee9da76b4cdeb3fdd66357dd26277ed4d2296",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "48993128c045798d23372ab175caeb2181a9a85d",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "15462b31e9aeb7da0d47078e85cdb0339428b0af",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "expo/orbit",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "a44a7c0fd69764181718ccc7d1b5c5c9bd0f596e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "80d85767fb9718f1d948155a8c4e997e6cc58d9d",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "cafcf3ee7da38011361cd53dd1b0a4580b506ddd",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0a0ceef7e161946264e955fd242304ddf7a5bf71",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "928c244118828d932aa50848809e2fbb5e8e9ca0",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f3f7514ec422ed3a4695f39e877adc7da463a420",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c3ba030c421adba376a05fbd5753fd77460c4fc3",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0a0240ba1b65d4a5983003c340d5e939baa34b5c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "117b51eb82088a34201c4311747cb7aed1714279",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "8c14c6196b432ae970285ddd0c64ec8cc37cbd63",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c362cfae53808ed3c40ec274fc41e2c4d4326670",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "5b74bcd4a168b5dfa212082efadd65d3e44f4640",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "DrakiaXYZ/SPT-LiveFleaPriceDB",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "e5f323c0cacb1dfb43441a5c9f434dec4ce92876",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "19af32a47d3466d1dbc29bb012f2c4401f730466",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "5259a527de9b9899495b8a376ae65c1c214a3bfc",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "48a529867c6ad38b6491672495b7238419d7732b",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f985318548d3ef1ce448e6f0ef3a36fd9b33ad0a",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "95fc009f5c1c723677daf5c985ea511849381fce",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ce5b91b9d5178a88f11ef31957f9fd90ba55decb",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "e5e4ae17544f960319d3811fad2619b06633b405",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f7c3e2559c261f98263977479d3eb846a7a1e257",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "8b8b3d91f4e770fcdbb7cdf56963ddab3bc9eebb",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d5af20a32fdb5421c5b11d83e4f54f3400ebcb42",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "9b7bfbfe9f64f0c91fa738b5523306958a476048",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "chrispyers/openkiwi",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "a150029c29d515bfe8f9c3428ce49878900de5b5",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "befa1bb984d8524c81ae443f6702de7ff57514bb",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "5de4ec120973f3f9e17076f2bdbe36a41d58ed7b",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "7a4beb81b2692c305386b8e46115e8e0f65a20bc",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "29b520951d636788b3ea94cd524255ca1ee2c4bc",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "868bd256c2f270bd94d90e369d4a684d60804e70",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0089ca2910985ffff571e5f0579a118c729b89bc",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "32c7c07f90c661636cd93651c884c7f42507dbca",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0c3f41a93e1b87124fe590fdc8736f199388b03d",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "49990f676a8907771f129891efa13d2757b913f9",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "73c7861af2f6d1cc8a8a908f573c277a5e96d4a9",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "1c02615801cafbc6c940d3600c1591c1057b99ef",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "lingdojo/kana-dojo",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "75830ef97660f67b6999ade7bf6463171acc652a",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b6309a3b76934cfe674ad496768258730a938548",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "9243d96e8cb714375b6933beff9feb7f9af10e48",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "78bc54bfe02f2fd110d6a3c94c0a7f7a04aacaa9",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "3959095435190e4dfa60e07648552386ac3d1253",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "466090be07c23b53ed919969df7ad79bbd929784",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "202b32c09855e6e02cd50d8bfbe407827340bde5",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "73c663e2dfacf09d1d623139f4816349fc179681",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "4c1a95daf9e3aabab0afdfb1d47554b00ce02bc3",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "7d01e3035450d04c8f30194f62a139aeb01c780b",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "34dfdc55ccc3a68cd7531b24c053a742569c96cc",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "78011d724115cfcac74a2d239d6bffb6be926c30",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "victorGPT/vibeusage",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "85a174ad03af4327baa6b5e6dcace71fa9c59f44",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "957e42078559700f5843174064feded66d59de5a",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f339aeae54e82665fc99c4a3fc582bc092be59c4",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "2f70c6643da051fa4bfa805f261b4677b158b52e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6197924d941f19c36adee8745ae68a5a5383a87b",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "1ec9f18d3337361d04637412fc71c893c8d25fab",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "9e20ff99de48b7d9611433449161599168e6707f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "29ee1efcc623002f4ae74badc0efca8a957c0b01",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "1af899420344892fb8c70fcfeb80955621487c54",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "14b770e063e45e9a68b69e198f8d1f7aa02173c2",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "46b1a2e6ca14f09cc897c62d36de507874ae01a2",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "a52e6873da318ef7f36d08953101aa64510d48c2",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "chaterm/Chaterm",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "e6b69f4feb6a1e67191252628182b1b993efb979",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "302f8f5e05c81e2848fff0d3bc4616643bfc1171",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0f7d70ff05d040309967ab6cec205a00696def2c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "15a90dcb6cfba1d32a829e9726c68a7f7a3a477c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "a53ecfc5a19db23480714091e33551dade8c253c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d997707090cf265c35a49332a3bce644d8cc27a1",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d17bf72b63f8192fac17271cee151740a5b0ed93",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "3c456cb33f17cd77b91078b6f94ed11efaf239ca",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "53ad23426f64a63c05b45094930467ccf1604487",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c72eef87a71bca412679dce08e66c127ee2718ed",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "4da822e20d0976f2c06334a55a347bff3b0271ba",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "54f36c0ed8d5b78eabccbd89e3dced9355ecc441",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "Colorado-Mesh/mesh-client",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "9895d0b78c0841932fbac54eecce2559bb4b9fc3",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "4a8181b5f7102382d17f285fc7591349c2b024dd",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0f05915804d139376300389b5fdcded11c87ca58",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "1d38372d8a907198c1fa93a40cf8b8078ea3b004",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "845050bcbd42ac2b49dc8126a3c3a5908840ff1e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "05fabf8847f0b92a6923c747b9dffdf7e63ba09c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c327a9c9bc7fa8a7e1447262bd64329ed4f29277",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f1840f7b814c337985350b7a1f3c8c859221918c",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ea2f609310eee4b0987ad2e4725770d7418d297b",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ea93e57267c009372ba3b0ac755c6194eddb5c2d",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "4b441c6b3fc459d84561d8df2a43a5f04aa8dabb",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f181c9a49be9ebc54e8f6f1ec6d6858ebcf61814",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "liuxingyx/TOMATOX",
+        "defaultBranch": "master",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "a38c8ff97a7f0393bafc832d2a1e70f5c2ca8bea",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d6b15ee51b2eb826dcfdd0ab4fa75f8a0ea054e2",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6515c6c799393588b9b0f2641eba03dfb89fb126",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6b8f3cfe26bb9629002da001bec2dc2ee58b1c4b",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "eb64d5ed8d6c27b48df5e98e748a22b7b599b06e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "536ba6f86cebb4b125c5bb4d9afc6af7ade36d01",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "fc5d0fd7a6346ccb4860df4bbbbd700a0a5f2ee7",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "89a963c075c6119baa8a47e35d28b39bb2a4dde5",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "f06959c5ea2859b27e3e4ace5500c75c779caf42",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "596e59c8072fb1f65e65b799ea4a1eace04e6924",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "71e27e0413d863e55c367853f06b667937100f4a",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "64cf2f9914932d3f9979fcf71ff56a0947f15ef7",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "Fannon/search-bookmarks-history-and-tabs",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "df1a2270a0207971cbf57c24d4bd7a11bde38804",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "eed41ca198d21b8a5cebe3b1faf7b6c2ceb730ba",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ff7a375e31db5900f5a38590da01b2cbb95063aa",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "496c0200c40f7bbbe71ec4c7246e57b4cd6aa122",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "e5c0c3b539e9cce5e8613dc911671f421016e327",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "93131349e1f4eb102411e6e4050b4af504cc3350",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "a24a911d1db7fc0661bd38556dc58df5d3e1651d",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "555d69c1acb54d27aaaac124e17db6c21ba9ba2e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "de71c341b2798c37ff924a45386428fdf880ac66",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6fff3aed4e208f460727770cef8c36af34c10b0e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "65eeac8724081c55970065844b13329063935e6b",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "c9cc47591034ed82799bfd3a3718f8b33fa77c9a",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "jsnli/steamappidlist",
+        "defaultBranch": "master",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "7a4c590a188a1e2f4a0206c610dfa03f7ecd0539",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0b34fd6f90a84916c164d9ca7fb0cfca421e0a7b",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "2a52e299841e8911648807f26da03a5b8ff84689",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "4fd642e166192a0c28b6ac05a64233f68210a5e2",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b3c49e6ef7a8ef0b46b3219d0ebd33d39d66876f",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "b90faf298c851d9a71dc37d844d88df5257bb478",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "bd54a46d41661ff2019ccea37684714b1003f5a8",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "77c2d0022d6995d3c3bd257e24c9dae2c4fb59eb",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "2babdce8f2c9f1f74285a6a84520b39d68716851",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "a26cb544bf6620f47bd540d70fb48be56cd145e6",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "330aa9e2ead2fad94ccd57bdc03dce7c48eab117",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ad101a9cd04f2d22c9d41736033abcc0bfd737e2",
+            "markerPresent": false
+          }
+        ]
+      },
+      {
+        "repository": "rixinhahaha/snip",
+        "defaultBranch": "main",
+        "commitsScanned": 12,
+        "headHasMarker": false,
+        "priorPresenceCount": 0,
+        "removalDetected": false,
+        "history": [
+          {
+            "commitSha": "45b33cb54ae864bd7107887f20ecc0e4adc9fa9e",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "e35b7b687843b5b4f77ccbb91502fe73fded4084",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "10d09c29026e3b6baf53233809aa0ef99759cbd8",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d621bbb762ea130e31499e4c57b5997f2aa7b8cf",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "7890cb73e3119e8fe78e357b1dbc3879c7bffe95",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "52d33d78d931778df677c09e72fa3a8f439ca483",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "0bebd842b764091be71aea26cf46fbae3d329a9d",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "6dab7d5ed3eb7505d67f0773736e361bef78f1e1",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "d4653d43b7c862ba4692b84665462461472cfb60",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "ad3c67a0cbaf38f0e24e9ba0c1507492bdd82dd7",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "47415b9804ec87d79c8b9c9838fce8dd67611880",
+            "markerPresent": false
+          },
+          {
+            "commitSha": "961775d189fb61e819448d108afe8b4411b582b9",
             "markerPresent": false
           }
         ]
@@ -497,17 +2975,17 @@
     ]
   },
   "analysis": {
-    "interpretation": "No repositories in the curated sample currently show a possible removal event for the ajv marker under this rule-based check.",
+    "interpretation": "No repositories in the filtered sample currently show a possible removal event for the ajv marker under this rule-based check.",
     "limitation": "This is an experimental proxy. It only inspects recent package.json history for a single dependency marker and does not prove broader migration away from JSON Schema.",
     "basis": {
       "comparison": "curated-sample-head-vs-recent-history",
       "markerPackage": "ajv",
-      "repositoriesScanned": 8,
+      "repositoriesScanned": 50,
       "repositoriesWithPossibleRemoval": 0,
       "possibleRemovalRatePercent": 0,
       "historyDepth": 12,
       "sustainedPresenceThreshold": 6
     }
   },
-  "fetchedAt": "2026-03-24T01:45:15.357Z"
+  "fetchedAt": "2026-03-25T02:20:40.807Z"
 }

@@ -3,6 +3,13 @@ const path = require("node:path");
 const https = require("node:https");
 
 const PACKAGE_NAME = "ajv";
+const COMPARISON_PACKAGES = [
+  "ajv",
+  "jsonschema",
+  "@exodus/schemasafe",
+  "tv4",
+  "is-my-json-valid",
+];
 const WEEKS = 12;
 const OUTPUT_DIR = path.join(__dirname, "..", "data");
 const CHARTS_DIR = path.join(__dirname, "..", "charts");
@@ -13,14 +20,14 @@ function formatDate(date) {
   return date.toISOString().slice(0, 10);
 }
 
-function buildApiUrl() {
+function buildApiUrl(packageName = PACKAGE_NAME) {
   const endDate = new Date();
   endDate.setUTCDate(endDate.getUTCDate() - 1);
 
   const startDate = new Date(endDate);
   startDate.setUTCDate(startDate.getUTCDate() - ((WEEKS * 7) - 1));
 
-  return `https://api.npmjs.org/downloads/range/${formatDate(startDate)}:${formatDate(endDate)}/${PACKAGE_NAME}`;
+  return `https://api.npmjs.org/downloads/range/${formatDate(startDate)}:${formatDate(endDate)}/${encodeURIComponent(packageName)}`;
 }
 
 function fetchJson(url) {
@@ -59,10 +66,10 @@ function fetchJson(url) {
   });
 }
 
-function validateMetric(payload) {
+function validateMetric(payload, packageName = PACKAGE_NAME) {
   if (
     !payload ||
-    payload.package !== PACKAGE_NAME ||
+    payload.package !== packageName ||
     !Array.isArray(payload.downloads) ||
     payload.downloads.length === 0
   ) {
@@ -89,6 +96,35 @@ function roundPercent(value) {
   return Math.round(value * 10) / 10;
 }
 
+function buildComparison(payloads) {
+  const totals = payloads.map((payload) => ({
+    package: payload.package,
+    totalDownloads: payload.downloads.reduce(
+      (sum, point) => sum + point.downloads,
+      0
+    ),
+  }));
+  const sorted = [...totals].sort(
+    (left, right) => right.totalDownloads - left.totalDownloads
+  );
+  const ajvEntry = sorted.find((entry) => entry.package === PACKAGE_NAME);
+  const totalSelectedDownloads = sorted.reduce(
+    (sum, entry) => sum + entry.totalDownloads,
+    0
+  );
+  const sharePercent = totalSelectedDownloads
+    ? roundPercent((ajvEntry.totalDownloads / totalSelectedDownloads) * 100)
+    : 0;
+
+  return {
+    selectedPackages: COMPARISON_PACKAGES,
+    totalSelectedDownloads,
+    ajvRank: sorted.findIndex((entry) => entry.package === PACKAGE_NAME) + 1,
+    ajvSharePercent: sharePercent,
+    packageTotals: sorted,
+  };
+}
+
 function buildAnalysis(downloads) {
   const windowSize = Math.min(7, downloads.length);
   const startingWindow = downloads.slice(0, windowSize);
@@ -107,8 +143,8 @@ function buildAnalysis(downloads) {
 
   const interpretation =
     direction === "remained roughly flat"
-      ? `Ajv downloads remained roughly flat over the last ${WEEKS} weeks. This suggests steady usage of JSON Schema validation within the JavaScript ecosystem.`
-      : `Ajv downloads ${direction} ${Math.abs(changePercent)}% over the last ${WEEKS} weeks. This suggests ${direction === "increased" ? "continued adoption" : "softening activity"} for JSON Schema validation within the JavaScript ecosystem.`;
+      ? `Ajv downloads remained roughly flat over the last ${WEEKS} weeks. This suggests steady validator-level activity around one widely used JSON Schema implementation.`
+      : `Ajv downloads ${direction} ${Math.abs(changePercent)}% over the last ${WEEKS} weeks. This suggests ${direction === "increased" ? "continued activity" : "softening activity"} around one widely used JSON Schema implementation.`;
 
   return {
     interpretation,
@@ -123,12 +159,13 @@ function buildAnalysis(downloads) {
   };
 }
 
-function buildOutput(payload, apiUrl) {
+function buildOutput(payload, apiUrl, comparisonPayloads) {
   const downloads = payload.downloads.map((point) => ({
     day: point.day,
     downloads: point.downloads,
   }));
   const totalDownloads = downloads.reduce((sum, point) => sum + point.downloads, 0);
+  const comparison = buildComparison(comparisonPayloads);
   const analysis = buildAnalysis(downloads);
 
   return {
@@ -147,6 +184,7 @@ function buildOutput(payload, apiUrl) {
       points: downloads.length,
       totalDownloads,
       unit: "downloads",
+      selectedValidatorComparison: comparison,
     },
     series: {
       interval: "day",
@@ -161,6 +199,12 @@ function buildOutput(payload, apiUrl) {
 function buildChartHtml(data) {
   const labels = data.series.values.map((point) => point.day);
   const values = data.series.values.map((point) => point.downloads);
+  const comparisonLabels = data.summary.selectedValidatorComparison.packageTotals.map(
+    (entry) => entry.package
+  );
+  const comparisonValues = data.summary.selectedValidatorComparison.packageTotals.map(
+    (entry) => entry.totalDownloads
+  );
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -241,6 +285,11 @@ function buildChartHtml(data) {
       height: 320px;
     }
 
+    .comparison-wrap {
+      margin-top: 24px;
+      height: 280px;
+    }
+
     .analysis {
       margin-top: 24px;
       padding: 18px;
@@ -302,13 +351,20 @@ function buildChartHtml(data) {
         <p class="value">${data.summary.totalDownloads.toLocaleString()}</p>
       </section>
       <section class="card">
-        <p>Time range</p>
-        <p class="value">${data.period.label}</p>
+        <p>Ajv rank in selected validator set</p>
+        <p class="value">#${data.summary.selectedValidatorComparison.ajvRank}</p>
+      </section>
+      <section class="card">
+        <p>Ajv share in selected validator set</p>
+        <p class="value">${data.summary.selectedValidatorComparison.ajvSharePercent}%</p>
       </section>
     </div>
     <p>Daily downloads recorded for ${data.period.start} through ${data.period.end}.</p>
     <div class="chart-wrap">
       <canvas id="downloadsChart" aria-label="Downloads trend chart"></canvas>
+    </div>
+    <div class="comparison-wrap">
+      <canvas id="comparisonChart" aria-label="Selected validator comparison chart"></canvas>
     </div>
     <section class="analysis">
       <h2>Short interpretation</h2>
@@ -321,6 +377,8 @@ function buildChartHtml(data) {
           <li><strong>startingAverageDownloads:</strong> ${data.analysis.basis.startingAverageDownloads.toLocaleString()}</li>
           <li><strong>endingAverageDownloads:</strong> ${data.analysis.basis.endingAverageDownloads.toLocaleString()}</li>
           <li><strong>changePercent:</strong> ${data.analysis.basis.changePercent}%</li>
+          <li><strong>ajvRankInSelectedSet:</strong> ${data.analysis.basis.ajvRankInSelectedSet}</li>
+          <li><strong>ajvSharePercentInSelectedSet:</strong> ${data.analysis.basis.ajvSharePercentInSelectedSet}%</li>
         </ul>
         <p class="basis-note">Raw JSON available in <code>data/ajv-weekly-downloads.json</code>.</p>
       </details>
@@ -333,6 +391,8 @@ function buildChartHtml(data) {
   <script>
     const labels = ${JSON.stringify(labels)};
     const values = ${JSON.stringify(values)};
+    const comparisonLabels = ${JSON.stringify(comparisonLabels)};
+    const comparisonValues = ${JSON.stringify(comparisonValues)};
 
     new Chart(document.getElementById("downloadsChart"), {
       type: "line",
@@ -369,6 +429,34 @@ function buildChartHtml(data) {
         }
       }
     });
+
+    new Chart(document.getElementById("comparisonChart"), {
+      type: "bar",
+      data: {
+        labels: comparisonLabels,
+        datasets: [{
+          label: "12-week downloads",
+          data: comparisonValues,
+          borderColor: "#5a7f8f",
+          backgroundColor: "rgba(90, 127, 143, 0.35)",
+          borderWidth: 1.5
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
   </script>
 </body>
 </html>`;
@@ -384,10 +472,18 @@ async function writeOutputs(data) {
 async function main() {
   try {
     const apiUrl = buildApiUrl();
-    const payload = await fetchJson(apiUrl);
-    validateMetric(payload);
+    const comparisonPayloads = await Promise.all(
+      COMPARISON_PACKAGES.map(async (packageName) => {
+        const payload = await fetchJson(buildApiUrl(packageName));
+        validateMetric(payload, packageName);
+        return payload;
+      })
+    );
+    const payload = comparisonPayloads.find(
+      (entry) => entry.package === PACKAGE_NAME
+    );
 
-    const output = buildOutput(payload, apiUrl);
+    const output = buildOutput(payload, apiUrl, comparisonPayloads);
     await writeOutputs(output);
 
     console.log(`Saved JSON to ${OUTPUT_FILE}`);

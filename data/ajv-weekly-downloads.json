@@ -3,26 +3,56 @@
   "package": "ajv",
   "source": {
     "name": "npm downloads API",
-    "url": "https://api.npmjs.org/downloads/range/2025-12-30:2026-03-23/ajv"
+    "url": "https://api.npmjs.org/downloads/range/2025-12-31:2026-03-24/ajv"
   },
   "period": {
-    "start": "2025-12-30",
-    "end": "2026-03-23",
+    "start": "2025-12-31",
+    "end": "2026-03-24",
     "label": "last-12-weeks"
   },
   "summary": {
     "points": 84,
-    "totalDownloads": 2372411738,
-    "unit": "downloads"
+    "totalDownloads": 2593863693,
+    "unit": "downloads",
+    "selectedValidatorComparison": {
+      "selectedPackages": [
+        "ajv",
+        "jsonschema",
+        "@exodus/schemasafe",
+        "tv4",
+        "is-my-json-valid"
+      ],
+      "totalSelectedDownloads": 2738908863,
+      "ajvRank": 1,
+      "ajvSharePercent": 94.7,
+      "packageTotals": [
+        {
+          "package": "ajv",
+          "totalDownloads": 2593863693
+        },
+        {
+          "package": "jsonschema",
+          "totalDownloads": 58940370
+        },
+        {
+          "package": "@exodus/schemasafe",
+          "totalDownloads": 39377303
+        },
+        {
+          "package": "tv4",
+          "totalDownloads": 31069684
+        },
+        {
+          "package": "is-my-json-valid",
+          "totalDownloads": 15657813
+        }
+      ]
+    }
   },
   "series": {
     "interval": "day",
     "unit": "downloads",
     "values": [
-      {
-        "day": "2025-12-30",
-        "downloads": 18397320
-      },
       {
         "day": "2025-12-31",
         "downloads": 15568628
@@ -301,7 +331,7 @@
       },
       {
         "day": "2026-03-10",
-        "downloads": 0
+        "downloads": 47374624
       },
       {
         "day": "2026-03-11",
@@ -329,15 +359,15 @@
       },
       {
         "day": "2026-03-17",
-        "downloads": 0
+        "downloads": 49336265
       },
       {
         "day": "2026-03-18",
-        "downloads": 0
+        "downloads": 48978847
       },
       {
         "day": "2026-03-19",
-        "downloads": 0
+        "downloads": 47716918
       },
       {
         "day": "2026-03-20",
@@ -353,19 +383,23 @@
       },
       {
         "day": "2026-03-23",
+        "downloads": 46442621
+      },
+      {
+        "day": "2026-03-24",
         "downloads": 0
       }
     ]
   },
   "analysis": {
-    "interpretation": "Ajv downloads decreased 22.3% over the last 12 weeks. This suggests softening activity for JSON Schema validation within the JavaScript ecosystem.",
+    "interpretation": "Ajv downloads increased 86.7% over the last 12 weeks. This suggests continued activity around one widely used JSON Schema implementation.",
     "limitation": "This is a proxy metric based on npm downloads, so it can include CI traffic, automated installs, and other non-human activity.",
     "basis": {
       "comparison": "first-7-days-vs-last-7-days-average",
-      "startingAverageDownloads": 16101988,
-      "endingAverageDownloads": 12518872,
-      "changePercent": -22.3
+      "startingAverageDownloads": 17654967,
+      "endingAverageDownloads": 32967212,
+      "changePercent": 86.7
     }
   },
-  "fetchedAt": "2026-03-24T01:12:54.309Z"
+  "fetchedAt": "2026-03-25T02:03:32.743Z"
 }

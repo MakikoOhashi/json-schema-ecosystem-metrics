@@ -1,29 +1,15 @@
 const fs = require("node:fs/promises");
 const path = require("node:path");
 const https = require("node:https");
-const os = require("node:os");
-const { execFile } = require("node:child_process");
-const { promisify } = require("node:util");
-
-const REPOSITORIES = [
-  { name: "webpack/webpack", branch: "main" },
-  { name: "vitejs/vite", branch: "main" },
-  { name: "eslint/eslint", branch: "main" },
-  { name: "prettier/prettier", branch: "main" },
-  { name: "axios/axios", branch: "v1.x" },
-  { name: "expressjs/express", branch: "master" },
-  { name: "facebook/jest", branch: "main" },
-  { name: "openai/openai-node", branch: "master" },
-];
 
 const MARKER_PACKAGE = "ajv";
 const HISTORY_DEPTH = 12;
 const MIN_SUSTAINED_PRESENCE = 6;
 const OUTPUT_DIR = path.join(__dirname, "..", "data");
 const CHARTS_DIR = path.join(__dirname, "..", "charts");
+const PROXY_RATE_FILE = path.join(OUTPUT_DIR, "schema-usage-proxy-rate.json");
 const OUTPUT_FILE = path.join(OUTPUT_DIR, "experimental-ajv-removal-signal.json");
 const CHART_FILE = path.join(CHARTS_DIR, "experimental-ajv-removal-signal.html");
-const execFileAsync = promisify(execFile);
 
 function fetchJson(url) {
   return new Promise((resolve, reject) => {
@@ -105,15 +91,6 @@ function fetchText(url) {
   });
 }
 
-async function runGit(args, cwd) {
-  const result = await execFileAsync("git", args, {
-    cwd,
-    maxBuffer: 1024 * 1024 * 8,
-  });
-
-  return result.stdout.trim();
-}
-
 function hasMarkerDependency(packageJson) {
   const dependencyGroups = [
     packageJson.dependencies,
@@ -127,9 +104,33 @@ function hasMarkerDependency(packageJson) {
   );
 }
 
-async function fetchPackageJsonState(repositoryDir, commitSha) {
+async function loadProxySampleRepositories() {
+  const content = await fs.readFile(PROXY_RATE_FILE, "utf8");
+  const data = JSON.parse(content);
+
+  if (!data?.series?.values || !Array.isArray(data.series.values)) {
+    throw new Error("Proxy-rate data did not include a sampled repository list");
+  }
+
+  return data.series.values.map((entry) => ({
+    name: entry.repository,
+    branch: entry.defaultBranch,
+  }));
+}
+
+async function fetchRecentPackageJsonCommits(repositoryName) {
+  const [owner, repo] = repositoryName.split("/");
+  const url = `https://api.github.com/repos/${owner}/${repo}/commits?path=package.json&per_page=${HISTORY_DEPTH}`;
+  const commits = await fetchJson(url);
+
+  return commits.map((entry) => entry.sha).filter(Boolean);
+}
+
+async function fetchPackageJsonState(repositoryName, commitSha) {
+  const [owner, repo] = repositoryName.split("/");
   try {
-    const packageJsonText = await runGit(["show", `${commitSha}:package.json`], repositoryDir);
+    const packageJsonUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${commitSha}/package.json`;
+    const packageJsonText = await fetchText(packageJsonUrl);
     const packageJson = JSON.parse(packageJsonText);
 
     return {
@@ -175,10 +176,10 @@ function buildAnalysis(summary) {
 
   if (summary.repositoriesWithPossibleRemoval > 0) {
     interpretation =
-      "At least one repository in the curated sample shows a possible removal event: the ajv marker is absent at HEAD after sustained prior presence in recent history.";
+      "At least one repository in the filtered sample shows a possible removal event: the ajv marker is absent at HEAD after sustained prior presence in recent history.";
   } else {
     interpretation =
-      "No repositories in the curated sample currently show a possible removal event for the ajv marker under this rule-based check.";
+      "No repositories in the filtered sample currently show a possible removal event for the ajv marker under this rule-based check.";
   }
 
   return {
@@ -219,8 +220,8 @@ function buildOutput(findings) {
   return {
     metric: "experimental_marker_removal_signal",
     sample: {
-      name: "curated_json_using_js_repositories",
-      repositories: REPOSITORIES.map((entry) => entry.name),
+      name: "filtered_random_sample_from_schema_usage_proxy_rate",
+      repositories: findings.map((entry) => entry.repository),
     },
     source: {
       name: "GitHub commits API and raw package.json history",
@@ -369,7 +370,7 @@ function buildHtml(data) {
 <body>
   <main>
     <h1>experimental ajv removal signal</h1>
-    <p>Experimental curated-sample check for possible removal of an explicit JSON Schema-related dependency marker.</p>
+    <p>Experimental filtered-sample check for possible removal of an explicit JSON Schema-related dependency marker.</p>
     <section class="summary">
       <div class="summary-grid">
         <section class="card">
@@ -435,43 +436,31 @@ async function writeOutputs(data) {
 
 async function main() {
   try {
+    const repositories = await loadProxySampleRepositories();
     const findings = [];
 
-    for (const repositoryConfig of REPOSITORIES) {
+    for (const repositoryConfig of repositories) {
       const { name, branch } = repositoryConfig;
-      const [owner, repo] = name.split("/");
-      const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "json-schema-removal-"));
-      const repositoryDir = path.join(tempRoot, repo);
+      const commits = await fetchRecentPackageJsonCommits(name);
 
-      try {
-        await runGit(
-          [
-            "clone",
-            "--depth",
-            String(HISTORY_DEPTH),
-            "--branch",
-            branch,
-            `https://github.com/${owner}/${repo}.git`,
-            repositoryDir,
-          ],
-          tempRoot
+      if (commits.length === 0) {
+        findings.push(
+          evaluateRepository(
+            [{ commitSha: "no-package-json-history", markerPresent: false }],
+            name,
+            branch
+          )
         );
-
-        const commitList = await runGit(
-          ["rev-list", `--max-count=${HISTORY_DEPTH}`, "HEAD"],
-          repositoryDir
-        );
-        const commits = commitList.split("\n").filter(Boolean);
-        const history = [];
-
-        for (const commitSha of commits) {
-          history.push(await fetchPackageJsonState(repositoryDir, commitSha));
-        }
-
-        findings.push(evaluateRepository(history, name, branch));
-      } finally {
-        await fs.rm(tempRoot, { recursive: true, force: true });
+        continue;
       }
+
+      const history = [];
+
+      for (const commitSha of commits) {
+        history.push(await fetchPackageJsonState(name, commitSha));
+      }
+
+      findings.push(evaluateRepository(history, name, branch));
     }
 
     const output = buildOutput(findings);
