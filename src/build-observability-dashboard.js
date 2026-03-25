@@ -19,15 +19,14 @@ function buildHtml(downloads, proxyRate) {
   const labels = downloads.series.values.map((point) => point.day);
   const values = downloads.series.values.map((point) => point.downloads);
   const downloadsChange = downloads.analysis.basis.changePercent;
-  const candidateCount = proxyRate.summary.candidateReposFound;
-  const eligibleCount = proxyRate.summary.eligibleReposAfterFiltering;
-  const sampledCount = proxyRate.summary.repositoriesScanned;
-  const markerCount = proxyRate.summary.repositoriesWithAnyMarker;
-  const ajvMarkerCount = proxyRate.series.values.filter((entry) =>
-    (entry.dependencyMarkers || []).includes("ajv")
-  ).length;
+  const candidateCount = proxyRate.filtering.candidateReposFound;
+  const broadEligibleCount = proxyRate.filtering.broadEligibleReposAfterFiltering;
+  const focusedEligibleCount = proxyRate.filtering.focusedEligibleReposAfterFiltering;
+  const broad = proxyRate.cohorts.broad.summary;
+  const focused = proxyRate.cohorts.focused.summary;
   const visibilityGap =
-    ajvMarkerCount <= 1 && downloads.summary.totalDownloads > 1000000000;
+    focused.repositoriesWithAnyMarker <= broad.repositoriesWithAnyMarker &&
+    downloads.summary.totalDownloads > 1000000000;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -239,7 +238,7 @@ function buildHtml(downloads, proxyRate) {
 
     .ring-eligible {
       inset: 26px;
-      background: conic-gradient(#3f7d92 0 ${(eligibleCount / candidateCount) * 100}%, #dbe5ec 0 100%);
+      background: conic-gradient(#3f7d92 0 ${(broadEligibleCount / candidateCount) * 100}%, #dbe5ec 0 100%);
     }
 
     .ring-eligible::after {
@@ -248,7 +247,7 @@ function buildHtml(downloads, proxyRate) {
 
     .ring-sampled {
       inset: 50px;
-      background: conic-gradient(#7299aa 0 ${(sampledCount / candidateCount) * 100}%, #dbe5ec 0 100%);
+      background: conic-gradient(#7299aa 0 ${(focusedEligibleCount / candidateCount) * 100}%, #dbe5ec 0 100%);
     }
 
     .ring-sampled::after {
@@ -257,7 +256,7 @@ function buildHtml(downloads, proxyRate) {
 
     .ring-marker {
       inset: 72px;
-      background: conic-gradient(var(--present) 0 ${(markerCount / candidateCount) * 100}%, #dbe5ec 0 100%);
+      background: conic-gradient(var(--present) 0 ${(focused.repositoriesWithAnyMarker / candidateCount) * 100}%, #dbe5ec 0 100%);
     }
 
     .ring-marker::after {
@@ -341,8 +340,8 @@ function buildHtml(downloads, proxyRate) {
           <p class="value">${formatNumber(downloads.summary.totalDownloads)}</p>
         </section>
         <section class="summary-card">
-          <p>Exploratory downstream usage</p>
-          <p class="value">${markerCount}/${sampledCount}</p>
+          <p>Exploratory cohort usage</p>
+          <p class="value">${focused.repositoriesWithAnyMarker}/${focused.repositoriesScanned}</p>
         </section>
       </div>
     </section>
@@ -385,11 +384,11 @@ function buildHtml(downloads, proxyRate) {
     </section>
 
     <details class="section-toggle">
-      <summary>Exploratory Metric: Downstream Visible Usage</summary>
+      <summary>Exploratory Metric: Broad vs Focused Cohort Comparison</summary>
       <section class="panel">
         <p class="section-kicker">Exploratory Metric</p>
-        <h2>Downstream Visible Usage</h2>
-        <p>This section is exploratory. It asks whether explicit JSON Schema-related markers are easy to see in a filtered random sample of eligible JS/TS repositories.</p>
+        <h2>Schema File Usage By Cohort</h2>
+        <p>This section is exploratory. It compares the same <code>*.schema.json</code> probe across a broad filtered JS/TS cohort and a narrower API/config/validation-oriented cohort.</p>
         <div class="visible-usage-layout">
           <div class="rings-wrap">
             <div class="rings" aria-label="Concentric rings showing candidate, eligible, sampled, and marker-positive repository counts">
@@ -399,8 +398,8 @@ function buildHtml(downloads, proxyRate) {
               <div class="ring ring-marker"></div>
               <div class="ring-core">
                 <div>
-                  <strong>${markerCount}</strong>
-                  marker-positive
+                  <strong>${focused.repositoriesWithAnyMarker}</strong>
+                  focused markers
                 </div>
               </div>
             </div>
@@ -414,34 +413,45 @@ function buildHtml(downloads, proxyRate) {
               </div>
               <div class="ring-legend-row">
                 <span class="swatch swatch-eligible"></span>
-                <span>Eligible after filtering</span>
-                <strong>${eligibleCount}</strong>
+                <span>Broad eligible cohort</span>
+                <strong>${proxyRate.filtering.broadEligibleReposAfterFiltering}</strong>
               </div>
               <div class="ring-legend-row">
                 <span class="swatch swatch-sampled"></span>
-                <span>Repositories sampled</span>
-                <strong>${sampledCount}</strong>
+                <span>Focused eligible cohort</span>
+                <strong>${proxyRate.filtering.focusedEligibleReposAfterFiltering}</strong>
               </div>
               <div class="ring-legend-row">
                 <span class="swatch swatch-marker"></span>
-                <span>Explicit schema markers found</span>
-                <strong>${markerCount}</strong>
+                <span>Focused schema-file positives</span>
+                <strong>${focused.repositoriesWithAnyMarker}</strong>
               </div>
             </div>
             <section class="mini-card">
-              <p>Ajv marker in sample</p>
-              <p class="value">${ajvMarkerCount}/${sampledCount}</p>
-              <p><strong>Read:</strong> the current sample shows <code>ajv</code> in ${ajvMarkerCount} of ${sampledCount} sampled repositories.</p>
-              <p>This helps show how hard explicit downstream schema usage is to see from a broad filtered sample.</p>
+              <p>Broad cohort</p>
+              <p class="value">${broad.repositoriesWithAnyMarker}/${broad.repositoriesScanned}</p>
+              <p><strong>Read:</strong> ${broad.proxyRatePercent}% of the broad filtered cohort contained at least one <code>*.schema.json</code> file.</p>
+              <p>This is the looser baseline.</p>
             </section>
             <section class="mini-card">
-              <p>Any schema marker in sample</p>
-              <p class="value">${markerCount}/${sampledCount}</p>
-              <p><strong>Read:</strong> ${proxyRate.summary.proxyRatePercent}% of the sampled repositories exposed at least one explicit dependency marker.</p>
+              <p>Focused cohort</p>
+              <p class="value">${focused.repositoriesWithAnyMarker}/${focused.repositoriesScanned}</p>
+              <p><strong>Read:</strong> ${focused.proxyRatePercent}% of the focused API/config/validation cohort contained at least one <code>*.schema.json</code> file.</p>
               <p>This is exploratory and should not be read as an ecosystem-wide share.</p>
+            </section>
+            <section class="mini-card">
+              <p>Cohort delta</p>
+              <p class="value">${proxyRate.analysis.basis.percentagePointDelta > 0 ? "+" : ""}${proxyRate.analysis.basis.percentagePointDelta} pts</p>
+              <p><strong>Read:</strong> focused minus broad marker rate.</p>
+              <p>This is the main comparison signal.</p>
             </section>
           </div>
         </div>
+        <section class="analysis">
+          <h3>Exploratory Read</h3>
+          <p>${proxyRate.analysis.interpretation}</p>
+          <p><strong>Limitation:</strong> ${proxyRate.analysis.limitation}</p>
+        </section>
       </section>
     </details>
 
@@ -461,8 +471,8 @@ function buildHtml(downloads, proxyRate) {
           <section class="mini-card">
             <p>What should likely be supported?</p>
             <p class="value">${visibilityGap ? "downstream" : "unclear"}</p>
-            <p><strong>Read:</strong> validator-level usage looks strong, but explicit schema markers remain sparse downstream.</p>
-            <p>If this pattern is real, downstream visibility, tooling discoverability, and explicit schema usage support may matter more than core-validator rescue.</p>
+            <p><strong>Read:</strong> validator-level usage looks strong, but explicit schema-file usage remains selective across the exploratory cohorts.</p>
+            <p>If this pattern is real, downstream visibility and explicit schema-file adoption may matter more than core-validator rescue.</p>
           </section>
           <section class="mini-card">
             <p>What may be weakening?</p>
@@ -476,7 +486,7 @@ function buildHtml(downloads, proxyRate) {
           <p><strong>Downloads source:</strong> <code>${downloads.source.url}</code></p>
           <p><strong>Proxy rate source:</strong> <code>${proxyRate.source.url}</code></p>
           <p><strong>Dashboard built from:</strong> local JSON artifacts in <code>data/</code></p>
-          <p><strong>Big caveat:</strong> the exploratory metric is still a proxy built from a filtered sample. It is useful for directional thinking, not for ecosystem-wide claims.</p>
+          <p><strong>Big caveat:</strong> the exploratory metric is still a proxy comparison built from two filtered cohorts and one file-path probe. It is useful for directional thinking, not for ecosystem-wide claims.</p>
         </section>
       </section>
     </details>

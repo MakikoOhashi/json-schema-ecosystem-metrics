@@ -63,11 +63,16 @@ The JSON artifacts are supporting inputs, but the main dashboard is the intended
 This proof of concept is intentionally oriented toward one clear primary signal and one exploratory extension:
 
 - primary: is a major JSON Schema implementation actually being used?
-- exploratory: how often do explicit JSON Schema-related markers appear in a wider JSON-using sample?
+- exploratory: how does the same `*.schema.json` file probe look across a broad filtered JS/TS cohort versus a narrower API/config/validation-oriented cohort?
 
 The primary metric is a rough proxy for package adoption and usage activity around `ajv`, one of the widely used JSON Schema validators. It does not measure the full ecosystem, but it gives a compact trend view for one important tool within it.
 
-The second metric is exploratory only. It uses GitHub search to collect candidate JavaScript and TypeScript repositories, filters out forks, archived repositories, tiny low-signal repos, and obvious demo-like repos, confirms that `package.json` exists, and then takes a seeded random sample of 50 repositories. It checks that sampled set for explicit JSON Schema-related dependency markers in `package.json`.
+The second metric is exploratory only. It uses GitHub search to collect candidate JavaScript and TypeScript repositories, filters out forks, archived repositories, tiny low-signal repos, and obvious demo-like repos, confirms that `package.json` exists, and then compares two cohorts using the same `*.schema.json` file probe:
+
+- a broad filtered JS/TS cohort
+- a narrower API/config/validation-oriented cohort based on repository names, descriptions, or topics
+
+The exploratory probe then scans repository trees for `*.schema.json` files.
 
 ## Interpretation layer
 
@@ -93,7 +98,7 @@ The downloads metric uses the npm downloads API for `ajv`. The proxy-rate metric
 ## Limitations
 
 - npm downloads are a proxy signal, not direct real-world usage.
-- The schema usage proxy rate depends on a filtered random sample, GitHub search coverage, and explicit dependency markers, so it is not a complete measure of all JSON Schema adoption.
+- The exploratory cohort comparison depends on GitHub search coverage, filtered repository cohorts, and the use of `*.schema.json` files as a probe, so it is not a complete measure of all JSON Schema adoption.
 - Download counts can include CI, mirrors, and automated installs.
 - One package does not represent the entire JSON Schema ecosystem.
 - The generated artifacts are point-in-time snapshots, so values change when the script is run again.

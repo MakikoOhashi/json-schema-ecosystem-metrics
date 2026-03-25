@@ -3,7 +3,8 @@ const path = require("node:path");
 const https = require("node:https");
 
 const SEARCH_LANGUAGES = ["JavaScript", "TypeScript"];
-const SAMPLE_SIZE = 50;
+const BROAD_SAMPLE_SIZE = 40;
+const FOCUSED_SAMPLE_SIZE = 20;
 const RANDOM_SEED = "gsoc-observability-2026";
 const MIN_STARS = 10;
 const MIN_SIZE = 50;
@@ -12,18 +13,10 @@ const NOISE_PATTERN =
   /\b(test|tests|example|examples|demo|sandbox|starter|boilerplate|template|tutorial)\b/i;
 const SIGNAL_PATTERN =
   /\b(api|openapi|json|schema|config|validate|validation|spec)\b/i;
+const SCHEMA_FILE_PATTERN = /\.schema\.json$/i;
+
 const OUTPUT_DIR = path.join(__dirname, "..", "data");
 const OUTPUT_FILE = path.join(OUTPUT_DIR, "exploratory-downstream-usage.json");
-const SCHEMA_DEPENDENCY_MARKERS = [
-  "ajv",
-  "ajv-formats",
-  "ajv-keywords",
-  "schema-utils",
-  "json-schema",
-  "json-schema-traverse",
-  "json-schema-to-typescript",
-  "@types/json-schema",
-];
 
 function fetchText(url, headers = {}) {
   return new Promise((resolve, reject) => {
@@ -120,30 +113,6 @@ function shuffleWithSeed(items, seedText) {
   return shuffled;
 }
 
-function findDependencyMarkers(packageJson) {
-  const dependencyGroups = [
-    packageJson.dependencies,
-    packageJson.devDependencies,
-    packageJson.peerDependencies,
-    packageJson.optionalDependencies,
-  ];
-  const markers = new Set();
-
-  for (const group of dependencyGroups) {
-    if (!group) {
-      continue;
-    }
-
-    for (const marker of SCHEMA_DEPENDENCY_MARKERS) {
-      if (Object.prototype.hasOwnProperty.call(group, marker)) {
-        markers.add(marker);
-      }
-    }
-  }
-
-  return [...markers];
-}
-
 function buildSearchUrl(language) {
   const pushedAfter = formatDate(new Date(Date.now() - 365 * 86400000));
   const query = [
@@ -188,13 +157,9 @@ function evaluateEligibility(repository) {
     return { eligible: false, reason: "demo_like" };
   }
 
-  if (!SIGNAL_PATTERN.test(haystack)) {
-    return { eligible: false, reason: "low_schema_signal" };
-  }
-
   return {
     eligible: true,
-    prioritizedBySignalTerms: true,
+    prioritizedBySignalTerms: SIGNAL_PATTERN.test(haystack),
   };
 }
 
@@ -214,13 +179,37 @@ async function searchCandidateRepositories() {
   return [...byName.values()];
 }
 
-async function attachPackageJsonCheck(repository) {
-  const packageJsonUrl = `https://raw.githubusercontent.com/${repository.full_name}/${repository.default_branch}/package.json`;
+function findSchemaFileMarkers(treeEntries) {
+  return (treeEntries || [])
+    .filter((entry) => entry.type === "blob" && SCHEMA_FILE_PATTERN.test(entry.path))
+    .map((entry) => entry.path);
+}
 
+async function attachSchemaFileCheck(repository) {
   try {
-    const packageJsonText = await fetchText(packageJsonUrl);
-    const packageJson = JSON.parse(packageJsonText);
-    const dependencyMarkers = findDependencyMarkers(packageJson);
+    const treeUrl = `https://api.github.com/repos/${repository.full_name}/git/trees/${encodeURIComponent(
+      repository.default_branch
+    )}?recursive=1`;
+    const treeResponse = await fetchJson(treeUrl);
+    const hasPackageJson = (treeResponse.tree || []).some(
+      (entry) => entry.type === "blob" && entry.path === "package.json"
+    );
+
+    if (!hasPackageJson) {
+      return {
+        repository: repository.full_name,
+        language: repository.language,
+        defaultBranch: repository.default_branch,
+        stars: repository.stargazers_count,
+        size: repository.size,
+        pushedAt: repository.pushed_at,
+        packageJsonPresent: false,
+        schemaFileMarkers: [],
+        hasAnyMarker: false,
+      };
+    }
+
+    const schemaFileMarkers = findSchemaFileMarkers(treeResponse.tree);
 
     return {
       repository: repository.full_name,
@@ -230,8 +219,8 @@ async function attachPackageJsonCheck(repository) {
       size: repository.size,
       pushedAt: repository.pushed_at,
       packageJsonPresent: true,
-      dependencyMarkers,
-      hasAnyMarker: dependencyMarkers.length > 0,
+      schemaFileMarkers,
+      hasAnyMarker: schemaFileMarkers.length > 0,
     };
   } catch (error) {
     if (error.message.includes("status 404")) {
@@ -243,7 +232,7 @@ async function attachPackageJsonCheck(repository) {
         size: repository.size,
         pushedAt: repository.pushed_at,
         packageJsonPresent: false,
-        dependencyMarkers: [],
+        schemaFileMarkers: [],
         hasAnyMarker: false,
       };
     }
@@ -262,65 +251,61 @@ function summarizeExclusions(excludedReasons) {
   return summary;
 }
 
-function buildAnalysis(summary) {
-  let interpretation;
+function buildCohortSummary(findings) {
+  const repositoriesWithAnyMarker = findings.filter((entry) => entry.hasAnyMarker).length;
 
-  if (summary.proxyRatePercent >= 60) {
+  return {
+    eligibleRepos: findings.length,
+    repositoriesScanned: findings.length,
+    repositoriesWithAnyMarker,
+    proxyRatePercent:
+      findings.length > 0 ? roundPercent((repositoriesWithAnyMarker / findings.length) * 100) : 0,
+    unit: "percent",
+  };
+}
+
+function buildComparisonAnalysis(broadSummary, focusedSummary) {
+  const delta = roundPercent(focusedSummary.proxyRatePercent - broadSummary.proxyRatePercent);
+
+  let interpretation;
+  if (focusedSummary.proxyRatePercent > broadSummary.proxyRatePercent) {
     interpretation =
-      "A majority of the sampled repositories show at least one explicit JSON Schema-related dependency marker. This suggests meaningful practical adoption within the filtered sample.";
-  } else if (summary.proxyRatePercent >= 30) {
+      "The focused API/config/validation cohort exposed *.schema.json files more often than the broader filtered JS/TS cohort. That suggests schema-file probes align better with this focused cohort than package metadata probes did.";
+  } else if (focusedSummary.proxyRatePercent === broadSummary.proxyRatePercent) {
     interpretation =
-      "Some of the sampled repositories show explicit JSON Schema-related dependency markers, but adoption does not look dominant across the filtered sample.";
+      "The broad and focused cohorts produced the same schema-file rate in this run. That suggests schema-file visibility is still limited even after narrowing the cohort.";
   } else {
     interpretation =
-      "No sampled repositories showed one of the explicit JSON Schema-related dependency markers checked here. In this proof of concept, that says more about how hard downstream usage is to observe from repository metadata than it does about true absence of JSON Schema usage.";
+      "The focused API/config/validation cohort exposed *.schema.json files less often than the broader filtered JS/TS cohort. That suggests the focused cohort filter may still be stricter than this schema-file probe supports.";
   }
 
   return {
     interpretation,
     limitation:
-      "This is still a proxy, not a census. The result depends on the GitHub search frame, the stricter eligibility filters, the sample size, and the specific dependency markers checked.",
+      "This remains a proxy comparison, not a census. Both cohort definitions depend on GitHub search coverage, the package.json requirement, sample sizes, and the use of *.schema.json files as the probe.",
     basis: {
-      comparison: "filtered-github-search-sample",
+      comparison: "broad-cohort-vs-focused-cohort",
       randomSeed: RANDOM_SEED,
-      sampleSize: SAMPLE_SIZE,
-      candidateReposFound: summary.candidateReposFound,
-      eligibleReposAfterFiltering: summary.eligibleReposAfterFiltering,
-      eligibleReposPrioritizedBySignalTerms:
-        summary.eligibleReposPrioritizedBySignalTerms,
-      sampledRepos: summary.repositoriesScanned,
-      repositoriesWithAnyMarker: summary.repositoriesWithAnyMarker,
-      proxyRatePercent: summary.proxyRatePercent,
-      dependencyMarkersChecked: SCHEMA_DEPENDENCY_MARKERS,
+      broadSampleSize: BROAD_SAMPLE_SIZE,
+      focusedSampleSize: FOCUSED_SAMPLE_SIZE,
+      broadProxyRatePercent: broadSummary.proxyRatePercent,
+      focusedProxyRatePercent: focusedSummary.proxyRatePercent,
+      percentagePointDelta: delta,
+      schemaFilePattern: SCHEMA_FILE_PATTERN.source,
     },
   };
 }
 
-function buildOutput(sampledFindings, selection) {
-  const repositoriesWithAnyMarker = sampledFindings.filter((entry) => entry.hasAnyMarker).length;
-  const proxyRatePercent = roundPercent(
-    (repositoriesWithAnyMarker / sampledFindings.length) * 100
-  );
-
-  const summary = {
-    candidateReposFound: selection.candidateReposFound,
-    eligibleReposAfterFiltering: selection.eligibleReposAfterFiltering,
-    eligibleReposPrioritizedBySignalTerms:
-      selection.eligibleReposPrioritizedBySignalTerms,
-    repositoriesScanned: sampledFindings.length,
-    repositoriesWithAnyMarker,
-    proxyRatePercent,
-    sampleSize: SAMPLE_SIZE,
-    randomSeed: RANDOM_SEED,
-    unit: "percent",
-  };
+function buildOutput(cohorts, selection) {
+  const broadSummary = buildCohortSummary(cohorts.broad.values);
+  const focusedSummary = buildCohortSummary(cohorts.focused.values);
 
   return {
-    metric: "schema_usage_proxy_rate",
+    metric: "schema_file_cohort_comparison",
     sample: {
-      name: "filtered_random_sample_of_json_using_js_ts_repositories",
       searchLanguages: SEARCH_LANGUAGES,
-      sampleSize: SAMPLE_SIZE,
+      broadSampleSize: BROAD_SAMPLE_SIZE,
+      focusedSampleSize: FOCUSED_SAMPLE_SIZE,
       randomSeed: RANDOM_SEED,
       eligibility: {
         minStars: MIN_STARS,
@@ -330,255 +315,53 @@ function buildOutput(sampledFindings, selection) {
         archivedExcluded: true,
         demoLikeNamesExcluded: true,
         packageJsonRequired: true,
-        prioritizedSignalTerms: [
-          "api",
-          "openapi",
-          "json",
-          "schema",
-          "config",
-          "validate",
-          "validation",
-          "spec",
-        ],
+      },
+      cohorts: {
+        broad: {
+          name: "broad_filtered_js_ts_repositories",
+          description:
+            "Active JS/TS repositories with package.json after basic filtering.",
+        },
+        focused: {
+          name: "api_config_validation_oriented_repositories",
+          description:
+            "Subset of the broad cohort whose names, descriptions, or topics include API/config/validation/schema signal terms.",
+          prioritizedSignalTerms: [
+            "api",
+            "openapi",
+            "json",
+            "schema",
+            "config",
+            "validate",
+            "validation",
+            "spec",
+          ],
+        },
       },
     },
     source: {
-      name: "GitHub search API plus raw package.json files",
+      name: "GitHub search API plus package.json and repository tree API",
       url: "https://api.github.com/search/repositories",
     },
     filtering: {
       candidateReposFound: selection.candidateReposFound,
-      eligibleReposAfterFiltering: selection.eligibleReposAfterFiltering,
-      eligibleReposPrioritizedBySignalTerms:
-        selection.eligibleReposPrioritizedBySignalTerms,
+      broadEligibleReposAfterFiltering: selection.broadEligibleReposAfterFiltering,
+      focusedEligibleReposAfterFiltering: selection.focusedEligibleReposAfterFiltering,
       excludedCounts: selection.excludedCounts,
     },
-    summary,
-    series: {
-      interval: "repository",
-      unit: "marker_present",
-      values: sampledFindings,
+    cohorts: {
+      broad: {
+        summary: broadSummary,
+        values: cohorts.broad.values,
+      },
+      focused: {
+        summary: focusedSummary,
+        values: cohorts.focused.values,
+      },
     },
-    analysis: buildAnalysis(summary),
+    analysis: buildComparisonAnalysis(broadSummary, focusedSummary),
     fetchedAt: new Date().toISOString(),
   };
-}
-
-function buildTableRows(findings) {
-  return findings
-    .map((entry) => {
-      const dependencyText =
-        entry.dependencyMarkers.length > 0 ? entry.dependencyMarkers.join(", ") : "none";
-
-      return `<tr>
-        <td><code>${entry.repository}</code></td>
-        <td>${entry.hasAnyMarker ? "yes" : "no"}</td>
-        <td>${dependencyText}</td>
-        <td>${entry.language}</td>
-        <td>${entry.stars}</td>
-      </tr>`;
-    })
-    .join("\n");
-}
-
-function buildExclusionRows(excludedCounts) {
-  return Object.entries(excludedCounts)
-    .map(
-      ([reason, count]) => `<tr>
-        <td><code>${reason}</code></td>
-        <td>${count}</td>
-      </tr>`
-    )
-    .join("\n");
-}
-
-function buildHtml(data) {
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JSON Schema usage proxy rate</title>
-  <style>
-    :root {
-      color-scheme: light;
-      --bg: #edf3f7;
-      --bg-accent: #e3ebf1;
-      --panel: #fbfdfe;
-      --panel-strong: #f4f8fb;
-      --border: #cfd8e3;
-      --ink: #1f2933;
-      --muted: #52606d;
-    }
-
-    body {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      background: linear-gradient(180deg, var(--bg), var(--bg-accent));
-      color: var(--ink);
-    }
-
-    main {
-      max-width: 980px;
-      margin: 42px auto;
-      padding: 28px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: 0 10px 24px rgba(31, 41, 51, 0.05);
-    }
-
-    h1 {
-      margin-top: 0;
-      font-size: 2.2rem;
-    }
-
-    p,
-    td,
-    li {
-      color: var(--muted);
-      line-height: 1.55;
-    }
-
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-      margin: 22px 0;
-    }
-
-    .card,
-    .analysis {
-      padding: 18px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: var(--panel-strong);
-    }
-
-    .value {
-      margin: 0;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--ink);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 18px;
-    }
-
-    th,
-    td {
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-      text-align: left;
-      vertical-align: top;
-    }
-
-    .basis-toggle {
-      margin-top: 16px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: #f7fafc;
-      padding: 12px 14px;
-    }
-
-    .basis-toggle summary {
-      cursor: pointer;
-      font-weight: 700;
-      color: var(--ink);
-    }
-
-    .basis-list {
-      margin: 12px 0 0;
-      padding-left: 18px;
-    }
-
-    code {
-      font-family: "SFMono-Regular", Consolas, monospace;
-    }
-  </style>
-</head>
-<body>
-  <main>
-    <h1>JSON Schema usage proxy rate</h1>
-    <p>Seeded random sample of eligible JavaScript and TypeScript repositories collected from GitHub search, then checked for explicit JSON Schema-related dependency markers in <code>package.json</code>.</p>
-    <div class="summary-grid">
-      <section class="card">
-        <p>Candidate repos found</p>
-        <p class="value">${data.summary.candidateReposFound}</p>
-      </section>
-      <section class="card">
-        <p>Eligible repos after filtering</p>
-        <p class="value">${data.summary.eligibleReposAfterFiltering}</p>
-      </section>
-      <section class="card">
-        <p>Repositories scanned</p>
-        <p class="value">${data.summary.repositoriesScanned}</p>
-      </section>
-      <section class="card">
-        <p>Repositories with any marker</p>
-        <p class="value">${data.summary.repositoriesWithAnyMarker}</p>
-      </section>
-      <section class="card">
-        <p>Proxy rate</p>
-        <p class="value">${data.summary.proxyRatePercent}%</p>
-      </section>
-    </div>
-    <section class="analysis">
-      <h2>Short interpretation</h2>
-      <p>${data.analysis.interpretation}</p>
-      <p><strong>Limitation:</strong> ${data.analysis.limitation}</p>
-      <details class="basis-toggle">
-        <summary>Show analysis basis</summary>
-        <ul class="basis-list">
-          <li><strong>comparison:</strong> ${data.analysis.basis.comparison}</li>
-          <li><strong>randomSeed:</strong> ${data.analysis.basis.randomSeed}</li>
-          <li><strong>sampleSize:</strong> ${data.analysis.basis.sampleSize}</li>
-          <li><strong>candidateReposFound:</strong> ${data.analysis.basis.candidateReposFound}</li>
-          <li><strong>eligibleReposAfterFiltering:</strong> ${data.analysis.basis.eligibleReposAfterFiltering}</li>
-          <li><strong>sampledRepos:</strong> ${data.analysis.basis.sampledRepos}</li>
-          <li><strong>repositoriesWithAnyMarker:</strong> ${data.analysis.basis.repositoriesWithAnyMarker}</li>
-          <li><strong>proxyRatePercent:</strong> ${data.analysis.basis.proxyRatePercent}%</li>
-        </ul>
-      </details>
-    </section>
-    <section class="analysis">
-      <h2>Filter summary</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Excluded reason</th>
-            <th>Count</th>
-          </tr>
-        </thead>
-        <tbody>
-${buildExclusionRows(data.filtering.excludedCounts)}
-        </tbody>
-      </table>
-    </section>
-    <section class="analysis">
-      <h2>Sampled repositories</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Repository</th>
-            <th>Any marker</th>
-            <th>Dependency markers</th>
-            <th>Language</th>
-            <th>Stars</th>
-          </tr>
-        </thead>
-        <tbody>
-${buildTableRows(data.series.values)}
-        </tbody>
-      </table>
-      <p><strong>Fetched at:</strong> ${data.fetchedAt}</p>
-    </section>
-  </main>
-</body>
-</html>`;
 }
 
 async function writeOutputs(data) {
@@ -605,35 +388,63 @@ async function main() {
       filteredCandidates.push(repository);
     }
 
-    const eligibleFindings = [];
-    const packageJsonMissing = [];
-    let eligiblePrioritizedCount = 0;
+    const broadCandidates = filteredCandidates;
+    const focusedCandidates = filteredCandidates.filter(
+      (repository) => eligibilityMap.get(repository.full_name)?.prioritizedBySignalTerms
+    );
 
-    for (const repository of filteredCandidates) {
-      const finding = await attachPackageJsonCheck(repository);
+    const broadSampleRepositories = shuffleWithSeed(
+      broadCandidates,
+      `${RANDOM_SEED}-broad`
+    ).slice(0, Math.min(BROAD_SAMPLE_SIZE, broadCandidates.length));
+    const focusedSampleRepositories = shuffleWithSeed(
+      focusedCandidates,
+      `${RANDOM_SEED}-focused`
+    ).slice(0, Math.min(FOCUSED_SAMPLE_SIZE, focusedCandidates.length));
+
+    const sampledByName = new Map();
+
+    for (const repository of [...broadSampleRepositories, ...focusedSampleRepositories]) {
+      if (!sampledByName.has(repository.full_name)) {
+        sampledByName.set(repository.full_name, repository);
+      }
+    }
+
+    const sampledFindingsByName = new Map();
+    const packageJsonMissing = [];
+
+    for (const repository of sampledByName.values()) {
+      const finding = await attachSchemaFileCheck(repository);
 
       if (!finding.packageJsonPresent) {
         packageJsonMissing.push("missing_package_json");
         continue;
       }
 
-      if (eligibilityMap.get(repository.full_name)?.prioritizedBySignalTerms) {
-        eligiblePrioritizedCount += 1;
-      }
-
       finding.prioritizedBySignalTerms =
         eligibilityMap.get(repository.full_name)?.prioritizedBySignalTerms || false;
-      eligibleFindings.push(finding);
+      sampledFindingsByName.set(repository.full_name, finding);
     }
 
-    const shuffled = shuffleWithSeed(eligibleFindings, RANDOM_SEED);
-    const sampledFindings = shuffled.slice(0, Math.min(SAMPLE_SIZE, shuffled.length));
-    const output = buildOutput(sampledFindings, {
-      candidateReposFound: candidates.length,
-      eligibleReposAfterFiltering: eligibleFindings.length,
-      eligibleReposPrioritizedBySignalTerms: eligiblePrioritizedCount,
-      excludedCounts: summarizeExclusions([...excludedReasons, ...packageJsonMissing]),
-    });
+    const broadSample = broadSampleRepositories
+      .map((repository) => sampledFindingsByName.get(repository.full_name))
+      .filter(Boolean);
+    const focusedSample = focusedSampleRepositories
+      .map((repository) => sampledFindingsByName.get(repository.full_name))
+      .filter(Boolean);
+
+    const output = buildOutput(
+      {
+        broad: { values: broadSample },
+        focused: { values: focusedSample },
+      },
+      {
+        candidateReposFound: candidates.length,
+        broadEligibleReposAfterFiltering: broadCandidates.length,
+        focusedEligibleReposAfterFiltering: focusedCandidates.length,
+        excludedCounts: summarizeExclusions([...excludedReasons, ...packageJsonMissing]),
+      }
+    );
 
     await writeOutputs(output);
 
