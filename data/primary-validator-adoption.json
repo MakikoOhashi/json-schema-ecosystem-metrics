@@ -8,46 +8,12 @@
   "period": {
     "start": "2025-12-31",
     "end": "2026-03-24",
-    "label": "last-12-weeks"
+    "label": "last-12-weeks-daily-series"
   },
   "summary": {
     "points": 84,
     "totalDownloads": 2593863693,
-    "unit": "downloads",
-    "selectedValidatorComparison": {
-      "selectedPackages": [
-        "ajv",
-        "jsonschema",
-        "@exodus/schemasafe",
-        "tv4",
-        "is-my-json-valid"
-      ],
-      "totalSelectedDownloads": 2738908863,
-      "ajvRank": 1,
-      "ajvSharePercent": 94.7,
-      "packageTotals": [
-        {
-          "package": "ajv",
-          "totalDownloads": 2593863693
-        },
-        {
-          "package": "jsonschema",
-          "totalDownloads": 58940370
-        },
-        {
-          "package": "@exodus/schemasafe",
-          "totalDownloads": 39377303
-        },
-        {
-          "package": "tv4",
-          "totalDownloads": 31069684
-        },
-        {
-          "package": "is-my-json-valid",
-          "totalDownloads": 15657813
-        }
-      ]
-    }
+    "unit": "downloads"
   },
   "series": {
     "interval": "day",
@@ -401,5 +367,5 @@
       "changePercent": 86.7
     }
   },
-  "fetchedAt": "2026-03-25T02:03:32.743Z"
+  "fetchedAt": "2026-03-25T02:59:31.785Z"
 }

@@ -4,21 +4,11 @@ Minimal Part 1 proof-of-concept for practical JSON Schema ecosystem signals.
 
 ## What this does
 
-This repository is being used for the GSoC observability qualification task. The current direction is to keep one primary metric clear, then place broader ecosystem ideas in exploratory sections instead of treating everything as equally strong.
+This repository is being used for the GSoC observability qualification task. The primary Part 1 metric is `ajv` npm downloads, used as a validator-level adoption proxy. A second, clearly exploratory metric is included behind a toggle in the dashboard.
 
-The proof of concept is organized around:
+The repository generates structured JSON output and a single main HTML report.
 
-- primary metric: `ajv` npm downloads trend as a validator-level adoption proxy
-- exploratory metric: schema usage proxy rate across a filtered random sample of eligible JS/TS repositories
-
-The repository currently generates structured output and a single main HTML report that keeps the exploratory sections collapsed behind toggles.
-
-For each metric, the goal is to produce:
-
-- a structured JSON snapshot
-- a lightweight HTML chart
-
-The current downloads implementation fetches a daily series covering the last 12 weeks, then adds a short auto-generated interpretation and a limitation note. The output filenames still use `weekly`, but the data points themselves are daily.
+The primary downloads implementation fetches a daily series covering the last 12 weeks, then adds a short auto-generated interpretation and a limitation note.
 
 ## Start Here
 
@@ -26,7 +16,7 @@ If you only open one file, open:
 
 - `charts/observability-dashboard.html`
 
-That combined dashboard is the main deliverable view for this proof of concept. It is designed so that the primary metric is visible first and the exploratory metrics can stay hidden until expanded.
+That dashboard is the main deliverable view for this proof of concept. It is designed so that the primary metric is visible first and the exploratory metric stays hidden until expanded.
 
 ## Run instructions
 
@@ -51,8 +41,9 @@ Current outputs:
 - `data/primary-validator-adoption.json`
 - `data/exploratory-downstream-usage.json`
 - `charts/observability-dashboard.html`
+- `docs/part1-notes.md`
 
-The main report is `charts/observability-dashboard.html`. The JSON files are internal inputs to that dashboard.
+The main report is `charts/observability-dashboard.html`. The JSON files are internal inputs to that dashboard, and the required Part 1 written answers are in `docs/part1-notes.md`.
 
 ## Output structure
 
@@ -69,14 +60,14 @@ The JSON artifacts are supporting inputs, but the main dashboard is the intended
 
 ## Metric strategy
 
-This proof of concept is intentionally oriented toward practical ecosystem signals:
+This proof of concept is intentionally oriented toward one clear primary signal and one exploratory extension:
 
 - primary: is a major JSON Schema implementation actually being used?
 - exploratory: how often do explicit JSON Schema-related markers appear in a wider JSON-using sample?
 
 The primary metric is a rough proxy for package adoption and usage activity around `ajv`, one of the widely used JSON Schema validators. It does not measure the full ecosystem, but it gives a compact trend view for one important tool within it.
 
-The second metric is a broader adoption proxy. It uses GitHub search to collect candidate JavaScript and TypeScript repositories, filters out forks, archived repositories, tiny low-signal repos, and obvious demo-like repos, confirms that `package.json` exists, and then takes a seeded random sample of 50 repositories. It checks that sampled set for explicit JSON Schema-related dependency markers in `package.json`.
+The second metric is exploratory only. It uses GitHub search to collect candidate JavaScript and TypeScript repositories, filters out forks, archived repositories, tiny low-signal repos, and obvious demo-like repos, confirms that `package.json` exists, and then takes a seeded random sample of 50 repositories. It checks that sampled set for explicit JSON Schema-related dependency markers in `package.json`.
 
 ## Interpretation layer
 
@@ -86,10 +77,6 @@ To make the output closer to an analysis pipeline instead of raw reporting, the 
 - a limitation sentence explaining why npm downloads should be treated as a proxy signal
 
 This keeps the analysis lightweight and explicit without changing the data source or expanding the project scope.
-
-## Weekly automation idea
-
-For a weekly refresh, the smallest setup is a scheduled GitHub Action or a cron job that runs the metric scripts once per week and commits or uploads the refreshed JSON and HTML artifacts.
 
 ## API choice
 
