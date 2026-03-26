@@ -3,12 +3,12 @@ const path = require("node:path");
 const https = require("node:https");
 
 const SEARCH_LANGUAGES = ["JavaScript", "TypeScript"];
-const BROAD_SAMPLE_SIZE = 40;
-const FOCUSED_SAMPLE_SIZE = 20;
+const DEFAULT_BROAD_SAMPLE_SIZE = 40;
+const DEFAULT_FOCUSED_SAMPLE_SIZE = 20;
 const RANDOM_SEED = "gsoc-observability-2026";
 const MIN_STARS = 10;
 const MIN_SIZE = 50;
-const CANDIDATES_PER_LANGUAGE = 100;
+const DEFAULT_CANDIDATES_PER_LANGUAGE = 100;
 const NOISE_PATTERN =
   /\b(test|tests|example|examples|demo|sandbox|starter|boilerplate|template|tutorial)\b/i;
 const SIGNAL_PATTERN =
@@ -17,6 +17,25 @@ const SCHEMA_FILE_PATTERN = /\.schema\.json$/i;
 
 const OUTPUT_DIR = path.join(__dirname, "..", "data");
 const OUTPUT_FILE = path.join(OUTPUT_DIR, "exploratory-downstream-usage.json");
+
+function readPositiveInt(name, fallback) {
+  const raw = process.env[name];
+  const parsed = Number.parseInt(raw || "", 10);
+  return Number.isInteger(parsed) && parsed > 0 ? parsed : fallback;
+}
+
+const BROAD_SAMPLE_SIZE = readPositiveInt(
+  "BROAD_SAMPLE_SIZE",
+  DEFAULT_BROAD_SAMPLE_SIZE
+);
+const FOCUSED_SAMPLE_SIZE = readPositiveInt(
+  "FOCUSED_SAMPLE_SIZE",
+  DEFAULT_FOCUSED_SAMPLE_SIZE
+);
+const CANDIDATES_PER_LANGUAGE = readPositiveInt(
+  "CANDIDATES_PER_LANGUAGE",
+  DEFAULT_CANDIDATES_PER_LANGUAGE
+);
 
 function fetchText(url, headers = {}) {
   return new Promise((resolve, reject) => {

@@ -31,6 +31,13 @@ npm run fetch:proxy-rate
 npm run build:dashboard
 ```
 
+If the GitHub-based exploratory probe hits rate limits, try the smaller batch:
+
+```bash
+npm run fetch:proxy-rate:small
+npm run build:dashboard
+```
+
 Or generate everything in one go:
 
 ```bash
