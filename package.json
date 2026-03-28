@@ -6,6 +6,7 @@
   "scripts": {
     "fetch": "node src/fetch-ajv-downloads.js",
     "fetch:downloads": "node src/fetch-ajv-downloads.js",
+    "prepare:probe-sample": "node src/prepare-schema-probe-sample.js",
     "fetch:proxy-rate": "node src/fetch-schema-usage-proxy-rate.js",
     "fetch:proxy-rate:small": "CANDIDATES_PER_LANGUAGE=40 BROAD_SAMPLE_SIZE=12 FOCUSED_SAMPLE_SIZE=8 node src/fetch-schema-usage-proxy-rate.js",
     "fetch:proxy-rate:tiny": "CANDIDATES_PER_LANGUAGE=20 BROAD_SAMPLE_SIZE=6 FOCUSED_SAMPLE_SIZE=4 node src/fetch-schema-usage-proxy-rate.js",

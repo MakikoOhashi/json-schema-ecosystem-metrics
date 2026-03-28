@@ -1,0 +1,639 @@
+{
+  "metric": "schema_probe_sample_preparation",
+  "sample": {
+    "searchLanguages": [
+      "JavaScript",
+      "TypeScript"
+    ],
+    "randomSeed": "gsoc-observability-2026",
+    "requestedSampleSize": 50,
+    "preparedSampleSize": 50,
+    "eligibility": {
+      "minStars": 10,
+      "minSize": 50,
+      "publicOnly": true,
+      "forksExcluded": true,
+      "archivedExcluded": true,
+      "demoLikeNamesExcluded": true
+    },
+    "strata": {
+      "high": {
+        "eligibleRepos": 63,
+        "sampledRepos": 17
+      },
+      "mid": {
+        "eligibleRepos": 63,
+        "sampledRepos": 17
+      },
+      "low": {
+        "eligibleRepos": 63,
+        "sampledRepos": 16
+      }
+    }
+  },
+  "filtering": {
+    "candidateReposFound": 200,
+    "broadEligibleReposAfterFiltering": 189,
+    "focusedSignalReposWithinEligible": 18,
+    "excludedCounts": {
+      "demo_like": 11
+    }
+  },
+  "cohorts": {
+    "broadPreparedSample": [
+      {
+        "repository": "hgourvest/node-firebird",
+        "language": "JavaScript",
+        "defaultBranch": "master",
+        "stars": 267,
+        "size": 1397,
+        "pushedAt": "2026-03-28T22:54:43Z",
+        "starBand": "high",
+        "focusedSignal": false
+      },
+      {
+        "repository": "xiaoxiunique/x-kit",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 908,
+        "size": 32432,
+        "pushedAt": "2026-03-28T23:04:31Z",
+        "starBand": "high",
+        "focusedSignal": false
+      },
+      {
+        "repository": "deezertidal/private",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 847,
+        "size": 10751164,
+        "pushedAt": "2026-03-28T22:52:07Z",
+        "starBand": "high",
+        "focusedSignal": false
+      },
+      {
+        "repository": "mnfst/manifest",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 4124,
+        "size": 158346,
+        "pushedAt": "2026-03-28T23:03:14Z",
+        "starBand": "high",
+        "focusedSignal": false
+      },
+      {
+        "repository": "nodejs/node",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 116447,
+        "size": 1442560,
+        "pushedAt": "2026-03-28T22:57:44Z",
+        "starBand": "high",
+        "focusedSignal": false
+      },
+      {
+        "repository": "zaxbysauce/opencode-swarm",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 153,
+        "size": 10279,
+        "pushedAt": "2026-03-28T23:05:46Z",
+        "starBand": "high",
+        "focusedSignal": false
+      },
+      {
+        "repository": "vercel-labs/just-bash",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 2317,
+        "size": 24160,
+        "pushedAt": "2026-03-28T23:02:32Z",
+        "starBand": "high",
+        "focusedSignal": false
+      },
+      {
+        "repository": "coderaiser/cloudcmd",
+        "language": "JavaScript",
+        "defaultBranch": "master",
+        "stars": 1998,
+        "size": 35994,
+        "pushedAt": "2026-03-28T23:00:33Z",
+        "starBand": "high",
+        "focusedSignal": false
+      },
+      {
+        "repository": "WebKit/WebKit",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 9712,
+        "size": 12350652,
+        "pushedAt": "2026-03-28T22:37:49Z",
+        "starBand": "high",
+        "focusedSignal": false
+      },
+      {
+        "repository": "remnawave/panel",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 3184,
+        "size": 32370,
+        "pushedAt": "2026-03-28T22:58:52Z",
+        "starBand": "high",
+        "focusedSignal": false
+      },
+      {
+        "repository": "deezertidal/QuantumultX-Rewrite",
+        "language": "JavaScript",
+        "defaultBranch": "master",
+        "stars": 3208,
+        "size": 10032048,
+        "pushedAt": "2026-03-28T22:51:47Z",
+        "starBand": "high",
+        "focusedSignal": false
+      },
+      {
+        "repository": "different-ai/openwork",
+        "language": "TypeScript",
+        "defaultBranch": "dev",
+        "stars": 12668,
+        "size": 429942,
+        "pushedAt": "2026-03-28T22:50:20Z",
+        "starBand": "high",
+        "focusedSignal": false
+      },
+      {
+        "repository": "discordjs/discord-api-types",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 612,
+        "size": 71043,
+        "pushedAt": "2026-03-28T22:54:08Z",
+        "starBand": "high",
+        "focusedSignal": true
+      },
+      {
+        "repository": "statelyai/xstate",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 29371,
+        "size": 272796,
+        "pushedAt": "2026-03-28T22:59:50Z",
+        "starBand": "high",
+        "focusedSignal": false
+      },
+      {
+        "repository": "deezertidal/stash-override",
+        "language": "JavaScript",
+        "defaultBranch": "master",
+        "stars": 496,
+        "size": 14210467,
+        "pushedAt": "2026-03-28T22:51:57Z",
+        "starBand": "high",
+        "focusedSignal": false
+      },
+      {
+        "repository": "neomjs/neo",
+        "language": "JavaScript",
+        "defaultBranch": "dev",
+        "stars": 3164,
+        "size": 1734161,
+        "pushedAt": "2026-03-28T22:52:54Z",
+        "starBand": "high",
+        "focusedSignal": true
+      },
+      {
+        "repository": "expo/expo",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 48314,
+        "size": 3565660,
+        "pushedAt": "2026-03-28T22:56:02Z",
+        "starBand": "high",
+        "focusedSignal": false
+      },
+      {
+        "repository": "mindstudio-ai/mindstudio-agent",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 30,
+        "size": 404,
+        "pushedAt": "2026-03-28T22:58:06Z",
+        "starBand": "mid",
+        "focusedSignal": false
+      },
+      {
+        "repository": "miantiao-me/github-stars",
+        "language": "JavaScript",
+        "defaultBranch": "master",
+        "stars": 105,
+        "size": 22390,
+        "pushedAt": "2026-03-28T22:39:32Z",
+        "starBand": "mid",
+        "focusedSignal": false
+      },
+      {
+        "repository": "CheirZ/HuTao-Proyect",
+        "language": "JavaScript",
+        "defaultBranch": "master",
+        "stars": 74,
+        "size": 21746,
+        "pushedAt": "2026-03-28T22:49:48Z",
+        "starBand": "mid",
+        "focusedSignal": false
+      },
+      {
+        "repository": "margani/pricedb",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 25,
+        "size": 87318023,
+        "pushedAt": "2026-03-28T22:42:45Z",
+        "starBand": "mid",
+        "focusedSignal": false
+      },
+      {
+        "repository": "Nine-Minds/alga-psa",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 98,
+        "size": 100457,
+        "pushedAt": "2026-03-28T22:55:34Z",
+        "starBand": "mid",
+        "focusedSignal": false
+      },
+      {
+        "repository": "atrislabs/atris",
+        "language": "JavaScript",
+        "defaultBranch": "master",
+        "stars": 58,
+        "size": 7606,
+        "pushedAt": "2026-03-28T22:52:50Z",
+        "starBand": "mid",
+        "focusedSignal": false
+      },
+      {
+        "repository": "ptrlrd/spire-codex",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 57,
+        "size": 364686,
+        "pushedAt": "2026-03-28T22:52:40Z",
+        "starBand": "mid",
+        "focusedSignal": true
+      },
+      {
+        "repository": "noisefactorllc/noisemaker",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 113,
+        "size": 16405,
+        "pushedAt": "2026-03-28T22:39:50Z",
+        "starBand": "mid",
+        "focusedSignal": false
+      },
+      {
+        "repository": "nix-community/nur-search",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 40,
+        "size": 1842455,
+        "pushedAt": "2026-03-28T22:41:41Z",
+        "starBand": "mid",
+        "focusedSignal": false
+      },
+      {
+        "repository": "pointless-lang/pointless",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 124,
+        "size": 19718,
+        "pushedAt": "2026-03-28T22:55:01Z",
+        "starBand": "mid",
+        "focusedSignal": false
+      },
+      {
+        "repository": "albinotonnina/echos",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 34,
+        "size": 3235,
+        "pushedAt": "2026-03-28T23:02:41Z",
+        "starBand": "mid",
+        "focusedSignal": false
+      },
+      {
+        "repository": "Lycoon/scriptio",
+        "language": "TypeScript",
+        "defaultBranch": "dev",
+        "stars": 43,
+        "size": 59342,
+        "pushedAt": "2026-03-28T22:56:11Z",
+        "starBand": "mid",
+        "focusedSignal": false
+      },
+      {
+        "repository": "prostgles/prostgles-server-js",
+        "language": "TypeScript",
+        "defaultBranch": "master",
+        "stars": 34,
+        "size": 39878,
+        "pushedAt": "2026-03-28T22:54:33Z",
+        "starBand": "mid",
+        "focusedSignal": false
+      },
+      {
+        "repository": "fdciabdul/Vpngate-Scraper-API",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 74,
+        "size": 1644285,
+        "pushedAt": "2026-03-28T22:54:20Z",
+        "starBand": "mid",
+        "focusedSignal": true
+      },
+      {
+        "repository": "chrisguttandin/midi-player",
+        "language": "JavaScript",
+        "defaultBranch": "master",
+        "stars": 28,
+        "size": 24468,
+        "pushedAt": "2026-03-28T22:53:00Z",
+        "starBand": "mid",
+        "focusedSignal": false
+      },
+      {
+        "repository": "AnEntrypoint/gm-cc",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 23,
+        "size": 402,
+        "pushedAt": "2026-03-28T23:03:09Z",
+        "starBand": "mid",
+        "focusedSignal": false
+      },
+      {
+        "repository": "mknepprath/mknepprath-next",
+        "language": "TypeScript",
+        "defaultBranch": "master",
+        "stars": 43,
+        "size": 237441,
+        "pushedAt": "2026-03-28T22:51:20Z",
+        "starBand": "mid",
+        "focusedSignal": false
+      },
+      {
+        "repository": "4n0nymou3/DPI-Phantom",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 15,
+        "size": 3372,
+        "pushedAt": "2026-03-28T22:58:07Z",
+        "starBand": "low",
+        "focusedSignal": true
+      },
+      {
+        "repository": "mwakidenis/JAMII-LOAN",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 12,
+        "size": 1133,
+        "pushedAt": "2026-03-28T22:58:15Z",
+        "starBand": "low",
+        "focusedSignal": false
+      },
+      {
+        "repository": "QwIT-Development/firka-extension",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 11,
+        "size": 1646,
+        "pushedAt": "2026-03-28T22:58:29Z",
+        "starBand": "low",
+        "focusedSignal": false
+      },
+      {
+        "repository": "InjectiveLabs/injective-lists",
+        "language": "TypeScript",
+        "defaultBranch": "master",
+        "stars": 15,
+        "size": 11068886,
+        "pushedAt": "2026-03-28T23:03:19Z",
+        "starBand": "low",
+        "focusedSignal": true
+      },
+      {
+        "repository": "mapforge-org/mapforge",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 19,
+        "size": 91451,
+        "pushedAt": "2026-03-28T23:00:45Z",
+        "starBand": "low",
+        "focusedSignal": false
+      },
+      {
+        "repository": "dirkjanfaber/victron-vrm-api",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 12,
+        "size": 1882,
+        "pushedAt": "2026-03-28T22:57:44Z",
+        "starBand": "low",
+        "focusedSignal": true
+      },
+      {
+        "repository": "d0dg3r/GitSyncMarks",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 19,
+        "size": 60271,
+        "pushedAt": "2026-03-28T22:54:11Z",
+        "starBand": "low",
+        "focusedSignal": true
+      },
+      {
+        "repository": "asizikov-demos/copilot-user-level-statistics-viewer",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 13,
+        "size": 3192,
+        "pushedAt": "2026-03-28T22:51:35Z",
+        "starBand": "low",
+        "focusedSignal": false
+      },
+      {
+        "repository": "DaoFlow-dev/DaoFlow",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 10,
+        "size": 4390,
+        "pushedAt": "2026-03-28T23:04:17Z",
+        "starBand": "low",
+        "focusedSignal": false
+      },
+      {
+        "repository": "lernza/lernza",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 18,
+        "size": 2017,
+        "pushedAt": "2026-03-28T23:00:30Z",
+        "starBand": "low",
+        "focusedSignal": false
+      },
+      {
+        "repository": "Pulsefy/QiuckEx",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 11,
+        "size": 2832,
+        "pushedAt": "2026-03-28T22:59:05Z",
+        "starBand": "low",
+        "focusedSignal": false
+      },
+      {
+        "repository": "victorcodess/nexus-ui",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 13,
+        "size": 802,
+        "pushedAt": "2026-03-28T22:58:18Z",
+        "starBand": "low",
+        "focusedSignal": false
+      },
+      {
+        "repository": "wrxck/fleet",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 14,
+        "size": 218,
+        "pushedAt": "2026-03-28T22:57:13Z",
+        "starBand": "low",
+        "focusedSignal": false
+      },
+      {
+        "repository": "arabicapp/everything-claude-code",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 12,
+        "size": 14618,
+        "pushedAt": "2026-03-28T22:59:32Z",
+        "starBand": "low",
+        "focusedSignal": false
+      },
+      {
+        "repository": "Quizzicarol/brix",
+        "language": "JavaScript",
+        "defaultBranch": "master",
+        "stars": 17,
+        "size": 160,
+        "pushedAt": "2026-03-28T23:04:58Z",
+        "starBand": "low",
+        "focusedSignal": false
+      },
+      {
+        "repository": "antiwork/gumroad-mobile",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 10,
+        "size": 1260,
+        "pushedAt": "2026-03-28T22:55:15Z",
+        "starBand": "low",
+        "focusedSignal": false
+      }
+    ],
+    "focusedPreparedSubset": [
+      {
+        "repository": "discordjs/discord-api-types",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 612,
+        "size": 71043,
+        "pushedAt": "2026-03-28T22:54:08Z",
+        "starBand": "high",
+        "focusedSignal": true
+      },
+      {
+        "repository": "neomjs/neo",
+        "language": "JavaScript",
+        "defaultBranch": "dev",
+        "stars": 3164,
+        "size": 1734161,
+        "pushedAt": "2026-03-28T22:52:54Z",
+        "starBand": "high",
+        "focusedSignal": true
+      },
+      {
+        "repository": "ptrlrd/spire-codex",
+        "language": "TypeScript",
+        "defaultBranch": "main",
+        "stars": 57,
+        "size": 364686,
+        "pushedAt": "2026-03-28T22:52:40Z",
+        "starBand": "mid",
+        "focusedSignal": true
+      },
+      {
+        "repository": "fdciabdul/Vpngate-Scraper-API",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 74,
+        "size": 1644285,
+        "pushedAt": "2026-03-28T22:54:20Z",
+        "starBand": "mid",
+        "focusedSignal": true
+      },
+      {
+        "repository": "4n0nymou3/DPI-Phantom",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 15,
+        "size": 3372,
+        "pushedAt": "2026-03-28T22:58:07Z",
+        "starBand": "low",
+        "focusedSignal": true
+      },
+      {
+        "repository": "InjectiveLabs/injective-lists",
+        "language": "TypeScript",
+        "defaultBranch": "master",
+        "stars": 15,
+        "size": 11068886,
+        "pushedAt": "2026-03-28T23:03:19Z",
+        "starBand": "low",
+        "focusedSignal": true
+      },
+      {
+        "repository": "dirkjanfaber/victron-vrm-api",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 12,
+        "size": 1882,
+        "pushedAt": "2026-03-28T22:57:44Z",
+        "starBand": "low",
+        "focusedSignal": true
+      },
+      {
+        "repository": "d0dg3r/GitSyncMarks",
+        "language": "JavaScript",
+        "defaultBranch": "main",
+        "stars": 19,
+        "size": 60271,
+        "pushedAt": "2026-03-28T22:54:11Z",
+        "starBand": "low",
+        "focusedSignal": true
+      }
+    ]
+  },
+  "analysis": {
+    "interpretation": "This file prepares a reproducible 50-repository sample before any heavier schema-file probing runs. It is intended to separate sample selection from later GitHub tree inspection.",
+    "limitation": "The sample is still derived from GitHub search metadata, so it reflects search coverage and metadata filtering choices rather than a full census.",
+    "basis": {
+      "comparison": "stars-stratified-sample-preparation",
+      "sampleSize": 50,
+      "focusedSubsetSize": 8,
+      "candidatesPerLanguage": 100
+    }
+  },
+  "fetchedAt": "2026-03-28T23:05:49.316Z"
+}

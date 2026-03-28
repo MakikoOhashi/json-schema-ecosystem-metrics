@@ -27,6 +27,7 @@ Run:
 
 ```bash
 npm run fetch:downloads
+npm run prepare:probe-sample
 npm run fetch:proxy-rate
 npm run build:dashboard
 ```
@@ -58,6 +59,23 @@ Current outputs:
 - `docs/part1-notes.md`
 
 The main report is `charts/observability-dashboard.html`. The JSON files are internal inputs to that dashboard, and the required Part 1 written answers are in `docs/part1-notes.md`.
+
+## Safer staged exploratory path
+
+The exploratory metric is the part most likely to hit GitHub rate limits. A safer staged approach is:
+
+```bash
+npm run prepare:probe-sample
+```
+
+This creates `data/schema-probe-sample.json`, which fixes a reproducible 50-repository broad sample before any heavier file-tree probing runs. The current sample preparation:
+
+- filters to active JS/TS repositories
+- excludes forks, archived repos, tiny repos, and obvious demo-like repos
+- splits the eligible set into `high / mid / low` star bands
+- samples across those three star bands with a fixed seed
+
+That lets the sample-selection step stay lighter and more reproducible before the heavier `*.schema.json` probe runs.
 
 ## Dashboard structure
 
