@@ -331,7 +331,7 @@ function buildHtml(downloads, proxyRate) {
   <main>
     <section class="hero">
       <h1>JSON Schema Signals: Time, Comparison, Summary</h1>
-      <p>The dashboard is arranged as a vertical trend first, a horizontal comparison second, and a small summary layer last.</p>
+      <p>This dashboard covers a JavaScript/TypeScript-facing slice of the ecosystem: a vertical trend first, a horizontal comparison second, and a small summary layer last.</p>
       <div class="summary-grid">
         <section class="summary-card">
           <p>1. Primary Metric</p>
@@ -354,7 +354,7 @@ function buildHtml(downloads, proxyRate) {
     <section class="panel">
       <p class="section-kicker">1. Primary Metric</p>
       <h2>Time / Change: Ajv Adoption Trend</h2>
-      <p>This is the main Part 1 metric. It tracks npm download activity for <code>ajv</code> as a practical proxy for validator-level adoption in the JavaScript ecosystem over time.</p>
+      <p>This is the main Part 1 metric. It tracks npm download activity for <code>ajv</code> as a practical proxy for validator-level adoption over time in a JavaScript/TypeScript-facing slice of the ecosystem.</p>
       <div class="summary-grid">
         <section class="summary-card">
           <p>Latest 7-day avg</p>
@@ -389,12 +389,10 @@ function buildHtml(downloads, proxyRate) {
       </section>
     </section>
 
-    <details class="section-toggle">
-      <summary>2. Exploratory Metric: Broad vs Focused Cohort Comparison</summary>
-      <section class="panel">
-        <p class="section-kicker">2. Exploratory Metric</p>
-        <h2>Relative Position: Schema File Usage By Cohort</h2>
-        <p>This section is exploratory. It compares the same <code>*.schema.json</code> probe across a broad filtered JS/TS cohort and a narrower API/config/validation-oriented cohort.</p>
+    <section class="panel">
+      <p class="section-kicker">2. Exploratory Metric</p>
+      <h2>Relative Position: Schema File Usage By Cohort</h2>
+      <p>This section is exploratory. It compares the same <code>*.schema.json</code> probe across a broad filtered JS/TS cohort and a narrower API/config/validation-oriented cohort inside the same JavaScript/TypeScript-facing slice.</p>
         <div class="visible-usage-layout">
           <div class="rings-wrap">
             <div class="rings" aria-label="Concentric rings showing candidate, eligible, sampled, and marker-positive repository counts">
@@ -458,15 +456,14 @@ function buildHtml(downloads, proxyRate) {
           <p>${proxyRate.analysis.interpretation}</p>
           <p><strong>Limitation:</strong> ${proxyRate.analysis.limitation}</p>
         </section>
-      </section>
-    </details>
+    </section>
 
     <details class="section-toggle">
       <summary>3. Support Signals</summary>
       <section class="panel">
         <p class="section-kicker">3. Support Signals</p>
         <h2>Summary / Decision Hints</h2>
-        <p>This section turns the current two metrics into cautious decision hints. It is intentionally a hypothesis layer, not a firm recommendation.</p>
+          <p>This section turns the current two metrics into cautious decision hints. It is intentionally a hypothesis layer, not a firm recommendation.</p>
         <div class="stack">
           <section class="mini-card">
             <p>What looks important now?</p>
@@ -486,13 +483,19 @@ function buildHtml(downloads, proxyRate) {
             <p><strong>Read:</strong> the 12-week downloads direction is the main weakening signal currently available in this proof of concept.</p>
             <p>This is a watch signal, not a diagnosis.</p>
           </section>
+          <section class="mini-card">
+            <p>Future scope</p>
+            <p class="value">broaden later</p>
+            <p><strong>Read:</strong> this dashboard does not measure the whole JSON Schema ecosystem yet.</p>
+            <p>A fuller observability view would add other implementation languages beyond the current JS/TS-facing slice.</p>
+          </section>
         </div>
         <section class="analysis">
           <h3>Provenance and Caveats</h3>
           <p><strong>Downloads source:</strong> <code>${downloads.source.url}</code></p>
           <p><strong>Proxy rate source:</strong> <code>${proxyRate.source.url}</code></p>
           <p><strong>Dashboard built from:</strong> local JSON artifacts in <code>data/</code></p>
-          <p><strong>Big caveat:</strong> the exploratory metric is still a proxy comparison built from two filtered cohorts and one file-path probe. It is useful for directional thinking, not for ecosystem-wide claims.</p>
+          <p><strong>Big caveat:</strong> the exploratory metric is still a proxy comparison built from two filtered cohorts and one file-path probe. It is useful for directional thinking inside this JS/TS-facing slice, not for ecosystem-wide claims.</p>
         </section>
       </section>
     </details>

@@ -1,10 +1,10 @@
 # json-schema-ecosystem-metrics
 
-Minimal Part 1 proof-of-concept for practical JSON Schema ecosystem signals.
+Minimal Part 1 proof-of-concept for practical JSON Schema ecosystem signals, focused on a JavaScript/TypeScript-facing slice rather than the full multi-language ecosystem.
 
 ## What this does
 
-This repository is being used for the GSoC observability qualification task. The primary Part 1 metric is `ajv` npm downloads, used as a validator-level adoption proxy. A second, clearly exploratory metric is included behind a toggle in the dashboard.
+This repository is being used for the GSoC observability qualification task. The primary Part 1 metric is `ajv` npm downloads, used as a validator-level adoption proxy. A second, clearly exploratory metric compares repository cohorts inside a JavaScript/TypeScript-facing slice of the ecosystem.
 
 The repository generates structured JSON output and a single main HTML report.
 
@@ -16,7 +16,7 @@ If you only open one file, open:
 
 - `charts/observability-dashboard.html`
 
-That dashboard is the main deliverable view for this proof of concept. It is designed so that the primary metric is visible first and the exploratory metric stays hidden until expanded.
+That dashboard is the main deliverable view for this proof of concept. It is designed to read in three steps: time/change first, cohort comparison second, and cautious summary last.
 
 ## Run instructions
 
@@ -68,7 +68,7 @@ The dashboard is organized in three layers:
 2. `Exploratory Metric`
    This is the horizontal view. It asks which cohort definition makes explicit JSON Schema usage easier or harder to see.
 3. `Support Signals`
-   This is a light summary layer. It combines the first two sections into cautious decision hints.
+   This is a light summary layer. It combines the first two sections into cautious decision hints and a future-direction note about scope.
 
 ## Output structure
 
@@ -99,6 +99,8 @@ The second metric is exploratory only. It uses GitHub search to collect candidat
 
 The exploratory probe then scans repository trees for `*.schema.json` files.
 
+This exploratory comparison is still only a JS/TS-facing slice. It does not measure the full JSON Schema ecosystem across other implementation languages.
+
 ## Interpretation layer
 
 To make the output closer to an analysis pipeline instead of raw reporting, the script also generates:
@@ -124,6 +126,7 @@ The downloads metric uses the npm downloads API for `ajv`. The proxy-rate metric
 
 - npm downloads are a proxy signal, not direct real-world usage.
 - The exploratory cohort comparison depends on GitHub search coverage, filtered repository cohorts, and the use of `*.schema.json` files as a probe, so it is not a complete measure of all JSON Schema adoption.
+- This proof of concept currently measures a JavaScript/TypeScript-facing slice of the ecosystem, not the full multi-language JSON Schema ecosystem.
 - Download counts can include CI, mirrors, and automated installs.
 - One package does not represent the entire JSON Schema ecosystem.
 - The generated artifacts are point-in-time snapshots, so values change when the script is run again.
