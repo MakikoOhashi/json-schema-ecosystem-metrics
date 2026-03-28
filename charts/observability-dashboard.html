@@ -208,7 +208,7 @@
 
     .ring-eligible {
       inset: 26px;
-      background: conic-gradient(#3f7d92 0 9%, #dbe5ec 0 100%);
+      background: conic-gradient(#3f7d92 0 92.5%, #dbe5ec 0 100%);
     }
 
     .ring-eligible::after {
@@ -217,7 +217,7 @@
 
     .ring-sampled {
       inset: 50px;
-      background: conic-gradient(#7299aa 0 9%, #dbe5ec 0 100%);
+      background: conic-gradient(#7299aa 0 20%, #dbe5ec 0 100%);
     }
 
     .ring-sampled::after {
@@ -226,7 +226,7 @@
 
     .ring-marker {
       inset: 72px;
-      background: conic-gradient(var(--present) 0 0.5%, #dbe5ec 0 100%);
+      background: conic-gradient(var(--present) 0 0%, #dbe5ec 0 100%);
     }
 
     .ring-marker::after {
@@ -298,67 +298,71 @@
 <body>
   <main>
     <section class="hero">
-      <h1>JSON Schema observability dashboard</h1>
-      <p>This proof of concept centers one primary metric first, then keeps broader ecosystem ideas as exploratory follow-ons.</p>
+      <h1>JSON Schema Signals: Time, Comparison, Summary</h1>
+      <p>The dashboard is arranged as a vertical trend first, a horizontal comparison second, and a small summary layer last.</p>
       <div class="summary-grid">
         <section class="summary-card">
-          <p>Primary metric</p>
-          <p class="value">Ajv</p>
+          <p>1. Primary Metric</p>
+          <p class="value">Time</p>
+          <p>Tracks how one important validator signal moves over time.</p>
         </section>
         <section class="summary-card">
-          <p>Ajv usage proxy</p>
-          <p class="value">2,593,863,693</p>
+          <p>2. Exploratory Metric</p>
+          <p class="value">Comparison</p>
+          <p>Compares broad and focused cohorts to see where schema usage becomes visible.</p>
         </section>
         <section class="summary-card">
-          <p>Exploratory downstream usage</p>
-          <p class="value">1/18</p>
+          <p>3. Support Signals</p>
+          <p class="value">Summary</p>
+          <p>Turns the first two sections into cautious decision hints.</p>
         </section>
       </div>
     </section>
 
     <section class="panel">
-      <p class="section-kicker">Primary Metric</p>
-      <h2>Ajv Validator-Level Adoption</h2>
-      <p>This is the main Part 1 metric. It tracks npm download activity for <code>ajv</code> as a practical proxy for validator-level adoption in the JavaScript ecosystem.</p>
+      <p class="section-kicker">1. Primary Metric</p>
+      <h2>Time / Change: Ajv Adoption Trend</h2>
+      <p>This is the main Part 1 metric. It tracks npm download activity for <code>ajv</code> as a practical proxy for validator-level adoption in the JavaScript ecosystem over time.</p>
       <div class="summary-grid">
         <section class="summary-card">
-          <p>Ajv usage proxy</p>
-          <p class="value">2,593,863,693</p>
+          <p>Latest 7-day avg</p>
+          <p class="value">39,488,040</p>
         </section>
         <section class="summary-card">
           <p>12-week direction</p>
-          <p class="value">86.7%</p>
+          <p class="value">61.9%</p>
         </section>
         <section class="summary-card">
-          <p>Observed points</p>
-          <p class="value">84</p>
+          <p>Latest week total</p>
+          <p class="value">276,416,279</p>
         </section>
       </div>
       <div class="chart-wrap">
-        <canvas id="downloadsChart" aria-label="Ajv downloads trend"></canvas>
+        <canvas id="downloadsChart" aria-label="Ajv 7-day average downloads trend"></canvas>
       </div>
       <section class="analysis">
         <h3>Primary Read</h3>
-        <p>Ajv downloads increased 86.7% over the last 12 weeks. This suggests continued activity around one widely used JSON Schema implementation.</p>
+        <p>Ajv downloads increased 61.9% over the last 12 weeks. This suggests continued activity around one widely used JSON Schema implementation.</p>
         <p><strong>Limitation:</strong> This is a proxy metric based on npm downloads, so it can include CI traffic, automated installs, and other non-human activity.</p>
         <details class="basis-toggle">
           <summary>Show analysis basis</summary>
           <ul class="basis-list">
             <li><strong>comparison:</strong> first-7-days-vs-last-7-days-average</li>
-            <li><strong>startingAverageDownloads:</strong> 17,654,967</li>
-            <li><strong>endingAverageDownloads:</strong> 32,967,212</li>
-            <li><strong>changePercent:</strong> 86.7%</li>
+            <li><strong>startingAverageDownloads:</strong> 24,393,049</li>
+            <li><strong>endingAverageDownloads:</strong> 39,488,040</li>
+            <li><strong>changePercent:</strong> 61.9%</li>
+            <li><strong>weeklyBuckets:</strong> 12</li>
           </ul>
         </details>
       </section>
     </section>
 
     <details class="section-toggle">
-      <summary>Exploratory Metric: Downstream Visible Usage</summary>
+      <summary>2. Exploratory Metric: Broad vs Focused Cohort Comparison</summary>
       <section class="panel">
-        <p class="section-kicker">Exploratory Metric</p>
-        <h2>Downstream Visible Usage</h2>
-        <p>This section is exploratory. It asks whether explicit JSON Schema-related markers are easy to see in a filtered random sample of eligible JS/TS repositories.</p>
+        <p class="section-kicker">2. Exploratory Metric</p>
+        <h2>Relative Position: Schema File Usage By Cohort</h2>
+        <p>This section is exploratory. It compares the same <code>*.schema.json</code> probe across a broad filtered JS/TS cohort and a narrower API/config/validation-oriented cohort.</p>
         <div class="visible-usage-layout">
           <div class="rings-wrap">
             <div class="rings" aria-label="Concentric rings showing candidate, eligible, sampled, and marker-positive repository counts">
@@ -368,8 +372,8 @@
               <div class="ring ring-marker"></div>
               <div class="ring-core">
                 <div>
-                  <strong>1</strong>
-                  marker-positive
+                  <strong>0</strong>
+                  focused markers
                 </div>
               </div>
             </div>
@@ -379,46 +383,57 @@
               <div class="ring-legend-row">
                 <span class="swatch swatch-candidate"></span>
                 <span>Candidate repositories found</span>
-                <strong>200</strong>
+                <strong>40</strong>
               </div>
               <div class="ring-legend-row">
                 <span class="swatch swatch-eligible"></span>
-                <span>Eligible after filtering</span>
-                <strong>18</strong>
+                <span>Broad eligible cohort</span>
+                <strong>37</strong>
               </div>
               <div class="ring-legend-row">
                 <span class="swatch swatch-sampled"></span>
-                <span>Repositories sampled</span>
-                <strong>18</strong>
+                <span>Focused eligible cohort</span>
+                <strong>8</strong>
               </div>
               <div class="ring-legend-row">
                 <span class="swatch swatch-marker"></span>
-                <span>Explicit schema markers found</span>
-                <strong>1</strong>
+                <span>Focused schema-file positives</span>
+                <strong>0</strong>
               </div>
             </div>
             <section class="mini-card">
-              <p>Ajv marker in sample</p>
-              <p class="value">1/18</p>
-              <p><strong>Read:</strong> the current sample shows <code>ajv</code> in 1 of 18 sampled repositories.</p>
-              <p>This helps show how hard explicit downstream schema usage is to see from a broad filtered sample.</p>
+              <p>Broad cohort</p>
+              <p class="value">0/4</p>
+              <p><strong>Read:</strong> 0% of the broad filtered cohort contained at least one <code>*.schema.json</code> file.</p>
+              <p>This is the looser baseline.</p>
             </section>
             <section class="mini-card">
-              <p>Any schema marker in sample</p>
-              <p class="value">1/18</p>
-              <p><strong>Read:</strong> 5.6% of the sampled repositories exposed at least one explicit dependency marker.</p>
+              <p>Focused cohort</p>
+              <p class="value">0/4</p>
+              <p><strong>Read:</strong> 0% of the focused API/config/validation cohort contained at least one <code>*.schema.json</code> file.</p>
               <p>This is exploratory and should not be read as an ecosystem-wide share.</p>
+            </section>
+            <section class="mini-card">
+              <p>Cohort delta</p>
+              <p class="value">0 pts</p>
+              <p><strong>Read:</strong> focused minus broad marker rate.</p>
+              <p>This is the main comparison signal.</p>
             </section>
           </div>
         </div>
+        <section class="analysis">
+          <h3>Exploratory Read</h3>
+          <p>The broad and focused cohorts produced the same schema-file rate in this run. That suggests schema-file visibility is still limited even after narrowing the cohort.</p>
+          <p><strong>Limitation:</strong> This remains a proxy comparison, not a census. Both cohort definitions depend on GitHub search coverage, the package.json requirement, sample sizes, and the use of *.schema.json files as the probe.</p>
+        </section>
       </section>
     </details>
 
     <details class="section-toggle">
-      <summary>Support Signals</summary>
+      <summary>3. Support Signals</summary>
       <section class="panel">
-        <p class="section-kicker">Support Signals</p>
-        <h2>Provisional Support Read</h2>
+        <p class="section-kicker">3. Support Signals</p>
+        <h2>Summary / Decision Hints</h2>
         <p>This section turns the current two metrics into cautious decision hints. It is intentionally a hypothesis layer, not a firm recommendation.</p>
         <div class="stack">
           <section class="mini-card">
@@ -430,8 +445,8 @@
           <section class="mini-card">
             <p>What should likely be supported?</p>
             <p class="value">downstream</p>
-            <p><strong>Read:</strong> validator-level usage looks strong, but explicit schema markers remain sparse downstream.</p>
-            <p>If this pattern is real, downstream visibility, tooling discoverability, and explicit schema usage support may matter more than core-validator rescue.</p>
+            <p><strong>Read:</strong> validator-level usage looks strong, but explicit schema-file usage remains selective across the exploratory cohorts.</p>
+            <p>If this pattern is real, downstream visibility and explicit schema-file adoption may matter more than core-validator rescue.</p>
           </section>
           <section class="mini-card">
             <p>What may be weakening?</p>
@@ -442,24 +457,24 @@
         </div>
         <section class="analysis">
           <h3>Provenance and Caveats</h3>
-          <p><strong>Downloads source:</strong> <code>https://api.npmjs.org/downloads/range/2025-12-31:2026-03-24/ajv</code></p>
+          <p><strong>Downloads source:</strong> <code>https://api.npmjs.org/downloads/range/2026-01-03:2026-03-27/ajv</code></p>
           <p><strong>Proxy rate source:</strong> <code>https://api.github.com/search/repositories</code></p>
           <p><strong>Dashboard built from:</strong> local JSON artifacts in <code>data/</code></p>
-          <p><strong>Big caveat:</strong> the exploratory metric is still a proxy built from a filtered sample. It is useful for directional thinking, not for ecosystem-wide claims.</p>
+          <p><strong>Big caveat:</strong> the exploratory metric is still a proxy comparison built from two filtered cohorts and one file-path probe. It is useful for directional thinking, not for ecosystem-wide claims.</p>
         </section>
       </section>
     </details>
   </main>
   <script>
-    const labels = ["2025-12-31","2026-01-01","2026-01-02","2026-01-03","2026-01-04","2026-01-05","2026-01-06","2026-01-07","2026-01-08","2026-01-09","2026-01-10","2026-01-11","2026-01-12","2026-01-13","2026-01-14","2026-01-15","2026-01-16","2026-01-17","2026-01-18","2026-01-19","2026-01-20","2026-01-21","2026-01-22","2026-01-23","2026-01-24","2026-01-25","2026-01-26","2026-01-27","2026-01-28","2026-01-29","2026-01-30","2026-01-31","2026-02-01","2026-02-02","2026-02-03","2026-02-04","2026-02-05","2026-02-06","2026-02-07","2026-02-08","2026-02-09","2026-02-10","2026-02-11","2026-02-12","2026-02-13","2026-02-14","2026-02-15","2026-02-16","2026-02-17","2026-02-18","2026-02-19","2026-02-20","2026-02-21","2026-02-22","2026-02-23","2026-02-24","2026-02-25","2026-02-26","2026-02-27","2026-02-28","2026-03-01","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-07","2026-03-08","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-14","2026-03-15","2026-03-16","2026-03-17","2026-03-18","2026-03-19","2026-03-20","2026-03-21","2026-03-22","2026-03-23","2026-03-24"];
-    const values = [15568628,11204407,16912568,10484417,11743907,28402671,29268169,30718097,31784392,28349692,11869075,10809474,31489879,35395198,36457473,35055662,31256945,16668406,16173091,35236205,37158785,37536574,35295206,33019807,13404252,11367009,32224250,36575736,36860570,36711919,34183999,16596752,16395625,36544570,41783986,41116320,41507244,36528339,16358212,17353826,35643382,36990245,35920156,37342091,33285597,15262830,13989193,30625731,34740335,36965057,38339722,34587694,17027573,16960633,39251687,43007044,44315813,42311084,38079677,17211422,18290209,40590226,42865001,45799176,45670104,42333700,22833376,19759451,44880913,47374624,45154387,45248314,40805677,19740444,19923044,47259992,49336265,48978847,47716918,42435931,22332134,22864036,46442621,0];
+    const labels = ["2026-01-03","2026-01-04","2026-01-05","2026-01-06","2026-01-07","2026-01-08","2026-01-09","2026-01-10","2026-01-11","2026-01-12","2026-01-13","2026-01-14","2026-01-15","2026-01-16","2026-01-17","2026-01-18","2026-01-19","2026-01-20","2026-01-21","2026-01-22","2026-01-23","2026-01-24","2026-01-25","2026-01-26","2026-01-27","2026-01-28","2026-01-29","2026-01-30","2026-01-31","2026-02-01","2026-02-02","2026-02-03","2026-02-04","2026-02-05","2026-02-06","2026-02-07","2026-02-08","2026-02-09","2026-02-10","2026-02-11","2026-02-12","2026-02-13","2026-02-14","2026-02-15","2026-02-16","2026-02-17","2026-02-18","2026-02-19","2026-02-20","2026-02-21","2026-02-22","2026-02-23","2026-02-24","2026-02-25","2026-02-26","2026-02-27","2026-02-28","2026-03-01","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-07","2026-03-08","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-14","2026-03-15","2026-03-16","2026-03-17","2026-03-18","2026-03-19","2026-03-20","2026-03-21","2026-03-22","2026-03-23","2026-03-24","2026-03-25","2026-03-26","2026-03-27"];
+    const values = [10484417,11114162,16876998,19974791,22123452,23733609,24393049,24590858,24457367,24898397,25773687,26593598,27060922,27476244,28161862,28928093,29463283,29715224,29869381,29903602,30155439,29689131,29002548,28572269,28488976,28392404,28594792,28761105,29217176,29935550,30552739,31296774,31904739,32589785,32924691,32890614,33027500,32898758,32213938,31471629,30876607,30413358,30256875,29776213,29059406,28737990,28887262,29029781,29215795,29467901,29892392,31124672,32305630,33355738,33923075,34421930,34448194,34638134,34829354,34809062,35020971,35500831,36108548,36911685,37121576,37734532,38378763,38286651,38226395,38008106,37566259,37589629,37929497,38209732,38756083,39108741,39341634,39711876,40132018,40015250,39378595,39053382,39351312,39488040];
 
     new Chart(document.getElementById("downloadsChart"), {
       type: "line",
       data: {
         labels,
         datasets: [{
-          label: "Daily downloads",
+          label: "7-day average downloads",
           data: values,
           borderColor: "#1f6f8b",
           backgroundColor: "rgba(31, 111, 139, 0.12)",

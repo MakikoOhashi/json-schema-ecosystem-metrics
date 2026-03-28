@@ -1,12 +1,12 @@
 {
-  "metric": "schema_usage_proxy_rate",
+  "metric": "schema_file_cohort_comparison",
   "sample": {
-    "name": "filtered_random_sample_of_json_using_js_ts_repositories",
     "searchLanguages": [
       "JavaScript",
       "TypeScript"
     ],
-    "sampleSize": 50,
+    "broadSampleSize": 6,
+    "focusedSampleSize": 4,
     "randomSeed": "gsoc-observability-2026",
     "eligibility": {
       "minStars": 10,
@@ -15,292 +15,175 @@
       "forksExcluded": true,
       "archivedExcluded": true,
       "demoLikeNamesExcluded": true,
-      "packageJsonRequired": true,
-      "prioritizedSignalTerms": [
-        "api",
-        "openapi",
-        "json",
-        "schema",
-        "config",
-        "validate",
-        "validation",
-        "spec"
-      ]
+      "packageJsonRequired": true
+    },
+    "cohorts": {
+      "broad": {
+        "name": "broad_filtered_js_ts_repositories",
+        "description": "Active JS/TS repositories with package.json after basic filtering."
+      },
+      "focused": {
+        "name": "api_config_validation_oriented_repositories",
+        "description": "Subset of the broad cohort whose names, descriptions, or topics include API/config/validation/schema signal terms.",
+        "prioritizedSignalTerms": [
+          "api",
+          "openapi",
+          "json",
+          "schema",
+          "config",
+          "validate",
+          "validation",
+          "spec"
+        ]
+      }
     }
   },
   "source": {
-    "name": "GitHub search API plus raw package.json files",
+    "name": "GitHub search API plus package.json and repository tree API",
     "url": "https://api.github.com/search/repositories"
   },
   "filtering": {
-    "candidateReposFound": 200,
-    "eligibleReposAfterFiltering": 18,
-    "eligibleReposPrioritizedBySignalTerms": 18,
+    "candidateReposFound": 40,
+    "broadEligibleReposAfterFiltering": 37,
+    "focusedEligibleReposAfterFiltering": 8,
     "excludedCounts": {
-      "low_schema_signal": 175,
-      "demo_like": 4,
-      "missing_package_json": 3
+      "demo_like": 3,
+      "missing_package_json": 2
     }
   },
-  "summary": {
-    "candidateReposFound": 200,
-    "eligibleReposAfterFiltering": 18,
-    "eligibleReposPrioritizedBySignalTerms": 18,
-    "repositoriesScanned": 18,
-    "repositoriesWithAnyMarker": 1,
-    "proxyRatePercent": 5.6,
-    "sampleSize": 50,
-    "randomSeed": "gsoc-observability-2026",
-    "unit": "percent"
-  },
-  "series": {
-    "interval": "repository",
-    "unit": "marker_present",
-    "values": [
-      {
-        "repository": "slack-edge/slack-web-api-client",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 42,
-        "size": 1989,
-        "pushedAt": "2026-03-25T03:21:26Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false,
-        "prioritizedBySignalTerms": true
+  "cohorts": {
+    "broad": {
+      "summary": {
+        "eligibleRepos": 4,
+        "repositoriesScanned": 4,
+        "repositoriesWithAnyMarker": 0,
+        "proxyRatePercent": 0,
+        "unit": "percent"
       },
-      {
-        "repository": "xiadd/tg-wb-trending",
-        "language": "JavaScript",
-        "defaultBranch": "master",
-        "stars": 82,
-        "size": 319743,
-        "pushedAt": "2026-03-25T03:05:07Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false,
-        "prioritizedBySignalTerms": true
+      "values": [
+        {
+          "repository": "Dais-Project/Dais",
+          "language": "TypeScript",
+          "defaultBranch": "main",
+          "stars": 22,
+          "size": 5136,
+          "pushedAt": "2026-03-27T07:16:33Z",
+          "packageJsonPresent": true,
+          "schemaFileMarkers": [],
+          "hasAnyMarker": false,
+          "prioritizedBySignalTerms": false
+        },
+        {
+          "repository": "gnmyt/Nexterm",
+          "language": "JavaScript",
+          "defaultBranch": "main",
+          "stars": 4182,
+          "size": 31056,
+          "pushedAt": "2026-03-27T07:14:18Z",
+          "packageJsonPresent": true,
+          "schemaFileMarkers": [],
+          "hasAnyMarker": false,
+          "prioritizedBySignalTerms": false
+        },
+        {
+          "repository": "adamlui/js-utils",
+          "language": "JavaScript",
+          "defaultBranch": "main",
+          "stars": 20,
+          "size": 22756,
+          "pushedAt": "2026-03-27T07:12:44Z",
+          "packageJsonPresent": true,
+          "schemaFileMarkers": [],
+          "hasAnyMarker": false,
+          "prioritizedBySignalTerms": true
+        },
+        {
+          "repository": "chhaseeb47/HASI-MD",
+          "language": "JavaScript",
+          "defaultBranch": "main",
+          "stars": 31,
+          "size": 409,
+          "pushedAt": "2026-03-27T07:16:44Z",
+          "packageJsonPresent": true,
+          "schemaFileMarkers": [],
+          "hasAnyMarker": false,
+          "prioritizedBySignalTerms": false
+        }
+      ]
+    },
+    "focused": {
+      "summary": {
+        "eligibleRepos": 4,
+        "repositoriesScanned": 4,
+        "repositoriesWithAnyMarker": 0,
+        "proxyRatePercent": 0,
+        "unit": "percent"
       },
-      {
-        "repository": "afoim/Static_RandomPicAPI",
-        "language": "JavaScript",
-        "defaultBranch": "main",
-        "stars": 36,
-        "size": 1122594,
-        "pushedAt": "2026-03-25T03:18:06Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false,
-        "prioritizedBySignalTerms": true
-      },
-      {
-        "repository": "html-validate/html-validate",
-        "language": "TypeScript",
-        "defaultBranch": "master",
-        "stars": 14,
-        "size": 43630,
-        "pushedAt": "2026-03-25T03:22:50Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [
-          "ajv"
-        ],
-        "hasAnyMarker": true,
-        "prioritizedBySignalTerms": true
-      },
-      {
-        "repository": "fdciabdul/Vpngate-Scraper-API",
-        "language": "JavaScript",
-        "defaultBranch": "main",
-        "stars": 73,
-        "size": 1641043,
-        "pushedAt": "2026-03-25T03:19:57Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false,
-        "prioritizedBySignalTerms": true
-      },
-      {
-        "repository": "forwardemail/tangerine",
-        "language": "JavaScript",
-        "defaultBranch": "main",
-        "stars": 201,
-        "size": 932,
-        "pushedAt": "2026-03-25T03:18:19Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false,
-        "prioritizedBySignalTerms": true
-      },
-      {
-        "repository": "globlord/AIstudioProxyAPI",
-        "language": "JavaScript",
-        "defaultBranch": "main",
-        "stars": 45,
-        "size": 3622,
-        "pushedAt": "2026-03-25T03:09:47Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false,
-        "prioritizedBySignalTerms": true
-      },
-      {
-        "repository": "sourcey/sourcey",
-        "language": "TypeScript",
-        "defaultBranch": "master",
-        "stars": 1280,
-        "size": 2388,
-        "pushedAt": "2026-03-25T03:19:57Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false,
-        "prioritizedBySignalTerms": true
-      },
-      {
-        "repository": "cita-777/metapi",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 1233,
-        "size": 30953,
-        "pushedAt": "2026-03-25T03:22:37Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false,
-        "prioritizedBySignalTerms": true
-      },
-      {
-        "repository": "zenstackhq/zenstack",
-        "language": "TypeScript",
-        "defaultBranch": "dev",
-        "stars": 2849,
-        "size": 13576,
-        "pushedAt": "2026-03-25T03:15:23Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false,
-        "prioritizedBySignalTerms": true
-      },
-      {
-        "repository": "yuzutech/kroki",
-        "language": "JavaScript",
-        "defaultBranch": "main",
-        "stars": 4042,
-        "size": 95454,
-        "pushedAt": "2026-03-25T03:06:53Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false,
-        "prioritizedBySignalTerms": true
-      },
-      {
-        "repository": "mastercomfig/comfig-app",
-        "language": "TypeScript",
-        "defaultBranch": "develop",
-        "stars": 27,
-        "size": 263364,
-        "pushedAt": "2026-03-25T03:18:57Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false,
-        "prioritizedBySignalTerms": true
-      },
-      {
-        "repository": "9xN/auto-ovpn",
-        "language": "JavaScript",
-        "defaultBranch": "main",
-        "stars": 72,
-        "size": 931554,
-        "pushedAt": "2026-03-25T03:13:04Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false,
-        "prioritizedBySignalTerms": true
-      },
-      {
-        "repository": "amalik/convoke-agents",
-        "language": "JavaScript",
-        "defaultBranch": "main",
-        "stars": 28,
-        "size": 7247,
-        "pushedAt": "2026-03-25T03:12:20Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false,
-        "prioritizedBySignalTerms": true
-      },
-      {
-        "repository": "pmuens/defi-llama-watcher",
-        "language": "JavaScript",
-        "defaultBranch": "master",
-        "stars": 13,
-        "size": 5856,
-        "pushedAt": "2026-03-25T03:19:05Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false,
-        "prioritizedBySignalTerms": true
-      },
-      {
-        "repository": "kanaa257/sosumi.ai",
-        "language": "TypeScript",
-        "defaultBranch": "main",
-        "stars": 12,
-        "size": 2015,
-        "pushedAt": "2026-03-25T03:20:19Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false,
-        "prioritizedBySignalTerms": true
-      },
-      {
-        "repository": "puzzlers-labs/chrome-webstore-publish",
-        "language": "JavaScript",
-        "defaultBranch": "main",
-        "stars": 16,
-        "size": 975,
-        "pushedAt": "2026-03-25T03:01:04Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false,
-        "prioritizedBySignalTerms": true
-      },
-      {
-        "repository": "Kong/insomnia",
-        "language": "TypeScript",
-        "defaultBranch": "develop",
-        "stars": 38171,
-        "size": 145326,
-        "pushedAt": "2026-03-25T03:23:30Z",
-        "packageJsonPresent": true,
-        "dependencyMarkers": [],
-        "hasAnyMarker": false,
-        "prioritizedBySignalTerms": true
-      }
-    ]
-  },
-  "analysis": {
-    "interpretation": "No sampled repositories showed one of the explicit JSON Schema-related dependency markers checked here. In this proof of concept, that says more about how hard downstream usage is to observe from repository metadata than it does about true absence of JSON Schema usage.",
-    "limitation": "This is still a proxy, not a census. The result depends on the GitHub search frame, the stricter eligibility filters, the sample size, and the specific dependency markers checked.",
-    "basis": {
-      "comparison": "filtered-github-search-sample",
-      "randomSeed": "gsoc-observability-2026",
-      "sampleSize": 50,
-      "candidateReposFound": 200,
-      "eligibleReposAfterFiltering": 18,
-      "eligibleReposPrioritizedBySignalTerms": 18,
-      "sampledRepos": 18,
-      "repositoriesWithAnyMarker": 1,
-      "proxyRatePercent": 5.6,
-      "dependencyMarkersChecked": [
-        "ajv",
-        "ajv-formats",
-        "ajv-keywords",
-        "schema-utils",
-        "json-schema",
-        "json-schema-traverse",
-        "json-schema-to-typescript",
-        "@types/json-schema"
+      "values": [
+        {
+          "repository": "nowscott/OldIndWebIndex",
+          "language": "JavaScript",
+          "defaultBranch": "main",
+          "stars": 14,
+          "size": 100,
+          "pushedAt": "2026-03-27T07:13:15Z",
+          "packageJsonPresent": true,
+          "schemaFileMarkers": [],
+          "hasAnyMarker": false,
+          "prioritizedBySignalTerms": true
+        },
+        {
+          "repository": "adamlui/js-utils",
+          "language": "JavaScript",
+          "defaultBranch": "main",
+          "stars": 20,
+          "size": 22756,
+          "pushedAt": "2026-03-27T07:12:44Z",
+          "packageJsonPresent": true,
+          "schemaFileMarkers": [],
+          "hasAnyMarker": false,
+          "prioritizedBySignalTerms": true
+        },
+        {
+          "repository": "ellanan/apod-api",
+          "language": "TypeScript",
+          "defaultBranch": "main",
+          "stars": 16,
+          "size": 53956,
+          "pushedAt": "2026-03-27T07:15:52Z",
+          "packageJsonPresent": true,
+          "schemaFileMarkers": [],
+          "hasAnyMarker": false,
+          "prioritizedBySignalTerms": true
+        },
+        {
+          "repository": "qixing-jk/all-api-hub",
+          "language": "TypeScript",
+          "defaultBranch": "main",
+          "stars": 2503,
+          "size": 54454,
+          "pushedAt": "2026-03-27T07:16:22Z",
+          "packageJsonPresent": true,
+          "schemaFileMarkers": [],
+          "hasAnyMarker": false,
+          "prioritizedBySignalTerms": true
+        }
       ]
     }
   },
-  "fetchedAt": "2026-03-25T03:24:03.240Z"
+  "analysis": {
+    "interpretation": "The broad and focused cohorts produced the same schema-file rate in this run. That suggests schema-file visibility is still limited even after narrowing the cohort.",
+    "limitation": "This remains a proxy comparison, not a census. Both cohort definitions depend on GitHub search coverage, the package.json requirement, sample sizes, and the use of *.schema.json files as the probe.",
+    "basis": {
+      "comparison": "broad-cohort-vs-focused-cohort",
+      "randomSeed": "gsoc-observability-2026",
+      "broadSampleSize": 6,
+      "focusedSampleSize": 4,
+      "broadProxyRatePercent": 0,
+      "focusedProxyRatePercent": 0,
+      "percentagePointDelta": 0,
+      "schemaFilePattern": "\\.schema\\.json$"
+    }
+  },
+  "fetchedAt": "2026-03-27T07:17:54.902Z"
 }

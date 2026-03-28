@@ -87,6 +87,32 @@ function roundPercent(value) {
   return Math.round(value * 10) / 10;
 }
 
+function buildRollingAverage(points, windowSize = 7) {
+  return points.map((point, index) => {
+    const windowStart = Math.max(0, index - windowSize + 1);
+    const window = points.slice(windowStart, index + 1);
+    return {
+      day: point.day,
+      averageDownloads: Math.round(averageDownloads(window)),
+    };
+  });
+}
+
+function buildWeeklyTotals(points) {
+  const weeks = [];
+
+  for (let index = 0; index < points.length; index += 7) {
+    const window = points.slice(index, index + 7);
+    weeks.push({
+      startDay: window[0].day,
+      endDay: window[window.length - 1].day,
+      totalDownloads: window.reduce((sum, point) => sum + point.downloads, 0),
+    });
+  }
+
+  return weeks;
+}
+
 function buildAnalysis(downloads) {
   const windowSize = Math.min(7, downloads.length);
   const startingWindow = downloads.slice(0, windowSize);
@@ -126,8 +152,14 @@ function buildOutput(payload, apiUrl) {
     day: point.day,
     downloads: point.downloads,
   }));
+  const rollingAverage = buildRollingAverage(downloads, 7);
+  const weeklyTotals = buildWeeklyTotals(downloads);
   const totalDownloads = downloads.reduce((sum, point) => sum + point.downloads, 0);
   const analysis = buildAnalysis(downloads);
+  const latestRollingAverage =
+    rollingAverage[rollingAverage.length - 1]?.averageDownloads || 0;
+  const firstRollingAverage = rollingAverage[0]?.averageDownloads || 0;
+  const latestWeekTotal = weeklyTotals[weeklyTotals.length - 1]?.totalDownloads || 0;
 
   return {
     metric: "npm_downloads_trend",
@@ -144,12 +176,18 @@ function buildOutput(payload, apiUrl) {
     summary: {
       points: downloads.length,
       totalDownloads,
+      latest7DayAverage: latestRollingAverage,
+      first7DayAverage: firstRollingAverage,
+      weeklyBuckets: weeklyTotals.length,
+      latestWeekTotal,
       unit: "downloads",
     },
     series: {
       interval: "day",
       unit: "downloads",
       values: downloads,
+      rollingAverage7Day: rollingAverage,
+      weeklyTotals,
     },
     analysis,
     fetchedAt: new Date().toISOString(),

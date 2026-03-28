@@ -8,7 +8,7 @@ This repository is being used for the GSoC observability qualification task. The
 
 The repository generates structured JSON output and a single main HTML report.
 
-The primary downloads implementation fetches a daily series covering the last 12 weeks, then adds a short auto-generated interpretation and a limitation note.
+The primary downloads implementation fetches a daily series covering the last 12 weeks, then derives a 7-day rolling average and weekly totals so the main trend is easier to read. It also adds a short auto-generated interpretation and a limitation note.
 
 ## Start Here
 
@@ -38,6 +38,13 @@ npm run fetch:proxy-rate:small
 npm run build:dashboard
 ```
 
+Or the smallest retry path:
+
+```bash
+npm run fetch:proxy-rate:tiny
+npm run build:dashboard
+```
+
 Or generate everything in one go:
 
 ```bash
@@ -51,6 +58,17 @@ Current outputs:
 - `docs/part1-notes.md`
 
 The main report is `charts/observability-dashboard.html`. The JSON files are internal inputs to that dashboard, and the required Part 1 written answers are in `docs/part1-notes.md`.
+
+## Dashboard structure
+
+The dashboard is organized in three layers:
+
+1. `Primary Metric`
+   This is the vertical view. It asks how one important validator signal is changing over time.
+2. `Exploratory Metric`
+   This is the horizontal view. It asks which cohort definition makes explicit JSON Schema usage easier or harder to see.
+3. `Support Signals`
+   This is a light summary layer. It combines the first two sections into cautious decision hints.
 
 ## Output structure
 
@@ -69,7 +87,7 @@ The JSON artifacts are supporting inputs, but the main dashboard is the intended
 
 This proof of concept is intentionally oriented toward one clear primary signal and one exploratory extension:
 
-- primary: is a major JSON Schema implementation actually being used?
+- primary: how is one major JSON Schema implementation moving over time?
 - exploratory: how does the same `*.schema.json` file probe look across a broad filtered JS/TS cohort versus a narrower API/config/validation-oriented cohort?
 
 The primary metric is a rough proxy for package adoption and usage activity around `ajv`, one of the widely used JSON Schema validators. It does not measure the full ecosystem, but it gives a compact trend view for one important tool within it.

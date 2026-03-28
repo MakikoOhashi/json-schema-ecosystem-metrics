@@ -3,34 +3,26 @@
   "package": "ajv",
   "source": {
     "name": "npm downloads API",
-    "url": "https://api.npmjs.org/downloads/range/2025-12-31:2026-03-24/ajv"
+    "url": "https://api.npmjs.org/downloads/range/2026-01-03:2026-03-27/ajv"
   },
   "period": {
-    "start": "2025-12-31",
-    "end": "2026-03-24",
+    "start": "2026-01-03",
+    "end": "2026-03-27",
     "label": "last-12-weeks-daily-series"
   },
   "summary": {
     "points": 84,
-    "totalDownloads": 2593863693,
+    "totalDownloads": 2734955578,
+    "latest7DayAverage": 39488040,
+    "first7DayAverage": 10484417,
+    "weeklyBuckets": 12,
+    "latestWeekTotal": 276416279,
     "unit": "downloads"
   },
   "series": {
     "interval": "day",
     "unit": "downloads",
     "values": [
-      {
-        "day": "2025-12-31",
-        "downloads": 15568628
-      },
-      {
-        "day": "2026-01-01",
-        "downloads": 11204407
-      },
-      {
-        "day": "2026-01-02",
-        "downloads": 16912568
-      },
       {
         "day": "2026-01-03",
         "downloads": 10484417
@@ -353,19 +345,431 @@
       },
       {
         "day": "2026-03-24",
-        "downloads": 0
+        "downloads": 44879678
+      },
+      {
+        "day": "2026-03-25",
+        "downloads": 46702356
+      },
+      {
+        "day": "2026-03-26",
+        "downloads": 49802430
+      },
+      {
+        "day": "2026-03-27",
+        "downloads": 43393024
+      }
+    ],
+    "rollingAverage7Day": [
+      {
+        "day": "2026-01-03",
+        "averageDownloads": 10484417
+      },
+      {
+        "day": "2026-01-04",
+        "averageDownloads": 11114162
+      },
+      {
+        "day": "2026-01-05",
+        "averageDownloads": 16876998
+      },
+      {
+        "day": "2026-01-06",
+        "averageDownloads": 19974791
+      },
+      {
+        "day": "2026-01-07",
+        "averageDownloads": 22123452
+      },
+      {
+        "day": "2026-01-08",
+        "averageDownloads": 23733609
+      },
+      {
+        "day": "2026-01-09",
+        "averageDownloads": 24393049
+      },
+      {
+        "day": "2026-01-10",
+        "averageDownloads": 24590858
+      },
+      {
+        "day": "2026-01-11",
+        "averageDownloads": 24457367
+      },
+      {
+        "day": "2026-01-12",
+        "averageDownloads": 24898397
+      },
+      {
+        "day": "2026-01-13",
+        "averageDownloads": 25773687
+      },
+      {
+        "day": "2026-01-14",
+        "averageDownloads": 26593598
+      },
+      {
+        "day": "2026-01-15",
+        "averageDownloads": 27060922
+      },
+      {
+        "day": "2026-01-16",
+        "averageDownloads": 27476244
+      },
+      {
+        "day": "2026-01-17",
+        "averageDownloads": 28161862
+      },
+      {
+        "day": "2026-01-18",
+        "averageDownloads": 28928093
+      },
+      {
+        "day": "2026-01-19",
+        "averageDownloads": 29463283
+      },
+      {
+        "day": "2026-01-20",
+        "averageDownloads": 29715224
+      },
+      {
+        "day": "2026-01-21",
+        "averageDownloads": 29869381
+      },
+      {
+        "day": "2026-01-22",
+        "averageDownloads": 29903602
+      },
+      {
+        "day": "2026-01-23",
+        "averageDownloads": 30155439
+      },
+      {
+        "day": "2026-01-24",
+        "averageDownloads": 29689131
+      },
+      {
+        "day": "2026-01-25",
+        "averageDownloads": 29002548
+      },
+      {
+        "day": "2026-01-26",
+        "averageDownloads": 28572269
+      },
+      {
+        "day": "2026-01-27",
+        "averageDownloads": 28488976
+      },
+      {
+        "day": "2026-01-28",
+        "averageDownloads": 28392404
+      },
+      {
+        "day": "2026-01-29",
+        "averageDownloads": 28594792
+      },
+      {
+        "day": "2026-01-30",
+        "averageDownloads": 28761105
+      },
+      {
+        "day": "2026-01-31",
+        "averageDownloads": 29217176
+      },
+      {
+        "day": "2026-02-01",
+        "averageDownloads": 29935550
+      },
+      {
+        "day": "2026-02-02",
+        "averageDownloads": 30552739
+      },
+      {
+        "day": "2026-02-03",
+        "averageDownloads": 31296774
+      },
+      {
+        "day": "2026-02-04",
+        "averageDownloads": 31904739
+      },
+      {
+        "day": "2026-02-05",
+        "averageDownloads": 32589785
+      },
+      {
+        "day": "2026-02-06",
+        "averageDownloads": 32924691
+      },
+      {
+        "day": "2026-02-07",
+        "averageDownloads": 32890614
+      },
+      {
+        "day": "2026-02-08",
+        "averageDownloads": 33027500
+      },
+      {
+        "day": "2026-02-09",
+        "averageDownloads": 32898758
+      },
+      {
+        "day": "2026-02-10",
+        "averageDownloads": 32213938
+      },
+      {
+        "day": "2026-02-11",
+        "averageDownloads": 31471629
+      },
+      {
+        "day": "2026-02-12",
+        "averageDownloads": 30876607
+      },
+      {
+        "day": "2026-02-13",
+        "averageDownloads": 30413358
+      },
+      {
+        "day": "2026-02-14",
+        "averageDownloads": 30256875
+      },
+      {
+        "day": "2026-02-15",
+        "averageDownloads": 29776213
+      },
+      {
+        "day": "2026-02-16",
+        "averageDownloads": 29059406
+      },
+      {
+        "day": "2026-02-17",
+        "averageDownloads": 28737990
+      },
+      {
+        "day": "2026-02-18",
+        "averageDownloads": 28887262
+      },
+      {
+        "day": "2026-02-19",
+        "averageDownloads": 29029781
+      },
+      {
+        "day": "2026-02-20",
+        "averageDownloads": 29215795
+      },
+      {
+        "day": "2026-02-21",
+        "averageDownloads": 29467901
+      },
+      {
+        "day": "2026-02-22",
+        "averageDownloads": 29892392
+      },
+      {
+        "day": "2026-02-23",
+        "averageDownloads": 31124672
+      },
+      {
+        "day": "2026-02-24",
+        "averageDownloads": 32305630
+      },
+      {
+        "day": "2026-02-25",
+        "averageDownloads": 33355738
+      },
+      {
+        "day": "2026-02-26",
+        "averageDownloads": 33923075
+      },
+      {
+        "day": "2026-02-27",
+        "averageDownloads": 34421930
+      },
+      {
+        "day": "2026-02-28",
+        "averageDownloads": 34448194
+      },
+      {
+        "day": "2026-03-01",
+        "averageDownloads": 34638134
+      },
+      {
+        "day": "2026-03-02",
+        "averageDownloads": 34829354
+      },
+      {
+        "day": "2026-03-03",
+        "averageDownloads": 34809062
+      },
+      {
+        "day": "2026-03-04",
+        "averageDownloads": 35020971
+      },
+      {
+        "day": "2026-03-05",
+        "averageDownloads": 35500831
+      },
+      {
+        "day": "2026-03-06",
+        "averageDownloads": 36108548
+      },
+      {
+        "day": "2026-03-07",
+        "averageDownloads": 36911685
+      },
+      {
+        "day": "2026-03-08",
+        "averageDownloads": 37121576
+      },
+      {
+        "day": "2026-03-09",
+        "averageDownloads": 37734532
+      },
+      {
+        "day": "2026-03-10",
+        "averageDownloads": 38378763
+      },
+      {
+        "day": "2026-03-11",
+        "averageDownloads": 38286651
+      },
+      {
+        "day": "2026-03-12",
+        "averageDownloads": 38226395
+      },
+      {
+        "day": "2026-03-13",
+        "averageDownloads": 38008106
+      },
+      {
+        "day": "2026-03-14",
+        "averageDownloads": 37566259
+      },
+      {
+        "day": "2026-03-15",
+        "averageDownloads": 37589629
+      },
+      {
+        "day": "2026-03-16",
+        "averageDownloads": 37929497
+      },
+      {
+        "day": "2026-03-17",
+        "averageDownloads": 38209732
+      },
+      {
+        "day": "2026-03-18",
+        "averageDownloads": 38756083
+      },
+      {
+        "day": "2026-03-19",
+        "averageDownloads": 39108741
+      },
+      {
+        "day": "2026-03-20",
+        "averageDownloads": 39341634
+      },
+      {
+        "day": "2026-03-21",
+        "averageDownloads": 39711876
+      },
+      {
+        "day": "2026-03-22",
+        "averageDownloads": 40132018
+      },
+      {
+        "day": "2026-03-23",
+        "averageDownloads": 40015250
+      },
+      {
+        "day": "2026-03-24",
+        "averageDownloads": 39378595
+      },
+      {
+        "day": "2026-03-25",
+        "averageDownloads": 39053382
+      },
+      {
+        "day": "2026-03-26",
+        "averageDownloads": 39351312
+      },
+      {
+        "day": "2026-03-27",
+        "averageDownloads": 39488040
+      }
+    ],
+    "weeklyTotals": [
+      {
+        "startDay": "2026-01-03",
+        "endDay": "2026-01-09",
+        "totalDownloads": 170751345
+      },
+      {
+        "startDay": "2026-01-10",
+        "endDay": "2026-01-16",
+        "totalDownloads": 192333706
+      },
+      {
+        "startDay": "2026-01-17",
+        "endDay": "2026-01-23",
+        "totalDownloads": 211088074
+      },
+      {
+        "startDay": "2026-01-24",
+        "endDay": "2026-01-30",
+        "totalDownloads": 201327735
+      },
+      {
+        "startDay": "2026-01-31",
+        "endDay": "2026-02-06",
+        "totalDownloads": 230472836
+      },
+      {
+        "startDay": "2026-02-07",
+        "endDay": "2026-02-13",
+        "totalDownloads": 212893509
+      },
+      {
+        "startDay": "2026-02-14",
+        "endDay": "2026-02-20",
+        "totalDownloads": 204510562
+      },
+      {
+        "startDay": "2026-02-21",
+        "endDay": "2026-02-27",
+        "totalDownloads": 240953511
+      },
+      {
+        "startDay": "2026-02-28",
+        "endDay": "2026-03-06",
+        "totalDownloads": 252759838
+      },
+      {
+        "startDay": "2026-03-07",
+        "endDay": "2026-03-13",
+        "totalDownloads": 266056742
+      },
+      {
+        "startDay": "2026-03-14",
+        "endDay": "2026-03-20",
+        "totalDownloads": 275391441
+      },
+      {
+        "startDay": "2026-03-21",
+        "endDay": "2026-03-27",
+        "totalDownloads": 276416279
       }
     ]
   },
   "analysis": {
-    "interpretation": "Ajv downloads increased 86.7% over the last 12 weeks. This suggests continued activity around one widely used JSON Schema implementation.",
+    "interpretation": "Ajv downloads increased 61.9% over the last 12 weeks. This suggests continued activity around one widely used JSON Schema implementation.",
     "limitation": "This is a proxy metric based on npm downloads, so it can include CI traffic, automated installs, and other non-human activity.",
     "basis": {
       "comparison": "first-7-days-vs-last-7-days-average",
-      "startingAverageDownloads": 17654967,
-      "endingAverageDownloads": 32967212,
-      "changePercent": 86.7
+      "startingAverageDownloads": 24393049,
+      "endingAverageDownloads": 39488040,
+      "changePercent": 61.9
     }
   },
-  "fetchedAt": "2026-03-25T02:59:31.785Z"
+  "fetchedAt": "2026-03-28T22:26:25.707Z"
 }

@@ -16,8 +16,10 @@ function formatNumber(value) {
 }
 
 function buildHtml(downloads, proxyRate) {
-  const labels = downloads.series.values.map((point) => point.day);
-  const values = downloads.series.values.map((point) => point.downloads);
+  const labels = downloads.series.rollingAverage7Day.map((point) => point.day);
+  const values = downloads.series.rollingAverage7Day.map(
+    (point) => point.averageDownloads
+  );
   const downloadsChange = downloads.analysis.basis.changePercent;
   const candidateCount = proxyRate.filtering.candidateReposFound;
   const broadEligibleCount = proxyRate.filtering.broadEligibleReposAfterFiltering;
@@ -328,44 +330,47 @@ function buildHtml(downloads, proxyRate) {
 <body>
   <main>
     <section class="hero">
-      <h1>JSON Schema observability dashboard</h1>
-      <p>This proof of concept centers one primary metric first, then keeps broader ecosystem ideas as exploratory follow-ons.</p>
+      <h1>JSON Schema Signals: Time, Comparison, Summary</h1>
+      <p>The dashboard is arranged as a vertical trend first, a horizontal comparison second, and a small summary layer last.</p>
       <div class="summary-grid">
         <section class="summary-card">
-          <p>Primary metric</p>
-          <p class="value">Ajv</p>
+          <p>1. Primary Metric</p>
+          <p class="value">Time</p>
+          <p>Tracks how one important validator signal moves over time.</p>
         </section>
         <section class="summary-card">
-          <p>Ajv usage proxy</p>
-          <p class="value">${formatNumber(downloads.summary.totalDownloads)}</p>
+          <p>2. Exploratory Metric</p>
+          <p class="value">Comparison</p>
+          <p>Compares broad and focused cohorts to see where schema usage becomes visible.</p>
         </section>
         <section class="summary-card">
-          <p>Exploratory cohort usage</p>
-          <p class="value">${focused.repositoriesWithAnyMarker}/${focused.repositoriesScanned}</p>
+          <p>3. Support Signals</p>
+          <p class="value">Summary</p>
+          <p>Turns the first two sections into cautious decision hints.</p>
         </section>
       </div>
     </section>
 
     <section class="panel">
-      <p class="section-kicker">Primary Metric</p>
-      <h2>Ajv Validator-Level Adoption</h2>
-      <p>This is the main Part 1 metric. It tracks npm download activity for <code>ajv</code> as a practical proxy for validator-level adoption in the JavaScript ecosystem.</p>
+      <p class="section-kicker">1. Primary Metric</p>
+      <h2>Time / Change: Ajv Adoption Trend</h2>
+      <p>This is the main Part 1 metric. It tracks npm download activity for <code>ajv</code> as a practical proxy for validator-level adoption in the JavaScript ecosystem over time.</p>
       <div class="summary-grid">
         <section class="summary-card">
-          <p>Ajv usage proxy</p>
-          <p class="value">${formatNumber(downloads.summary.totalDownloads)}</p>
+          <p>Latest 7-day avg</p>
+          <p class="value">${formatNumber(downloads.summary.latest7DayAverage)}</p>
         </section>
         <section class="summary-card">
           <p>12-week direction</p>
           <p class="value">${downloadsChange}%</p>
         </section>
         <section class="summary-card">
-          <p>Observed points</p>
-          <p class="value">${downloads.summary.points}</p>
+          <p>Latest week total</p>
+          <p class="value">${formatNumber(downloads.summary.latestWeekTotal)}</p>
         </section>
       </div>
       <div class="chart-wrap">
-        <canvas id="downloadsChart" aria-label="Ajv downloads trend"></canvas>
+        <canvas id="downloadsChart" aria-label="Ajv 7-day average downloads trend"></canvas>
       </div>
       <section class="analysis">
         <h3>Primary Read</h3>
@@ -378,16 +383,17 @@ function buildHtml(downloads, proxyRate) {
             <li><strong>startingAverageDownloads:</strong> ${formatNumber(downloads.analysis.basis.startingAverageDownloads)}</li>
             <li><strong>endingAverageDownloads:</strong> ${formatNumber(downloads.analysis.basis.endingAverageDownloads)}</li>
             <li><strong>changePercent:</strong> ${downloads.analysis.basis.changePercent}%</li>
+            <li><strong>weeklyBuckets:</strong> ${downloads.summary.weeklyBuckets}</li>
           </ul>
         </details>
       </section>
     </section>
 
     <details class="section-toggle">
-      <summary>Exploratory Metric: Broad vs Focused Cohort Comparison</summary>
+      <summary>2. Exploratory Metric: Broad vs Focused Cohort Comparison</summary>
       <section class="panel">
-        <p class="section-kicker">Exploratory Metric</p>
-        <h2>Schema File Usage By Cohort</h2>
+        <p class="section-kicker">2. Exploratory Metric</p>
+        <h2>Relative Position: Schema File Usage By Cohort</h2>
         <p>This section is exploratory. It compares the same <code>*.schema.json</code> probe across a broad filtered JS/TS cohort and a narrower API/config/validation-oriented cohort.</p>
         <div class="visible-usage-layout">
           <div class="rings-wrap">
@@ -456,10 +462,10 @@ function buildHtml(downloads, proxyRate) {
     </details>
 
     <details class="section-toggle">
-      <summary>Support Signals</summary>
+      <summary>3. Support Signals</summary>
       <section class="panel">
-        <p class="section-kicker">Support Signals</p>
-        <h2>Provisional Support Read</h2>
+        <p class="section-kicker">3. Support Signals</p>
+        <h2>Summary / Decision Hints</h2>
         <p>This section turns the current two metrics into cautious decision hints. It is intentionally a hypothesis layer, not a firm recommendation.</p>
         <div class="stack">
           <section class="mini-card">
@@ -500,7 +506,7 @@ function buildHtml(downloads, proxyRate) {
       data: {
         labels,
         datasets: [{
-          label: "Daily downloads",
+          label: "7-day average downloads",
           data: values,
           borderColor: "#1f6f8b",
           backgroundColor: "rgba(31, 111, 139, 0.12)",
