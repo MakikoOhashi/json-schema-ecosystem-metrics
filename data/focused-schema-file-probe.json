@@ -1,0 +1,95 @@
+{
+  "metric": "focused_schema_file_probe",
+  "source": {
+    "name": "GitHub repository tree API",
+    "url": "https://api.github.com/repos/{owner}/{repo}/git/trees/{branch}?recursive=1"
+  },
+  "sample": {
+    "sourceFile": "data/schema-probe-sample.json",
+    "cohort": "focusedPreparedSubset",
+    "repositoriesScanned": 8,
+    "focusedEligibleRepos": 8,
+    "randomSeed": "gsoc-observability-2026"
+  },
+  "summary": {
+    "repositoriesScanned": 8,
+    "repositoriesWithSchemaFiles": 0,
+    "positiveRatePercent": 0
+  },
+  "values": [
+    {
+      "repository": "discordjs/discord-api-types",
+      "defaultBranch": "main",
+      "stars": 612,
+      "starBand": "high",
+      "schemaFileMarkers": [],
+      "hasAnyMarker": false
+    },
+    {
+      "repository": "neomjs/neo",
+      "defaultBranch": "dev",
+      "stars": 3164,
+      "starBand": "high",
+      "schemaFileMarkers": [],
+      "hasAnyMarker": false
+    },
+    {
+      "repository": "ptrlrd/spire-codex",
+      "defaultBranch": "main",
+      "stars": 57,
+      "starBand": "mid",
+      "schemaFileMarkers": [],
+      "hasAnyMarker": false
+    },
+    {
+      "repository": "fdciabdul/Vpngate-Scraper-API",
+      "defaultBranch": "main",
+      "stars": 74,
+      "starBand": "mid",
+      "schemaFileMarkers": [],
+      "hasAnyMarker": false
+    },
+    {
+      "repository": "4n0nymou3/DPI-Phantom",
+      "defaultBranch": "main",
+      "stars": 15,
+      "starBand": "low",
+      "schemaFileMarkers": [],
+      "hasAnyMarker": false
+    },
+    {
+      "repository": "InjectiveLabs/injective-lists",
+      "defaultBranch": "master",
+      "stars": 15,
+      "starBand": "low",
+      "schemaFileMarkers": [],
+      "hasAnyMarker": false
+    },
+    {
+      "repository": "dirkjanfaber/victron-vrm-api",
+      "defaultBranch": "main",
+      "stars": 12,
+      "starBand": "low",
+      "schemaFileMarkers": [],
+      "hasAnyMarker": false
+    },
+    {
+      "repository": "d0dg3r/GitSyncMarks",
+      "defaultBranch": "main",
+      "stars": 19,
+      "starBand": "low",
+      "schemaFileMarkers": [],
+      "hasAnyMarker": false
+    }
+  ],
+  "analysis": {
+    "interpretation": "The focused cohort did not expose *.schema.json files in this run. That may indicate either low explicit schema-file visibility or a mismatch between this probe and the selected repositories.",
+    "limitation": "This is still a small, JS/TS-facing focused subset. Tree access can also be affected by GitHub API limits, so a clean zero should be treated cautiously.",
+    "basis": {
+      "schemaFilePattern": "\\.schema\\.json$",
+      "positives": 0,
+      "scanned": 8
+    }
+  },
+  "fetchedAt": "2026-03-29T00:52:12.321Z"
+}
