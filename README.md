@@ -119,6 +119,13 @@ The exploratory probe then scans repository trees for `*.schema.json` files.
 
 This exploratory comparison is still only a JS/TS-facing slice. It does not measure the full JSON Schema ecosystem across other implementation languages.
 
+The longer-term target would be closer to a true adoption ratio:
+
+- denominator: repositories that visibly use JSON-bearing files
+- numerator: repositories that show explicit JSON Schema signals
+
+This proof of concept does not reach that full ratio yet. It mainly explores how to define those two sets in a way that is observable and repeatable.
+
 ## Interpretation layer
 
 To make the output closer to an analysis pipeline instead of raw reporting, the script also generates:
@@ -148,3 +155,12 @@ The downloads metric uses the npm downloads API for `ajv`. The proxy-rate metric
 - Download counts can include CI, mirrors, and automated installs.
 - One package does not represent the entire JSON Schema ecosystem.
 - The generated artifacts are point-in-time snapshots, so values change when the script is run again.
+
+## Future direction
+
+The clearest next step is to move from single-signal probes toward a more explicit adoption ratio:
+
+- denominator: repositories that visibly use JSON-bearing files such as `.json`, `.jsonc`, OpenAPI files, or config JSON
+- numerator: repositories that show explicit JSON Schema signals such as `"$schema"`, `json-schema.org` URLs, `*.schema.json`, `schemas/` paths, or validator dependencies
+
+That would get closer to measuring `JSON Schema usage / JSON usage`, which is a stronger ecosystem-adoption question than any one proxy alone.

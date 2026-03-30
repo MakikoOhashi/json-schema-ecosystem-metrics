@@ -1,0 +1,105 @@
+{
+  "metric": "focused_schema_keyword_probe",
+  "source": {
+    "name": "GitHub repository tree API plus blob API",
+    "url": "https://api.github.com/repos/{owner}/{repo}/git/trees/{branch}?recursive=1"
+  },
+  "sample": {
+    "sourceFile": "data/schema-probe-sample.json",
+    "cohort": "focusedPreparedSubset",
+    "repositoriesScanned": 8,
+    "focusedEligibleRepos": 8,
+    "randomSeed": "gsoc-observability-2026"
+  },
+  "summary": {
+    "repositoriesScanned": 8,
+    "repositoriesWithSchemaKeyword": 0,
+    "positiveRatePercent": 0
+  },
+  "values": [
+    {
+      "repository": "discordjs/discord-api-types",
+      "defaultBranch": "main",
+      "stars": 612,
+      "starBand": "high",
+      "filesChecked": 0,
+      "schemaKeywordMarkers": [],
+      "hasAnyMarker": false
+    },
+    {
+      "repository": "neomjs/neo",
+      "defaultBranch": "dev",
+      "stars": 3164,
+      "starBand": "high",
+      "filesChecked": 12,
+      "schemaKeywordMarkers": [],
+      "hasAnyMarker": false
+    },
+    {
+      "repository": "ptrlrd/spire-codex",
+      "defaultBranch": "main",
+      "stars": 57,
+      "starBand": "mid",
+      "filesChecked": 0,
+      "schemaKeywordMarkers": [],
+      "hasAnyMarker": false
+    },
+    {
+      "repository": "fdciabdul/Vpngate-Scraper-API",
+      "defaultBranch": "main",
+      "stars": 74,
+      "starBand": "mid",
+      "filesChecked": 0,
+      "schemaKeywordMarkers": [],
+      "hasAnyMarker": false
+    },
+    {
+      "repository": "4n0nymou3/DPI-Phantom",
+      "defaultBranch": "main",
+      "stars": 15,
+      "starBand": "low",
+      "filesChecked": 0,
+      "schemaKeywordMarkers": [],
+      "hasAnyMarker": false
+    },
+    {
+      "repository": "InjectiveLabs/injective-lists",
+      "defaultBranch": "master",
+      "stars": 15,
+      "starBand": "low",
+      "filesChecked": 1,
+      "schemaKeywordMarkers": [],
+      "hasAnyMarker": false
+    },
+    {
+      "repository": "dirkjanfaber/victron-vrm-api",
+      "defaultBranch": "main",
+      "stars": 12,
+      "starBand": "low",
+      "filesChecked": 0,
+      "schemaKeywordMarkers": [],
+      "hasAnyMarker": false
+    },
+    {
+      "repository": "d0dg3r/GitSyncMarks",
+      "defaultBranch": "main",
+      "stars": 19,
+      "starBand": "low",
+      "filesChecked": 0,
+      "schemaKeywordMarkers": [],
+      "hasAnyMarker": false
+    }
+  ],
+  "analysis": {
+    "interpretation": "The focused cohort still did not expose \"$schema\" in the checked files. That suggests either genuinely low explicit JSON Schema visibility or that this cohort still does not align well with the probe.",
+    "limitation": "This probe checks a ranked subset of likely text files, not every file in every repository. It is still a small JS/TS-facing focused subset and can be affected by GitHub API limits.",
+    "basis": {
+      "keyword": "\"$schema\"",
+      "maxFilesPerRepo": 12,
+      "maxBlobSize": 200000,
+      "positives": 0,
+      "scanned": 8
+    }
+  },
+  "fetchedAt": "2026-03-30T04:16:07.592Z"
+}
