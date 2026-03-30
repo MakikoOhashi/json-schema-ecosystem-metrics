@@ -2,13 +2,15 @@
 
 Minimal Part 1 proof-of-concept for practical JSON Schema ecosystem signals, focused on a JavaScript/TypeScript-facing slice rather than the full multi-language ecosystem.
 
-## What this does
+## What This Repo Contains
 
-This repository is being used for the GSoC observability qualification task. The primary Part 1 metric is `ajv` npm downloads, used as a validator-level adoption proxy. A second, clearly exploratory metric compares repository cohorts inside a JavaScript/TypeScript-facing slice of the ecosystem.
+This repository is being used for the GSoC observability qualification task.
 
-The repository generates structured JSON output and a single main HTML report.
+- The primary Part 1 metric is `ajv` npm downloads, used as a validator-level adoption proxy.
+- A second metric is exploratory only. It compares repository cohorts inside a JavaScript/TypeScript-facing slice of the ecosystem.
+- The outputs are structured JSON files, a single main HTML dashboard, and short written notes for Part 1.
 
-The primary downloads implementation fetches a daily series covering the last 12 weeks, then derives a 7-day rolling average and weekly totals so the main trend is easier to read. It also adds a short auto-generated interpretation and a limitation note.
+The primary downloads implementation fetches a daily series covering the last 12 weeks, then derives a 7-day rolling average and weekly totals so the main trend is easier to read.
 
 ## Start Here
 
@@ -18,7 +20,7 @@ If you only open one file, open:
 
 That dashboard is the main deliverable view for this proof of concept. It is designed to read in three steps: time/change first, cohort comparison second, and cautious summary last.
 
-## Run instructions
+## Run
 
 Requirements:
 - Node.js 18+ recommended
@@ -60,23 +62,6 @@ Current outputs:
 
 The main report is `charts/observability-dashboard.html`. The JSON files are internal inputs to that dashboard, and the required Part 1 written answers are in `docs/part1-notes.md`.
 
-## Safer staged exploratory path
-
-The exploratory metric is the part most likely to hit GitHub rate limits. A safer staged approach is:
-
-```bash
-npm run prepare:probe-sample
-```
-
-This creates `data/schema-probe-sample.json`, which fixes a reproducible 50-repository broad sample before any heavier file-tree probing runs. The current sample preparation:
-
-- filters to active JS/TS repositories
-- excludes forks, archived repos, tiny repos, and obvious demo-like repos
-- splits the eligible set into `high / mid / low` star bands
-- samples across those three star bands with a fixed seed
-
-That lets the sample-selection step stay lighter and more reproducible before the heavier `*.schema.json` probe runs.
-
 ## Dashboard structure
 
 The dashboard is organized in three layers:
@@ -87,19 +72,6 @@ The dashboard is organized in three layers:
    This is the horizontal view. It asks which cohort definition makes explicit JSON Schema usage easier or harder to see.
 3. `Support Signals`
    This is a light summary layer. It combines the first two sections into cautious decision hints and a future-direction note about scope.
-
-## Output structure
-
-Each JSON output includes:
-
-- metric metadata
-- source URL used for the fetch
-- a `summary` section with the primary metric values
-- a `series.values` array when the metric has history to show
-- an `analysis` section with a generated interpretation, limitation, and basis
-- a `fetchedAt` timestamp
-
-The JSON artifacts are supporting inputs, but the main dashboard is the intended single-page entry point.
 
 ## Metric strategy
 
@@ -126,15 +98,6 @@ The longer-term target would be closer to a true adoption ratio:
 
 This proof of concept does not reach that full ratio yet. It mainly explores how to define those two sets in a way that is observable and repeatable.
 
-## Interpretation layer
-
-To make the output closer to an analysis pipeline instead of raw reporting, the script also generates:
-
-- a short interpretation sentence based on the change between the first 7-day average and the last 7-day average
-- a limitation sentence explaining why npm downloads should be treated as a proxy signal
-
-This keeps the analysis lightweight and explicit without changing the data source or expanding the project scope.
-
 ## API choice
 
 The downloads script builds a date-based npm downloads API URL for the last 12 weeks, in this shape:
@@ -145,7 +108,26 @@ https://api.npmjs.org/downloads/range/YYYY-MM-DD:YYYY-MM-DD/ajv
 
 That keeps the proof of concept minimal while still producing a meaningful time series for visualization.
 
-The downloads metric uses the npm downloads API for `ajv`. The proxy-rate metric uses GitHub search plus raw `package.json` files from GitHub.
+The downloads metric uses the npm downloads API for `ajv`. The exploratory repository work uses GitHub search and repository-tree APIs.
+
+## Staged exploratory path
+
+The exploratory work is the part most likely to hit GitHub rate limits. The safer staged path is:
+
+```bash
+npm run prepare:probe-sample
+```
+
+This creates `data/schema-probe-sample.json`, which fixes a reproducible 50-repository broad sample before heavier file-tree probing runs.
+
+The current preparation step:
+
+- filters to active JS/TS repositories
+- excludes forks, archived repos, tiny repos, and obvious demo-like repos
+- splits the eligible set into `high / mid / low` star bands
+- samples across those three star bands with a fixed seed
+
+Additional exploratory probe scripts are also kept in the repository as experiments, but they are not the main Part 1 deliverable.
 
 ## Limitations
 
