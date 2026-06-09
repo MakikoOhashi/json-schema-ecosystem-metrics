@@ -1,3 +1,15 @@
+# Archive Notice
+
+This repository was built while exploring the JSON Schema Ecosystem Observability project idea for Google Summer of Code 2026.
+
+Although the proposal was not selected, the project provided valuable experience in ecosystem analysis, metrics collection, data pipelines, and visualization.
+
+The repository is archived and preserved as a snapshot of that exploration.
+
+Development has concluded and no further updates are planned.
+
+---
+
 # json-schema-ecosystem-metrics
 
 Minimal Part 1 proof-of-concept for practical JSON Schema ecosystem signals, focused on a JavaScript/TypeScript-facing slice rather than the full multi-language ecosystem.
